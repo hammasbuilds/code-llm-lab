@@ -1,0 +1,143 @@
+<h1 align="center">code-llm-lab (Python · MBPP/HumanEval · Ollama · mutation testing)</h1>
+<p align="center"><i>Seven things worth measuring about a local coder model, none of them its benchmark score.</i></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
+  <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
+  <img src="https://img.shields.io/badge/tests-15-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/gpu-1x%20RTX%205000-lightgrey" alt="gpu">
+</p>
+
+---
+
+A pass@1 number tells you almost nothing you can act on. These seven ask questions that
+change what you would actually build: whether the bigger model is worth its VRAM, when to
+stop a self-debug loop, whether generated tests catch anything, and how much of a published
+score is the prompt rather than the model.
+
+Everything runs locally against Ollama. No API keys, no hosted models.
+
+## 01 · Where does a 5x bigger model actually pay?
+
+qwen2.5-coder at 3B and 14B — same family, same recipe, so the comparison is clean.
+250 MBPP tasks, temperature 0.
+
+```
+3B  pass@1 : 60.0%
+14B pass@1 : 76.0%
+
+both         142   56.8%   the 14B bought nothing here
+big_only      48   19.2%   this is what the size is for
+small_only     8    3.2%   the 14B loses these
+neither       52   20.8%
+```
+
+**Of the 198 tasks either size can solve, the 3B already handles 75.8%.** The 14B's entire
+advantage is 48 tasks — and it *loses* 8 the 3B gets right, which bounds how much of the
+16-point gap is signal rather than noise.
+
+If your workload looks like MBPP, the question is not "which model is better" but "is 19.2%
+of tasks worth 5x the weights", and the answer depends on what those 48 tasks are worth to
+you. The aggregate score cannot tell you that.
+
+## 02 · How many rounds of self-debugging are worth paying for?
+
+Give the model its failing test output and let it try again, up to five times. 150 tasks.
+Unlike a revision loop judged by another model, a failing assert is ground truth.
+
+```
+round 1: +117 solved   cumulative 78.0%
+round 2:   +1 solved   cumulative 78.7%
+round 3:   +0
+round 4:   +0
+round 5:   +0
+```
+
+**Rounds 1–2 captured 100% of everything the loop ever achieved. Rounds 3–5 added nothing
+at all, for 60% of the compute.**
+
+The 32 tasks still failing after round 1 were, with one exception, not tasks the model was
+one nudge away from solving. They were tasks it could not do, and showing it the error five
+times did not change that. Every agent looping five times on test feedback is paying five
+times the tokens for the value of two.
+
+## 03 · Do model-written tests catch anything?
+
+"Write tests for this" judged by mutation kill rate rather than coverage — a test that
+calls every line and asserts nothing has 100% coverage and catches nothing. 150 tasks.
+
+```
+                    valid   scored   asserts   kill rate
+from_description    16.0%       19      12.1       88.9%
+from_code           40.7%       48      11.0       93.4%
+```
+
+Two different findings here.
+
+**Working from the task description, only 16% of suites even agree with the reference.**
+Not because the tests are bad — because the sentence does not say whether the function
+returns a list or a tuple, or what empty input does, and the model has to guess. That is a
+measurement of the spec, not of the model.
+
+**Working from the implementation, the tests are good.** On the suites that are valid:
+
+```
+model-written kill rate : 93.4%
+MBPP's own kill rate    : 85.0%
+difference              : +8.5%
+```
+
+The model wrote 3.7x as many asserts as MBPP ships and caught 8.5 points more of the
+mutations. Generated tests are better than this benchmark's own — which says as much about
+three-assert benchmarks as it does about the model. See
+[mbpp-false-accepts](../mbpp-false-accepts) for how thin three asserts are.
+
+## 04–07
+
+Running. Results land here as they finish.
+
+- **04 repair vs rewrite** — given failing code, patch it or start over?
+- **05 prompt shape variance** — five phrasings, identical information
+- **06 temperature vs pass@k** — where the pass@1 and pass@10 optima diverge
+- **07 docstring roundtrip** — code → prose → code, measured by what survives
+
+## How it works
+
+```
+shared/datasets.py   MBPP and HumanEval normalised into one task shape
+shared/execute.py    subprocess with a timeout; pass / fail / error / timeout kept apart
+shared/model.py      Ollama over HTTP, with an on-disk generation cache
+projects/NN_*/run.py one measurement each, self-contained
+```
+
+Three decisions that matter more than they look:
+
+**Generation is batched.** One request at a time left the GPU at 9% utilisation — it spends
+almost all of its time waiting for the next HTTP round trip rather than decoding. Eight
+concurrent requests take it to ~98% and roughly halve wall-clock time.
+
+**Generations are cached** by `(model, prompt, temperature, seed)`. Project 04's first
+attempt completed in 3 seconds because project 01 had already asked those exact questions.
+
+**`fail` and `error` are not merged.** Both mean the tests rejected the code, but only
+`fail` means the tests actually tested something — a candidate caught by crashing would
+have survived behind a guard clause.
+
+## Running it
+
+```bash
+python projects/01_coder_size_curve/run.py --limit 250
+python projects/03_tests_that_kill/run.py  --limit 150
+```
+
+Needs Ollama with `qwen2.5-coder:14b` (and `:3b` for project 01). MBPP and HumanEval load
+from the local Hugging Face cache; nothing downloads at runtime.
+
+## Limits
+
+- **One model family, one size pair, one GPU.** Nothing here says how any of it scales.
+- **MBPP is mostly short functions.** The self-debug ceiling in particular may look
+  different on tasks where the first attempt is closer to right.
+- **Temperature 0 throughout** except project 06, which is about temperature.
+- Sample sizes are 60–250 tasks, chosen to fit an overnight GPU window. They are large
+  enough to separate the effects reported and not large enough for small differences.

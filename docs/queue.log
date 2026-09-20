@@ -1,1 +1,181 @@
 waiting for mbpp arm 2 to release the GPU...
+mbpp arm 2 done at 05:57:50
+
+==================================================================
+START devign-detect  05:57:50
+==================================================================
+test rows                 : 2732
+rows in conflicting groups: 12  (0.44%)
+classifying               : 800 rows with qwen2.5-coder:14b
+
+  50/800  3.0s each  eta 37 min
+  100/800  3.0s each  eta 35 min
+  150/800  3.0s each  eta 32 min
+  200/800  3.0s each  eta 30 min
+  250/800  3.0s each  eta 27 min
+  300/800  3.0s each  eta 25 min
+  350/800  3.0s each  eta 22 min
+  400/800  3.0s each  eta 20 min
+  450/800  3.0s each  eta 17 min
+  500/800  3.0s each  eta 15 min
+  550/800  3.0s each  eta 13 min
+  600/800  3.0s each  eta 10 min
+  650/800  3.0s each  eta 8 min
+  700/800  3.0s each  eta 5 min
+  750/800  3.0s each  eta 3 min
+  800/800  3.0s each  eta 0 min
+
+====================================================================
+DEVIGN - the same predictions, scored twice (qwen2.5-coder:14b)
+====================================================================
+  unparsable answers: 0
+  rows removed as conflicting duplicates: 4
+
+                               full      clean      delta
+  n                             800        796         -4
+  accuracy                    50.0%      50.1%      +0.1%
+  majority_baseline           50.4%      50.4%      +0.0%
+  precision                   50.3%      50.5%      +0.1%
+  recall                      54.6%      54.9%      +0.3%
+  f1                          52.4%      52.6%      +0.2%
+
+  confusion (full) : tp 220 tn 180 fp 217 fn 183
+
+  The model beats the majority baseline by -0.4% on the full set.
+  Removing the conflicting rows moves accuracy by less than a point: on a
+  sample this size the label noise is real but too rare to change a verdict.
+
+wrote D:\github\devign-leakage\results\detect.json
+END   devign-detect  06:38:05  exit=0
+
+==================================================================
+START 03_tests_that_kill  06:38:05
+==================================================================
+mbpp: 150 tasks, model qwen2.5-coder:14b
+
+  generating suites: from_description
+    from_description: 50/150
+    from_description: 100/150
+    from_description: 150/150
+    150 suites in 1433s
+    suites that pass the reference: 24/150  (16.0%)
+
+  generating suites: from_code
+    from_code: 50/150
+    from_code: 100/150
+    from_code: 150/150
+    150 suites in 1328s
+    suites that pass the reference: 61/150  (40.7%)
+
+====================================================================
+MODEL-WRITTEN TESTS - 150 MBPP tasks, qwen2.5-coder:14b
+====================================================================
+                        valid   scored   asserts   kill rate
+  from_description      16.0%       19      12.1       88.9%
+  from_code             40.7%       48      11.0       93.4%
+
+  On the suites that are valid (48 tasks, 213 mutants):
+    model-written kill rate :  93.4%  #####################################
+    MBPP's own kill rate    :  85.0%  ##################################
+    difference              : +8.5%
+
+  The model wrote 3.7x as many asserts as MBPP ships, and caught +8.5% more.
+
+  Working from the task description alone, only 16.0% of suites
+  even agree with the reference - the descriptions do not say whether the
+  function returns a list or a tuple, or what empty input should do. That is a
+  measurement of the spec, not of the model.
+
+wrote D:\github\code-llm-lab\projects\03_tests_that_kill\results.json
+END   03_tests_that_kill  07:25:30  exit=0
+
+==================================================================
+START 02_self_debug  07:25:30
+==================================================================
+mbpp: 150 tasks, up to 5 rounds
+
+    round 1: 50/150
+    round 1: 100/150
+    round 1: 150/150
+  round 1: +117 newly solved, cumulative 117/150 (78.0%)  [346s]
+    round 2: 33/33
+  round 2: +1 newly solved, cumulative 118/150 (78.7%)  [449s]
+    round 3: 32/32
+  round 3: +0 newly solved, cumulative 118/150 (78.7%)  [547s]
+    round 4: 32/32
+  round 4: +0 newly solved, cumulative 118/150 (78.7%)  [644s]
+    round 5: 32/32
+  round 5: +0 newly solved, cumulative 118/150 (78.7%)  [740s]
+
+====================================================================
+SELF-DEBUG CEILING - mbpp, 150 tasks, qwen2.5-coder:14b
+====================================================================
+   round  newly solved  cumulative   share of total gain
+       1           117      78.0%                99.2%  ##############################
+       2             1      78.7%                 0.8%  
+       3             0      78.7%                 0.0%  
+       4             0      78.7%                 0.0%  
+       5             0      78.7%                 0.0%  
+
+  Rounds 1-2 captured 100.0% of everything the loop ever achieved.
+  Rounds 3-5 added 0 tasks (0.0% of the benchmark) for 60% of the compute.
+
+wrote D:\github\code-llm-lab\projects\02_self_debug_ceiling\results_mbpp.json
+END   02_self_debug  07:37:51  exit=0
+
+==================================================================
+START 01_size_curve  07:37:52
+==================================================================
+mbpp: 250 tasks
+
+  generating with qwen2.5-coder:3b
+    qwen2.5-coder:3b: 50/250
+    qwen2.5-coder:3b: 100/250
+    qwen2.5-coder:3b: 150/250
+    qwen2.5-coder:3b: 200/250
+    qwen2.5-coder:3b: 250/250
+    250 generations in 231s
+    pass@1: 150/250  (60.0%)
+
+  generating with qwen2.5-coder:14b
+    qwen2.5-coder:14b: 50/250
+    qwen2.5-coder:14b: 100/250
+    qwen2.5-coder:14b: 150/250
+    qwen2.5-coder:14b: 200/250
+    qwen2.5-coder:14b: 250/250
+    250 generations in 594s
+    pass@1: 190/250  (76.0%)
+
+====================================================================
+WHERE THE SIZE GOES - mbpp, 250 tasks
+====================================================================
+  3B  pass@1 : 60.0%
+  14B pass@1 : 76.0%
+  difference : +16.0%
+
+  both         142   56.8%  #######################
+  big_only      48   19.2%  ########
+  small_only     8    3.2%  #
+  neither       52   20.8%  ########
+
+  Of the 198 tasks either size can solve, the 3B already handles 75.8%.
+  The 14B's entire advantage is 48 tasks (19.2% of the benchmark).
+  It also loses 8 tasks the 3B gets right, which bounds how much of the gap is real rather than noise.
+
+wrote D:\github\code-llm-lab\projects\01_coder_size_curve\results_mbpp.json
+END   01_size_curve  07:51:55  exit=0
+
+==================================================================
+START 04_repair_vs_rewrite  07:51:55
+==================================================================
+mbpp: 250 tasks, model qwen2.5-coder:14b
+
+  first attempt...
+    first: 50/250
+    first: 100/250
+    first: 150/250
+    first: 200/250
+    first: 250/250
+  first-attempt pass@1: 76.0%  (60 failures to work with)  [3s]
+    repair: 50/60
+    repair: 60/60
