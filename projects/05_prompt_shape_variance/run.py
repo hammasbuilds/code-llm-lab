@@ -32,7 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
-from shared.model import available, generate  # noqa: E402
+from shared.model import available, generate_many  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 
@@ -86,12 +86,14 @@ def main() -> int:
     solved: dict[str, set[str]] = {}
     for shape in SHAPES:
         t0 = time.time()
-        codes = []
-        for i, task in enumerate(tasks, 1):
-            raw = generate(build(shape, task), model=args.model, temperature=0.0)
-            codes.append(extract_code(raw) if raw else "")
-            if i % 100 == 0:
-                print(f"    {shape}: {i}/{len(tasks)}", flush=True)
+        raws = generate_many(
+            [build(shape, t) for t in tasks],
+            model=args.model,
+            temperature=0.0,
+            workers=args.workers,
+            progress=shape,
+        )
+        codes = [extract_code(r) if r else "" for r in raws]
         outs = run_many(
             [(c, list(t.tests), t.setup) for c, t in zip(codes, tasks, strict=True)],
             args.workers,

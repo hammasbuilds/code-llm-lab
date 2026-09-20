@@ -79,6 +79,48 @@ def generate(
     return text
 
 
+def generate_many(
+    prompts: list[str],
+    model: str = "qwen2.5-coder:14b",
+    temperature: float = 0.0,
+    seeds: list[int | None] | None = None,
+    workers: int = 8,
+    num_predict: int = 512,
+    progress: str = "",
+) -> list[str | None]:
+    """Many completions at once, in prompt order.
+
+    One request at a time leaves the GPU at about 9% utilisation - the card spends
+    almost all of its time waiting for the next HTTP round trip rather than decoding.
+    Ollama serves concurrent requests, and a pool of workers takes it to ~98%, which is
+    the difference between this lab finishing overnight and finishing next week.
+
+    Threads rather than processes: the work happens in the Ollama server, so all these
+    do is keep several requests in flight.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    seeds = seeds or [None] * len(prompts)
+    done = [0]
+
+    def one(pair):
+        i, prompt = pair
+        out = generate(
+            prompt,
+            model=model,
+            temperature=temperature,
+            seed=seeds[i],
+            num_predict=num_predict,
+        )
+        done[0] += 1
+        if progress and (done[0] % 50 == 0 or done[0] == len(prompts)):
+            print(f"    {progress}: {done[0]}/{len(prompts)}", flush=True)
+        return out
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        return list(pool.map(one, enumerate(prompts)))
+
+
 def available(model: str) -> bool:
     try:
         r = subprocess.run(

@@ -1,0 +1,19 @@
+{
+  "benchmark": "mbpp",
+  "model": "qwen2.5-coder:14b",
+  "n": 2,
+  "per_round_newly_solved": [
+    2,
+    0,
+    0,
+    0,
+    0
+  ],
+  "cumulative_pass": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ]
+}

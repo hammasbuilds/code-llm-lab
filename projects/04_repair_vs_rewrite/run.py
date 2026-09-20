@@ -26,8 +26,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
-from shared.execute import extract_code, run  # noqa: E402
-from shared.model import available, generate  # noqa: E402
+from shared.execute import extract_code, run_many  # noqa: E402
+from shared.model import available, generate_many  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 
@@ -72,6 +72,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=300)
     ap.add_argument("--model", default="qwen2.5-coder:14b")
+    ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
     if not available(args.model):
@@ -82,20 +83,20 @@ def main() -> int:
     print(f"mbpp: {len(tasks)} tasks, model {args.model}\n")
 
     print("  first attempt...")
-    failed = []
     t0 = time.time()
-    for i, task in enumerate(tasks, 1):
-        raw = generate(
-            FIRST.format(prompt=task.prompt, test=task.tests[0]),
-            model=args.model,
-            temperature=0.0,
-        )
-        code = extract_code(raw) if raw else ""
-        o = run(code, list(task.tests), task.setup)
-        if not o.passed:
-            failed.append((task, code, o.detail))
-        if i % 100 == 0 or i == len(tasks):
-            print(f"    {i}/{len(tasks)}", flush=True)
+    raws = generate_many(
+        [FIRST.format(prompt=t.prompt, test=t.tests[0]) for t in tasks],
+        model=args.model,
+        temperature=0.0,
+        workers=args.workers,
+        progress="first",
+    )
+    codes = [extract_code(r) if r else "" for r in raws]
+    outs = run_many(
+        [(c, list(t.tests), t.setup) for c, t in zip(codes, tasks, strict=True)],
+        args.workers,
+    )
+    failed = [(t, c, o.detail) for t, c, o in zip(tasks, codes, outs, strict=True) if not o.passed]
     print(
         f"  first-attempt pass@1: {(len(tasks) - len(failed)) / len(tasks):.1%}  "
         f"({len(failed)} failures to work with)  [{time.time() - t0:.0f}s]"
@@ -106,21 +107,41 @@ def main() -> int:
 
     results = {"repair": 0, "rewrite": 0, "both": 0, "neither": 0}
     per_task = []
-    for i, (task, code, err) in enumerate(failed, 1):
-        rp = generate(
-            REPAIR.format(prompt=task.prompt, code=code, error=err or "the tests failed"),
-            model=args.model,
-            temperature=0.0,
-            seed=1,
-        )
-        rw = generate(
-            REWRITE.format(prompt=task.prompt, test=task.tests[0]),
-            model=args.model,
-            temperature=0.0,
-            seed=2,
-        )
-        r_ok = run(extract_code(rp or ""), list(task.tests), task.setup).passed
-        w_ok = run(extract_code(rw or ""), list(task.tests), task.setup).passed
+    rp_raw = generate_many(
+        [
+            REPAIR.format(prompt=t.prompt, code=c, error=e or "the tests failed")
+            for t, c, e in failed
+        ],
+        model=args.model,
+        temperature=0.0,
+        seeds=[1] * len(failed),
+        workers=args.workers,
+        progress="repair",
+    )
+    rw_raw = generate_many(
+        [REWRITE.format(prompt=t.prompt, test=t.tests[0]) for t, _, _ in failed],
+        model=args.model,
+        temperature=0.0,
+        seeds=[2] * len(failed),
+        workers=args.workers,
+        progress="rewrite",
+    )
+    rp_out = run_many(
+        [
+            (extract_code(r or ""), list(t.tests), t.setup)
+            for (t, _, _), r in zip(failed, rp_raw, strict=True)
+        ],
+        args.workers,
+    )
+    rw_out = run_many(
+        [
+            (extract_code(r or ""), list(t.tests), t.setup)
+            for (t, _, _), r in zip(failed, rw_raw, strict=True)
+        ],
+        args.workers,
+    )
+    for (task, _, _), ro, wo in zip(failed, rp_out, rw_out, strict=True):
+        r_ok, w_ok = ro.passed, wo.passed
         results["repair"] += r_ok
         results["rewrite"] += w_ok
         if r_ok and w_ok:
@@ -128,8 +149,6 @@ def main() -> int:
         elif not r_ok and not w_ok:
             results["neither"] += 1
         per_task.append({"task_id": task.task_id, "repair": r_ok, "rewrite": w_ok})
-        if i % 50 == 0 or i == len(failed):
-            print(f"    second attempt {i}/{len(failed)}", flush=True)
 
     f = len(failed)
     only_r = results["repair"] - results["both"]

@@ -33,7 +33,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
-from shared.model import available, generate  # noqa: E402
+from shared.model import available, generate_many  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 
@@ -77,29 +77,35 @@ def main() -> int:
     print(f"mbpp: {len(tasks)} tasks, model {args.model}\n")
 
     print("  describing reference solutions...")
-    descs: dict[str, str] = {}
     t0 = time.time()
-    for i, task in enumerate(tasks, 1):
-        raw = generate(DESCRIBE.format(code=task.reference), model=args.model, temperature=0.0)
-        descs[task.task_id] = (raw or "").strip()
-        if i % 100 == 0 or i == len(tasks):
-            print(f"    {i}/{len(tasks)}", flush=True)
+    raws = generate_many(
+        [DESCRIBE.format(code=t.reference) for t in tasks],
+        model=args.model,
+        temperature=0.0,
+        workers=args.workers,
+        progress="describe",
+    )
+    descs = {t.task_id: (r or "").strip() for t, r in zip(tasks, raws, strict=True)}
     print(f"  [{time.time() - t0:.0f}s]")
 
     arms: dict[str, list[str]] = {"direct": [], "roundtrip": []}
     for arm in arms:
         print(f"  implementing from the {arm} description...")
-        for i, task in enumerate(tasks, 1):
-            text = task.prompt if arm == "direct" else descs[task.task_id]
-            tmpl = DIRECT if arm == "direct" else IMPLEMENT
-            raw = generate(
-                tmpl.format(entry=task.entry_point, description=text),
-                model=args.model,
-                temperature=0.0,
-            )
-            arms[arm].append(extract_code(raw) if raw else "")
-            if i % 100 == 0 or i == len(tasks):
-                print(f"    {arm}: {i}/{len(tasks)}", flush=True)
+        tmpl = DIRECT if arm == "direct" else IMPLEMENT
+        raws = generate_many(
+            [
+                tmpl.format(
+                    entry=t.entry_point,
+                    description=t.prompt if arm == "direct" else descs[t.task_id],
+                )
+                for t in tasks
+            ],
+            model=args.model,
+            temperature=0.0,
+            workers=args.workers,
+            progress=arm,
+        )
+        arms[arm] = [extract_code(r) if r else "" for r in raws]
 
     passed: dict[str, set[str]] = {}
     for arm, codes in arms.items():

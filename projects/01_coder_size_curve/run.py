@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
-from shared.model import available, generate  # noqa: E402
+from shared.model import available, generate_many  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 SIZES = ["qwen2.5-coder:3b", "qwen2.5-coder:14b"]
@@ -59,20 +59,17 @@ def build_prompt(task) -> str:
     return HUMANEVAL_PROMPT.format(prompt=task.prompt)
 
 
-def solve_all(tasks, model: str) -> dict[str, str]:
-    out: dict[str, str] = {}
+def solve_all(tasks, model: str, workers: int) -> dict[str, str]:
     t0 = time.time()
-    for i, task in enumerate(tasks, 1):
-        raw = generate(build_prompt(task), model=model, temperature=0.0)
-        out[task.task_id] = extract_code(raw) if raw else ""
-        if i % 50 == 0 or i == len(tasks):
-            rate = (time.time() - t0) / i
-            print(
-                f"    {i}/{len(tasks)}  {rate:.1f}s each  "
-                f"eta {rate * (len(tasks) - i) / 60:.0f} min",
-                flush=True,
-            )
-    return out
+    raws = generate_many(
+        [build_prompt(t) for t in tasks],
+        model=model,
+        temperature=0.0,
+        workers=workers,
+        progress=model,
+    )
+    print(f"    {len(tasks)} generations in {time.time() - t0:.0f}s", flush=True)
+    return {t.task_id: (extract_code(r) if r else "") for t, r in zip(tasks, raws, strict=True)}
 
 
 def main() -> int:
@@ -93,7 +90,7 @@ def main() -> int:
     passed: dict[str, set[str]] = {}
     for model in SIZES:
         print(f"\n  generating with {model}")
-        sols = solve_all(tasks, model)
+        sols = solve_all(tasks, model, args.workers)
         outcomes = run_many(
             [(sols[t.task_id], list(t.tests), t.setup) for t in tasks], args.workers
         )

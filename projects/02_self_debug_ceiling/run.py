@@ -30,8 +30,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
-from shared.execute import extract_code, run  # noqa: E402
-from shared.model import available, generate  # noqa: E402
+from shared.execute import extract_code, run_many  # noqa: E402
+from shared.model import available, generate_many  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 
@@ -73,6 +73,7 @@ def main() -> int:
     ap.add_argument("--rounds", type=int, default=5)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--model", default="qwen2.5-coder:14b")
+    ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
     if not available(args.model):
@@ -95,28 +96,40 @@ def main() -> int:
             per_round.append(0)
             continue
 
-        newly = 0
-        for i, task in enumerate(todo, 1):
+        prompts = []
+        for task in todo:
             if rnd == 1:
-                prompt = first_prompt(task)
+                prompts.append(first_prompt(task))
             else:
                 code, err = state[task.task_id]
-                prompt = RETRY.format(
-                    prompt=task.prompt if task.is_mbpp else task.prompt[:600],
-                    code=code,
-                    error=err or "the tests failed",
+                prompts.append(
+                    RETRY.format(
+                        prompt=task.prompt if task.is_mbpp else task.prompt[:600],
+                        code=code,
+                        error=err or "the tests failed",
+                    )
                 )
-            # Seeded per round so a retry is a genuinely new attempt rather than the
-            # same greedy decode returning the same wrong answer.
-            raw = generate(prompt, model=args.model, temperature=0.0, seed=rnd)
-            code = extract_code(raw) if raw else ""
-            outcome = run(code, list(task.tests), task.setup)
+        # Seeded per round so a retry is a genuinely new attempt rather than the same
+        # greedy decode returning the same wrong answer.
+        raws = generate_many(
+            prompts,
+            model=args.model,
+            temperature=0.0,
+            seeds=[rnd] * len(prompts),
+            workers=args.workers,
+            progress=f"round {rnd}",
+        )
+        codes = [extract_code(r) if r else "" for r in raws]
+        outcomes = run_many(
+            [(c, list(t.tests), t.setup) for c, t in zip(codes, todo, strict=True)],
+            args.workers,
+        )
+        newly = 0
+        for task, code, outcome in zip(todo, codes, outcomes, strict=True):
             state[task.task_id] = (code, outcome.detail)
             if outcome.passed:
                 solved_at[task.task_id] = rnd
                 newly += 1
-            if i % 50 == 0 or i == len(todo):
-                print(f"    round {rnd}: {i}/{len(todo)}", flush=True)
 
         per_round.append(newly)
         cum = sum(per_round)

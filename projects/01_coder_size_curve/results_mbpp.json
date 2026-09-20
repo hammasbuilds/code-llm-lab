@@ -1,0 +1,18 @@
+{
+  "benchmark": "mbpp",
+  "n": 2,
+  "pass_at_1": {
+    "qwen2.5-coder:3b": 0.5,
+    "qwen2.5-coder:14b": 1.0
+  },
+  "buckets": {
+    "both": [
+      "mbpp/2"
+    ],
+    "big_only": [
+      "mbpp/1"
+    ],
+    "small_only": [],
+    "neither": []
+  }
+}

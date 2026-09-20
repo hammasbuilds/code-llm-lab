@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
-from shared.model import available, generate  # noqa: E402
+from shared.model import available, generate_many  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 TEMPS = [0.0, 0.4, 0.7, 1.0]
@@ -78,29 +78,32 @@ def main() -> int:
 
     for temp in TEMPS:
         t0 = time.time()
+        # Temperature 0 is deterministic, so n samples are n identical answers -
+        # generate one and copy it rather than paying for duplicates.
+        draws = 1 if temp == 0.0 else n
+        prompts, seeds = [], []
+        for task in tasks:
+            for s in range(draws):
+                prompts.append(PROMPT.format(prompt=task.prompt, test=task.tests[0]))
+                seeds.append(None if temp == 0.0 else s)
+        raws = generate_many(
+            prompts,
+            model=args.model,
+            temperature=temp,
+            seeds=seeds,
+            workers=args.workers,
+            progress=f"T={temp}",
+        )
+        flat = [extract_code(r) if r else "" for r in raws]
+
         correct: list[int] = []
         uniq: list[int] = []
-        for i, task in enumerate(tasks, 1):
-            codes = []
-            for s in range(n):
-                # Temperature 0 is deterministic, so drawing n samples is n identical
-                # answers - generate once and reuse rather than paying for copies.
-                seed = None if temp == 0.0 else s
-                if temp == 0.0 and codes:
-                    codes.append(codes[0])
-                    continue
-                raw = generate(
-                    PROMPT.format(prompt=task.prompt, test=task.tests[0]),
-                    model=args.model,
-                    temperature=temp,
-                    seed=seed,
-                )
-                codes.append(extract_code(raw) if raw else "")
+        for i, task in enumerate(tasks):
+            got = flat[i * draws : (i + 1) * draws]
+            codes = got * n if draws == 1 else got
             outs = run_many([(c, list(task.tests), task.setup) for c in codes], args.workers)
             correct.append(sum(1 for o in outs if o.passed))
             uniq.append(len(set(codes)))
-            if i % 25 == 0 or i == len(tasks):
-                print(f"    T={temp}: {i}/{len(tasks)}", flush=True)
 
         table[temp] = {k: sum(pass_at_k(n, c, k) for c in correct) / len(tasks) for k in ks}
         diversity[temp] = sum(uniq) / len(uniq)
