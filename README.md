@@ -145,12 +145,48 @@ The practical version: **a docstring generated from an implementation cannot be 
 evaluate that implementation.** It is downstream of the code, so it agrees with it by
 construction.
 
-## 05–06
+## 05 · The same task, asked five ways
 
-Running. Results land here as they finish.
+Five phrasings carrying identical information. Same model, same temperature, same tasks,
+same execution rule — the only variable is wording. 200 tasks.
 
-- **05 prompt shape variance** — five phrasings, identical information
-- **06 temperature vs pass@k** — where the pass@1 and pass@10 optima diverge
+```
+plain       78.5%
+docstring   75.5%
+comment     74.5%
+signature   74.5%
+terse       71.0%
+
+spread       7.5%   attributable to formatting alone
+```
+
+7.5 points is worth knowing, but the sharper number is underneath it:
+
+```
+solved by at least one phrasing : 168  (84.0%)
+solved by every phrasing        : 120  (60.0%)
+flipped on phrasing alone       :  48  (24.0%)
+```
+
+**Just under a quarter of tasks are solved under one wording and failed under another.**
+For those 48 the benchmark is not measuring whether the model can write the function. It is
+measuring which sentence it was handed.
+
+The aggregate hides this completely. A 7.5-point spread looks like noise you could average
+away; a 24% flip rate means the per-task signal is much weaker than any single score
+suggests, and that two papers reporting 74% and 78% on this benchmark may not disagree about
+the model at all.
+
+This is the input half of a pair. [code-eval-harness](https://github.com/hammasbuilds/code-eval-harness)
+measured the output half: identical generations score 0% or 94% depending only on how code
+is extracted from the response. Between them they bracket how much of a published pass@1
+belongs to the harness rather than the model.
+
+## 06
+
+Running. Result lands here when it finishes.
+
+- **06 temperature vs pass@k** — where the pass@1 and pass@k optima diverge
 
 ## How it works
 

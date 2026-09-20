@@ -253,3 +253,50 @@ mbpp: 200 tasks x 5 prompt shapes, model qwen2.5-coder:14b
   plain      pass@1  78.5%   [637s]
     docstring: 50/200
     docstring: 100/200
+    docstring: 150/200
+    docstring: 200/200
+  docstring  pass@1  75.5%   [948s]
+    comment: 50/200
+    comment: 100/200
+    comment: 150/200
+    comment: 200/200
+  comment    pass@1  74.5%   [692s]
+    signature: 50/200
+    signature: 100/200
+    signature: 150/200
+    signature: 200/200
+  signature  pass@1  74.5%   [929s]
+    terse: 50/200
+    terse: 100/200
+    terse: 150/200
+    terse: 200/200
+  terse      pass@1  71.0%   [2543s]
+
+====================================================================
+PROMPT SHAPE VARIANCE - 200 tasks, qwen2.5-coder:14b, temperature 0
+====================================================================
+  plain        78.5%  ###############################################
+  docstring    75.5%  #############################################
+  comment      74.5%  #############################################
+  signature    74.5%  #############################################
+  terse        71.0%  ###########################################
+
+  best  : plain at 78.5%
+  worst : terse at 71.0%
+  spread: 7.5% attributable to prompt formatting alone
+  stdev : 2.4%
+
+  Solved by at least one shape : 168 (84.0%)
+  Solved by every shape        : 120 (60.0%)
+  Flipped on phrasing alone    : 48 (24.0%) <- same model, same task, different wording
+
+wrote D:\github\code-llm-lab\projects\05_prompt_shape_variance\results.json
+END   05_prompt_shape  10:03:47  exit=0
+
+==================================================================
+START 06_temp_pass_at_k  10:03:47
+==================================================================
+mbpp: 60 tasks x 4 temperatures x 5 samples
+
+    T=0.0: 50/60
+    T=0.0: 60/60

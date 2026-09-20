@@ -1,15 +1,15 @@
 {
   "model": "qwen2.5-coder:14b",
-  "n": 6,
+  "n": 200,
   "pass_at_1": {
-    "plain": 0.8333333333333334,
-    "docstring": 0.8333333333333334,
-    "comment": 0.6666666666666666,
-    "signature": 0.6666666666666666,
-    "terse": 0.8333333333333334
+    "plain": 0.785,
+    "docstring": 0.755,
+    "comment": 0.745,
+    "signature": 0.745,
+    "terse": 0.71
   },
-  "spread": 0.16666666666666674,
-  "solved_by_any": 5,
-  "solved_by_all": 3,
-  "flipped": 2
+  "spread": 0.07500000000000007,
+  "solved_by_any": 168,
+  "solved_by_all": 120,
+  "flipped": 48
 }
