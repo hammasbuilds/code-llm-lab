@@ -182,11 +182,52 @@ measured the output half: identical generations score 0% or 94% depending only o
 is extracted from the response. Between them they bracket how much of a published pass@1
 belongs to the harness rather than the model.
 
-## 06
+## 06 · The temperature you benchmark at is not the one you should deploy at
 
-Running. Result lands here when it finishes.
+60 tasks, 5 samples each, scored with the unbiased pass@k estimator.
 
-- **06 temperature vs pass@k** — where the pass@1 and pass@k optima diverge
+```
+temp    pass@1   pass@2   pass@5   distinct/5
+0.0      85.0%    85.0%    85.0%      1.0
+0.4      83.3%    84.8%    85.0%      2.2
+0.7      84.0%    87.5%    90.0%      3.0
+1.0      84.7%    88.2%    90.0%      3.3
+```
+
+**The ordering flips. T=0 wins pass@1; T=0.7 wins pass@5 by five points.**
+
+The `distinct` column is the mechanism, not a footnote. At temperature 0 all five samples
+are the same string — so pass@5 *cannot* exceed pass@1, however large k gets, and the first
+row shows three identical numbers. Raising temperature buys diversity, which pass@k rewards
+and pass@1 mildly punishes.
+
+The practical cost: **benchmark at T=0, deploy an agent that samples five times, and you
+leave 5 points of achievable pass@5 unclaimed.** Going the other way is cheap — T=0.7 costs
+only 1 point at k=1. The asymmetry matters: if you are unsure which regime you are in, the
+higher temperature loses you much less than the lower one.
+
+What this does not establish: 60 tasks and 5 samples is a small sweep, and 0.7 versus 1.0
+at pass@5 is a tie here (90.0% both). The flip between k=1 and k=5 is the robust part; the
+exact optimum is not.
+
+---
+
+## All ten, at a glance
+
+| # | Project | Headline |
+|---|---|---|
+| 01 | coder size curve | the 3B already handles **75.8%** of what either size can solve |
+| 02 | self debug ceiling | rounds 1–2 = **100%** of the gain; rounds 3–5 = zero |
+| 03 | tests that kill | **93.4%** kill rate vs MBPP's 85.0% — but only from code |
+| 04 | repair vs rewrite | **93.3%** of failures survive both |
+| 05 | prompt shape variance | **24%** of tasks flip on wording alone |
+| 06 | temperature vs pass@k | optima flip; **5 points** lost by tuning on the wrong k |
+| 07 | docstring roundtrip | the roundtrip beats the benchmark's own spec by **32.5 points** |
+
+Two pairs corroborate each other from opposite directions, which is the part worth trusting:
+**02 and 04** both say first-attempt failures are things the model cannot do, not things it
+is one nudge from. **03 and 07** both say MBPP's task descriptions — not the model — are the
+weak link.
 
 ## How it works
 
