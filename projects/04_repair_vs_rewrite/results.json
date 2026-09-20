@@ -1,0 +1,21 @@
+{
+  "model": "qwen2.5-coder:14b",
+  "tasks": 6,
+  "first_attempt_failures": 2,
+  "repair_fixed": 1,
+  "rewrite_fixed": 0,
+  "both": 0,
+  "neither": 1,
+  "per_task": [
+    {
+      "task_id": "mbpp/5",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/6",
+      "repair": true,
+      "rewrite": false
+    }
+  ]
+}

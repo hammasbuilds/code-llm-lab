@@ -1,0 +1,58 @@
+{
+  "model": "qwen2.5-coder:14b",
+  "n_tasks": 8,
+  "arms": {
+    "from_description": {
+      "suites": 8,
+      "valid": 1,
+      "validity": 0.125,
+      "scored": 1,
+      "mutants": 2,
+      "model_killed": 2,
+      "mbpp_killed": 2,
+      "mean_asserts": 7.0,
+      "per_task": [
+        {
+          "task_id": "mbpp/8",
+          "asserts": 7,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        }
+      ]
+    },
+    "from_code": {
+      "suites": 8,
+      "valid": 4,
+      "validity": 0.5,
+      "scored": 3,
+      "mutants": 10,
+      "model_killed": 10,
+      "mbpp_killed": 7,
+      "mean_asserts": 12.333333333333334,
+      "per_task": [
+        {
+          "task_id": "mbpp/2",
+          "asserts": 10,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/3",
+          "asserts": 20,
+          "mutants": 7,
+          "model_killed": 7,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/8",
+          "asserts": 7,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        }
+      ]
+    }
+  }
+}

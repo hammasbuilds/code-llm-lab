@@ -1,0 +1,15 @@
+{
+  "model": "qwen2.5-coder:14b",
+  "n": 6,
+  "pass_at_1": {
+    "plain": 0.8333333333333334,
+    "docstring": 0.8333333333333334,
+    "comment": 0.6666666666666666,
+    "signature": 0.6666666666666666,
+    "terse": 0.8333333333333334
+  },
+  "spread": 0.16666666666666674,
+  "solved_by_any": 5,
+  "solved_by_all": 3,
+  "flipped": 2
+}

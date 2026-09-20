@@ -1,0 +1,13 @@
+{
+  "model": "qwen2.5-coder:14b",
+  "n": 4,
+  "direct_pass": 0.75,
+  "roundtrip_pass": 0.75,
+  "lost_in_roundtrip": [
+    "mbpp/1"
+  ],
+  "gained_in_roundtrip": [
+    "mbpp/2"
+  ],
+  "mean_description_chars": 435.75
+}
