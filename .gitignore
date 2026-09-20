@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.pytest_cache/
+# Model responses, keyed by (model, prompt, temperature, seed). Regenerated on demand;
+# tens of thousands of files and none of it is a result.
+cache/
