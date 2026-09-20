@@ -1,11 +1,11 @@
 {
   "model": "qwen2.5-coder:14b",
-  "tasks": 6,
-  "first_attempt_failures": 2,
+  "tasks": 250,
+  "first_attempt_failures": 60,
   "repair_fixed": 1,
-  "rewrite_fixed": 0,
+  "rewrite_fixed": 3,
   "both": 0,
-  "neither": 1,
+  "neither": 56,
   "per_task": [
     {
       "task_id": "mbpp/5",
@@ -15,6 +15,296 @@
     {
       "task_id": "mbpp/6",
       "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/20",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/21",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/26",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/31",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/33",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/42",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/60",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/69",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/70",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/77",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/83",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/87",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/101",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/107",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/108",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/110",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/111",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/114",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/121",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/122",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/124",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/125",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/134",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/136",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/137",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/138",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/140",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/143",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/146",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/147",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/150",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/155",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/157",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/158",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/160",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/166",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/177",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/180",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/182",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/183",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/184",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/188",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/195",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/198",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/205",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/209",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/211",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/214",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/216",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/217",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/218",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/219",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/228",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/233",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/235",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/236",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/237",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/246",
+      "repair": false,
       "rewrite": false
     }
   ]

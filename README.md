@@ -92,11 +92,33 @@ mutations. Generated tests are better than this benchmark's own — which says a
 three-assert benchmarks as it does about the model. See
 [mbpp-false-accepts](../mbpp-false-accepts) for how thin three asserts are.
 
-## 04–07
+## 04 · Repair the failure, or throw it away and start over?
+
+Agents almost always patch. The alternative — discard it and regenerate from the task — is
+rarely tried and almost never compared. Both arms start from the same failed attempt and
+get exactly one more call. 250 tasks, 60 first-attempt failures.
+
+```
+repair  fixed :  1  ( 1.7%)
+rewrite fixed :  3  ( 5.0%)
+neither       : 56  (93.3%)
+```
+
+**Neither works.** 93.3% of the failures survive both strategies. The gap between 1 and 3
+out of 60 is not a result — it is two numbers inside the noise, and reporting "rewrite beats
+repair by 3.3 points" from them would be wrong.
+
+The real finding is the 93.3%, and it agrees with project 02 from a different direction:
+the tasks a model fails on its first attempt are mostly tasks it *cannot do*, not tasks it
+is one nudge away from. Retry strategies are a rounding error on MBPP. **What you get on
+the first attempt is very nearly all you get.**
+
+That is worth knowing before building a agent architecture around a retry loop.
+
+## 05–07
 
 Running. Results land here as they finish.
 
-- **04 repair vs rewrite** — given failing code, patch it or start over?
 - **05 prompt shape variance** — five phrasings, identical information
 - **06 temperature vs pass@k** — where the pass@1 and pass@10 optima diverge
 - **07 docstring roundtrip** — code → prose → code, measured by what survives

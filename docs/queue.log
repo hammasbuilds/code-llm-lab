@@ -179,3 +179,26 @@ mbpp: 250 tasks, model qwen2.5-coder:14b
   first-attempt pass@1: 76.0%  (60 failures to work with)  [3s]
     repair: 50/60
     repair: 60/60
+    rewrite: 50/60
+    rewrite: 60/60
+
+====================================================================
+REPAIR vs REWRITE - 60 failed first attempts, one retry each
+====================================================================
+  repair  fixed :    1  (  1.7%)
+  rewrite fixed :    3  (  5.0%)
+  difference    : -3.3%
+
+  both worked   :    0  (  0.0%)
+  only repair   :    1  (  1.7%)
+  only rewrite  :    3  (  5.0%)
+  neither       :   56  ( 93.3%)
+
+  Trying both fixes 6.7% - +1.7% over the better single strategy, for twice the calls.
+
+wrote D:\github\code-llm-lab\projects\04_repair_vs_rewrite\results.json
+END   04_repair_vs_rewrite  07:57:30  exit=0
+
+==================================================================
+START 07_docstring_rt  07:57:30
+==================================================================
