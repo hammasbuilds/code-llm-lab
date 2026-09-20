@@ -202,3 +202,54 @@ END   04_repair_vs_rewrite  07:57:30  exit=0
 ==================================================================
 START 07_docstring_rt  07:57:30
 ==================================================================
+mbpp: 200 tasks, model qwen2.5-coder:14b
+
+  describing reference solutions...
+    describe: 50/200
+    describe: 100/200
+    describe: 150/200
+    describe: 200/200
+  [828s]
+  implementing from the direct description...
+    direct: 50/200
+    direct: 100/200
+    direct: 150/200
+    direct: 200/200
+  implementing from the roundtrip description...
+    roundtrip: 50/200
+    roundtrip: 100/200
+    roundtrip: 150/200
+    roundtrip: 200/200
+
+====================================================================
+DOCSTRING ROUNDTRIP - 200 tasks, qwen2.5-coder:14b
+====================================================================
+  from MBPP's description   :  48.0%
+  from the model's own prose:  80.5%
+  drift                     : +32.5%
+
+  solved from code-description but not MBPP's :   73 (36.5%)
+  solved from MBPP's but LOST in the roundtrip:    8 (4.0%)
+
+  mean description length: 445 chars
+  MBPP's own descriptions average 78 chars.
+
+  The model's description of the code beats the benchmark's description of
+  the task - it was written with the answer in view, which is exactly why a
+  docstring generated from an implementation is not an independent spec.
+
+wrote D:\github\code-llm-lab\projects\07_docstring_roundtrip\results.json
+END   07_docstring_rt  08:27:56  exit=0
+
+==================================================================
+START 05_prompt_shape  08:27:56
+==================================================================
+mbpp: 200 tasks x 5 prompt shapes, model qwen2.5-coder:14b
+
+    plain: 50/200
+    plain: 100/200
+    plain: 150/200
+    plain: 200/200
+  plain      pass@1  78.5%   [637s]
+    docstring: 50/200
+    docstring: 100/200

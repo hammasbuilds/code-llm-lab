@@ -115,13 +115,42 @@ the first attempt is very nearly all you get.**
 
 That is worth knowing before building a agent architecture around a retry loop.
 
-## 05–07
+## 07 · Code → prose → code. What survives the roundtrip?
+
+Ask the model to describe the reference solution, hand that description to a fresh context,
+and ask it to implement the function. Compare against implementing from MBPP's own task
+description. 200 tasks.
+
+```
+from MBPP's description    : 48.0%
+from the model's own prose : 80.5%
+drift                      : +32.5%
+```
+
+**The roundtrip is 32.5 points better**, which is the opposite of the expected direction —
+information is supposed to be lost, not gained. 73 tasks (36.5%) are solved from the
+code-derived description and not from MBPP's; only 8 (4.0%) go the other way.
+
+The explanation is not that the model writes good documentation. It is that **the
+description was written with the answer in view.** It is a leak, not a spec. MBPP's
+descriptions average 78 characters; the model's average 445, and those extra characters
+encode decisions — return type, edge-case behaviour — that the task sentence never made.
+
+That is the same finding project 03 reached from the other side: only 16% of test suites
+written from MBPP's descriptions agree with the reference, because the descriptions do not
+say what the function should return. Two independent measurements point at the task
+descriptions as the weak link, not the model.
+
+The practical version: **a docstring generated from an implementation cannot be used to
+evaluate that implementation.** It is downstream of the code, so it agrees with it by
+construction.
+
+## 05–06
 
 Running. Results land here as they finish.
 
 - **05 prompt shape variance** — five phrasings, identical information
 - **06 temperature vs pass@k** — where the pass@1 and pass@10 optima diverge
-- **07 docstring roundtrip** — code → prose → code, measured by what survives
 
 ## How it works
 
