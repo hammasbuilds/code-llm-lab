@@ -1,5 +1,5 @@
 <h1 align="center">code-llm-lab (Python · MBPP/HumanEval · Ollama · mutation testing)</h1>
-<p align="center"><i>Seven things worth measuring about a local coder model, none of them its benchmark score</i></p>
+<p align="center"><i>Twenty things worth measuring about a local coder model, none of them its benchmark score</i></p>
 
 <p align="center">
   <a href="#the-through-line">The through-line</a> &middot;
@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
   <img src="https://img.shields.io/badge/API%20keys-none%20required-success" alt="api keys">
-  <img src="https://img.shields.io/badge/tests-59-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-121-brightgreen" alt="tests">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
@@ -26,7 +26,7 @@
 
 ```mermaid
 flowchart LR
-    M["one local coder model<br/>qwen2.5-coder 3B + 14B"] --> Q["seven questions a<br/>pass@1 cannot answer"]
+    M["one local coder model<br/>qwen2.5-coder 3B + 14B"] --> Q["twenty questions a<br/>pass@1 cannot answer"]
     Q --> E["executed, not judged<br/>a failing assert is ground truth"]
     E --> R["results anyone can<br/>reproduce for free"]
 
@@ -34,7 +34,7 @@ flowchart LR
     style R fill:#2563eb,color:#fff
 ```
 
-A pass@1 number tells you almost nothing you can act on. These seven ask questions that
+A pass@1 number tells you almost nothing you can act on. These twenty ask questions that
 change what you would actually build: whether the bigger model is worth its VRAM, when to
 stop a self-debug loop, whether generated tests catch anything, and how much of a published
 score is the prompt rather than the model.
@@ -62,8 +62,21 @@ reached once through test suites and once through docstrings.
 | 05 | [The same task, asked five ways](projects/05_prompt_shape_variance/) | 200 | **24%** of tasks are solved under one phrasing and failed under another. The 7.5-point spread looks like noise you could average away; the flip rate says the per-task signal is much weaker than any single score suggests. |
 | 06 | [The temperature you benchmark at is not the one you deploy at](projects/06_temperature_pass_at_k/) | 60 | The ordering flips: T=0 wins pass@1, T=0.7 wins pass@5 by **5 points**. Benchmark at T=0, deploy an agent that samples five times, and you leave that unclaimed. |
 | 07 | [Code → prose → code](projects/07_docstring_roundtrip/) | 200 | The roundtrip beats MBPP's own task description by **32.5 points** — the opposite of the expected direction, because the description was written with the answer in view. It is a leak, not a spec. |
+| 08 | [Ask a model to review correct code](projects/08_review_false_alarms/) | 250 | Asked to review MBPP's own reference solutions, it flags **38.8%** of them - against 43.3% recall on real bugs. Precision is 44.8%, so more than half of everything it raises is invented. |
+| 09 | [Ask the model how sure it is](projects/09_confidence_gating/) | 250 | The confidence score took **two distinct values** across 249 tasks, separating right from wrong answers by 0.06 points. Every threshold from 0 to 100 gives precision identical to not gating at all. |
+| 10 | [Bury the task in unrelated examples](projects/10_context_dilution/) | 200 | A **16x longer prompt** moves pass@1 by at most 3.5 points, and not monotonically. There is no dilution curve at this scale - reported as a non-result rather than dressed up as a trend. |
+| 11 | [Refactor without changing behaviour](projects/11_refactor_safety/) | 250 | `rename` breaks **32.6%** of solutions and never once breaks the logic - it renames the function the tests call. `idiomatic` breaks at the same rate, but **11.1%** are genuine silent logic changes. |
+| 12 | [What it reaches for when nobody asks](projects/12_security_defaults/) | 12 | Three of twelve security tasks fail **5 times out of 5** unprompted - pickle, MD5, path traversal - while SQL injection is handled correctly unasked. Specific lessons, not a posture. |
+| 13 | [Which part of an error message does the work](projects/13_feedback_content/) | 250 | The **assertion text is the whole signal**: 1.7% to 10.0%. The traceback is worth nothing at all (1.7%), and adding expected/actual values fixes exactly the same six tasks the assertion already fixed. |
+| 14 | [Tell it not to do something](projects/14_constraint_compliance/) | 150 | Compliance looks high and most of it was free: `no_recursion` reads 99% against a **97% baseline**. Only `type_hints` does real work (0% to 100%). Accuracy costs under 8 points throughout. |
+| 15 | [Eight solutions in one response](projects/15_batch_vs_single/) | 160 | Monotonic, unlike the dilution result: batching eight tasks costs **9.4 points**, and 8 of 160 solutions were never emitted at all. The *middle* positions score worst, not the end. |
+| 16 | [Is a code-tuned model worth it](projects/16_coder_vs_generalist/) | 250 | The coder advantage **grows** with scale - +8.8pp at 3B, +11.2pp at 14B - refuting the hypothesis this was written to test. The branch predicting a shrinking gap never fired. |
+| 17 | [Does writing tests first help](projects/17_test_first/) | 200 | Writing tests first and thinking out loud first land **within one point** of each other, so the TDD framing does no work. The number read 17.0% before three harness bugs were fixed - a 54-point swing with the model's output unchanged. |
+| 18 | [Temperature 0 is not the same as deterministic](projects/18_determinism/) | 120 | Five identical runs gave **five identical pass@1 figures** - and 1.7% of tasks flipped verdict anyway. The score is stable because the flips cancelled, which is not the same as the decoding being deterministic. |
+| 19 | [An instruction hidden in a code comment](projects/19_comment_injection/) | 60 | **Four in five** loud instructions planted in comments are obeyed - hard-coding a credential 100% of the time, against a 0% baseline. Dropping the imperative drops compliance to 28.6%: the defence is phrasing. |
+| 20 | [Add a feature to working code](projects/20_feature_regression/) | 250 | Asked to add input validation, **11.1%** of working solutions regress - the new guard rejects input the original accepted. Asked to add a log line: 0 of 190. |
 
-All seven are built. **Every number above came out of a run on this machine**, and each is
+All twenty are built. **Every number above came out of a run on this machine**, and each is
 mirrored in that project's `results.json` alongside the model, sample size, temperature and
 seeds that produced it.
 

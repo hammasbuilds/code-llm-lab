@@ -101,3 +101,81 @@ mbpp: 250 tasks, model qwen2.5-coder:14b
     solve+confidence: 50/250
     solve+confidence: 100/250
     solve+confidence: 150/250
+    solve+confidence: 200/250
+    solve+confidence: 250/250
+  [2155s]
+
+========================================================================
+CONFIDENCE GATING - 250 MBPP tasks, qwen2.5-coder:14b
+========================================================================
+  stated a confidence      : 249/250 (99.6%)
+  pass@1, all tasks        : 75.2%
+  pass@1, those tasks only : 75.5%  <- the baseline a gate must beat
+
+  mean confidence when correct :  100.0   (n=188)
+  mean confidence when wrong   :   99.9   (n=61)
+  separation                   :   +0.1 points
+
+  distinct confidence values used: 2  [95, 100]
+
+  threshold  merged  coverage  precision   vs base
+          0     249    100.0%      75.5%       +0.0%
+         50     249    100.0%      75.5%       +0.0%
+         60     249    100.0%      75.5%       +0.0%
+         70     249    100.0%      75.5%       +0.0%
+         80     249    100.0%      75.5%       +0.0%
+         90     249    100.0%      75.5%       +0.0%
+         95     249    100.0%      75.5%       +0.0%
+        100     247     99.2%      75.7%       +0.2%
+
+  Gating at 100 lifts precision to 75.7% (+0.2%) while auto-merging 99.2% of tasks.
+
+wrote D:\github\code-llm-lab\projects\09_confidence_gating\results.json
+########## 09_confidence_gating exit=0 09:56:06
+
+########## 10_context_dilution  limit=200  09:56:06
+mbpp: 200 tasks x 4 context sizes, model qwen2.5-coder:14b
+
+    k=0: 50/200
+    k=0: 100/200
+    k=0: 150/200
+    k=0: 200/200
+  k=  0  pass@1  77.0%   prompt     301 chars   [4s]
+    k=2: 50/200
+    k=2: 100/200
+    k=2: 150/200
+    k=2: 200/200
+  k=  2  pass@1  74.5%   prompt     740 chars   [513s]
+    k=8: 50/200
+    k=8: 100/200
+    k=8: 150/200
+    k=8: 200/200
+  k=  8  pass@1  73.5%   prompt    1895 chars   [630s]
+    k=24: 50/200
+    k=24: 100/200
+    k=24: 150/200
+    k=24: 200/200
+  k= 24  pass@1  76.5%   prompt    4943 chars   [916s]
+
+========================================================================
+CONTEXT DILUTION - 200 MBPP tasks, qwen2.5-coder:14b
+========================================================================
+  k=  0   77.0%  ##############################################
+  k=  2   74.5%  #############################################
+  k=  8   73.5%  ############################################
+  k= 24   76.5%  ##############################################
+
+  pass@1 change, k=0 -> k=24     : -0.5%
+  prompt grew                    : 16.4x
+
+  solved at k=0, lost by k=24    :    9 (4.5%)
+  failed at k=0, gained by k=24  :    8 (4.0%)
+  churn (either direction)       :   17 (8.5%)  <- the aggregate hides this
+
+  16x the prompt, none of it relevant, costs 0.5% of pass@1.
+  Extra context is not free, and a retriever that fetches k passages pays this
+  on every one it gets wrong.
+
+wrote D:\github\code-llm-lab\projects\10_context_dilution\results.json
+########## 10_context_dilution exit=0 10:30:29
+ALL FOUR DONE

@@ -1,0 +1,80 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 250,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "python": "3.12",
+  "commit": "d3badbd",
+  "run_at": "2026-09-21 10:53:31",
+  "first_attempt_failures": 60,
+  "arms": {
+    "nothing": {
+      "n": 60,
+      "fixed": 1,
+      "fix_rate": 0.016666666666666666,
+      "mean_prompt_chars": 426.3666666666667
+    },
+    "boolean": {
+      "n": 60,
+      "fixed": 2,
+      "fix_rate": 0.03333333333333333,
+      "mean_prompt_chars": 454.3666666666667
+    },
+    "assertion": {
+      "n": 60,
+      "fixed": 6,
+      "fix_rate": 0.1,
+      "mean_prompt_chars": 510.21666666666664
+    },
+    "traceback": {
+      "n": 60,
+      "fixed": 1,
+      "fix_rate": 0.016666666666666666,
+      "mean_prompt_chars": 467.15
+    },
+    "expected": {
+      "n": 60,
+      "fixed": 6,
+      "fix_rate": 0.1,
+      "mean_prompt_chars": 548.2166666666667
+    }
+  },
+  "fixed_by": {
+    "nothing": [
+      "mbpp/6"
+    ],
+    "boolean": [
+      "mbpp/157",
+      "mbpp/6"
+    ],
+    "assertion": [
+      "mbpp/160",
+      "mbpp/228",
+      "mbpp/236",
+      "mbpp/6",
+      "mbpp/70",
+      "mbpp/87"
+    ],
+    "traceback": [
+      "mbpp/6"
+    ],
+    "expected": [
+      "mbpp/160",
+      "mbpp/228",
+      "mbpp/236",
+      "mbpp/6",
+      "mbpp/70",
+      "mbpp/87"
+    ]
+  }
+}

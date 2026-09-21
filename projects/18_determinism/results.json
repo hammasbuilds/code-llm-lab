@@ -1,0 +1,25 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 120,
+  "temperature": 0.0,
+  "samples": 5,
+  "seeds": null,
+  "python": "3.12",
+  "commit": "d3badbd",
+  "run_at": "2026-09-21 16:51:00",
+  "cache": "bypassed",
+  "pass_at_1_per_run": [
+    0.8166666666666667,
+    0.8166666666666667,
+    0.8166666666666667,
+    0.8166666666666667,
+    0.8166666666666667
+  ],
+  "spread": 0.0,
+  "tasks_with_varying_text": 11,
+  "tasks_with_varying_verdict": 2,
+  "mean_distinct_outputs": 1.0916666666666666
+}

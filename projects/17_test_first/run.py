@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from shared.datasets import load  # noqa: E402
-from shared.execute import extract_code, run_many  # noqa: E402
+from shared.execute import extract_solution, run_many, strip_self_tests  # noqa: E402
 from shared.model import available, generate_many  # noqa: E402
 from shared.provenance import stamp  # noqa: E402
 
@@ -113,6 +113,13 @@ def main() -> int:
     n = len(tasks)
     print(f"mbpp: {n} tasks x 4 arms, model {args.model}\n")
 
+    def submission(raw: str) -> str:
+        """What actually gets run: the last defining block, with the model's own asserts
+        removed. Leaving them in submits the model's tests alongside its answer, and they
+        execute above the `def` - so a correct function fails with NameError, and a wrong
+        self-test rejects a right answer. Either way the model marks its own homework."""
+        return strip_self_tests(extract_solution(raw)) if raw else ""
+
     def score(codes: list[str]) -> tuple[set[str], float]:
         outs = run_many(
             [(c, list(t.tests), t.setup) for c, t in zip(codes, tasks, strict=True)],
@@ -136,7 +143,10 @@ def main() -> int:
             progress=arm,
         )
         lengths[arm] = sum(len(r or "") for r in raws) / n
-        solved[arm], scores[arm] = score([extract_code(r) if r else "" for r in raws])
+        # extract_solution, not extract_code: `tests_then` asks for asserts before the
+        # function, so the first fenced block is the tests. Scoring that instead of the
+        # answer put this arm at 17.0% against 77.0% for answering directly.
+        solved[arm], scores[arm] = score([submission(r) for r in raws])
         print(f"  {arm:11} pass@1 {scores[arm]:6.1%}   [{time.time() - t0:.0f}s]")
 
     # tests_seen: two hops, with nothing carried across but the tests themselves.
@@ -158,7 +168,7 @@ def main() -> int:
         progress="implement",
     )
     lengths["tests_seen"] = sum(len(r or "") for r in raws) / n
-    solved["tests_seen"], scores["tests_seen"] = score([extract_code(r) if r else "" for r in raws])
+    solved["tests_seen"], scores["tests_seen"] = score([submission(r) for r in raws])
     print(f"  {'tests_seen':11} pass@1 {scores['tests_seen']:6.1%}   [{time.time() - t0:.0f}s]")
 
     base = scores["direct"]

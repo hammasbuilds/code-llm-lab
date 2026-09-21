@@ -1,0 +1,63 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 150,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
+  "python": "3.12",
+  "commit": "d3badbd",
+  "run_at": "2026-09-21 11:33:26",
+  "unconstrained_pass_at_1": 0.78,
+  "arms": {
+    "none": {
+      "pass_at_1": 0.78,
+      "baseline_compliance": {
+        "no_recursion": 0.9733333333333334,
+        "no_imports": 0.84,
+        "no_comprehensions": 0.8066666666666666,
+        "no_builtin_sort": 0.94,
+        "type_hints": 0.0,
+        "single_return": 0.82
+      }
+    },
+    "no_recursion": {
+      "pass_at_1": 0.7733333333333333,
+      "compliance": 0.9866666666666667,
+      "unparseable": 1,
+      "compliant_and_passing": 0.7666666666666667
+    },
+    "no_imports": {
+      "pass_at_1": 0.7866666666666666,
+      "compliance": 0.96,
+      "unparseable": 0,
+      "compliant_and_passing": 0.7466666666666667
+    },
+    "no_comprehensions": {
+      "pass_at_1": 0.7466666666666667,
+      "compliance": 0.9066666666666666,
+      "unparseable": 0,
+      "compliant_and_passing": 0.6866666666666666
+    },
+    "no_builtin_sort": {
+      "pass_at_1": 0.7066666666666667,
+      "compliance": 0.98,
+      "unparseable": 2,
+      "compliant_and_passing": 0.7066666666666667
+    },
+    "type_hints": {
+      "pass_at_1": 0.74,
+      "compliance": 1.0,
+      "unparseable": 0,
+      "compliant_and_passing": 0.74
+    },
+    "single_return": {
+      "pass_at_1": 0.76,
+      "compliance": 0.86,
+      "unparseable": 0,
+      "compliant_and_passing": 0.6533333333333333
+    }
+  }
+}

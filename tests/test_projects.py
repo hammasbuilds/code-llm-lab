@@ -287,8 +287,33 @@ RESULTS = sorted((Path(__file__).resolve().parent.parent / "projects").glob("*/r
 MIN_N = 50
 
 
+PROJECT_DIRS = sorted(
+    d
+    for d in (Path(__file__).resolve().parent.parent / "projects").iterdir()
+    if d.is_dir() and (d / "run.py").exists()
+)
+
+
 def test_there_is_a_result_for_every_project():
-    assert len(RESULTS) == 11
+    """Asserted against the projects on disk, not against a number.
+
+    This used to read `== 11`, which passes until somebody adds a twelfth project and then
+    fails for a reason that has nothing to do with what it is checking. The property wanted
+    is that no project is sitting there unmeasured.
+    """
+    missing = [d.name for d in PROJECT_DIRS if not list(d.glob("results*.json"))]
+    assert not missing, f"no committed result for: {missing}"
+
+
+def test_every_project_has_a_readme():
+    missing = [d.name for d in PROJECT_DIRS if not (d / "README.md").exists()]
+    assert not missing, f"no README for: {missing}"
+
+
+def test_the_root_readme_links_every_project():
+    root = (Path(__file__).resolve().parent.parent / "README.md").read_text(encoding="utf-8")
+    missing = [d.name for d in PROJECT_DIRS if f"projects/{d.name}/" not in root]
+    assert not missing, f"not linked from the root README: {missing}"
 
 
 @pytest.mark.parametrize("path", RESULTS, ids=lambda p: p.parent.name)

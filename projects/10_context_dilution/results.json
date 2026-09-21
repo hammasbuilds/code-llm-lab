@@ -1,0 +1,52 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 200,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": 0,
+  "python": "3.12",
+  "commit": "d3badbd",
+  "run_at": "2026-09-21 10:30:29",
+  "k_values": [
+    0,
+    2,
+    8,
+    24
+  ],
+  "pass_at_1": {
+    "0": 0.77,
+    "2": 0.745,
+    "8": 0.735,
+    "24": 0.765
+  },
+  "mean_prompt_chars": {
+    "0": 300.79,
+    "2": 739.825,
+    "8": 1894.99,
+    "24": 4942.89
+  },
+  "lost": [
+    "mbpp/102",
+    "mbpp/117",
+    "mbpp/13",
+    "mbpp/139",
+    "mbpp/141",
+    "mbpp/15",
+    "mbpp/164",
+    "mbpp/169",
+    "mbpp/22"
+  ],
+  "gained": [
+    "mbpp/101",
+    "mbpp/111",
+    "mbpp/114",
+    "mbpp/121",
+    "mbpp/125",
+    "mbpp/147",
+    "mbpp/157",
+    "mbpp/166"
+  ]
+}

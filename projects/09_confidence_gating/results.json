@@ -1,0 +1,65 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 250,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
+  "python": "3.12",
+  "commit": "d3badbd",
+  "run_at": "2026-09-21 09:56:06",
+  "stated_confidence": 249,
+  "pass_at_1_all_tasks": 0.752,
+  "pass_at_1_gatable": 0.7550200803212851,
+  "mean_confidence_correct": 99.97340425531915,
+  "mean_confidence_wrong": 99.91803278688525,
+  "separation": 0.05537146843390417,
+  "distinct_values": [
+    95,
+    100
+  ],
+  "gate": {
+    "0": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "50": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "60": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "70": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "80": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "90": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "95": {
+      "precision": 0.7550200803212851,
+      "coverage": 1.0,
+      "merged": 249
+    },
+    "100": {
+      "precision": 0.757085020242915,
+      "coverage": 0.9919678714859438,
+      "merged": 247
+    }
+  }
+}

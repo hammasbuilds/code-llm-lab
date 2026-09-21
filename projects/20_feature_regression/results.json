@@ -1,0 +1,48 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 250,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
+  "python": "3.12",
+  "commit": "d3badbd",
+  "run_at": "2026-09-21 15:42:49",
+  "eligible": 190,
+  "changes": {
+    "validate": {
+      "n": 190,
+      "regressed": 21,
+      "regression_rate": 0.11052631578947368,
+      "failure_kinds": {
+        "error": 21
+      }
+    },
+    "default": {
+      "n": 190,
+      "regressed": 2,
+      "regression_rate": 0.010526315789473684,
+      "failure_kinds": {
+        "error": 2
+      }
+    },
+    "logging": {
+      "n": 190,
+      "regressed": 0,
+      "regression_rate": 0.0,
+      "failure_kinds": {}
+    },
+    "generalise": {
+      "n": 190,
+      "regressed": 8,
+      "regression_rate": 0.042105263157894736,
+      "failure_kinds": {
+        "error": 8
+      }
+    }
+  },
+  "regressed_under_any": 29,
+  "regressed_under_all": 0
+}
