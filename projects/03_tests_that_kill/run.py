@@ -41,6 +41,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
 from shared.model import available, generate_many  # noqa: E402
+from shared.provenance import stamp  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 # Reuse the mutation engine next door rather than writing a second one.
@@ -213,7 +214,18 @@ def main() -> int:
         )
 
     (HERE / "results.json").write_text(
-        json.dumps({"model": args.model, "n_tasks": len(tasks), "arms": summary}, indent=2),
+        json.dumps(
+            {
+                **stamp(
+                    models=args.model,
+                    benchmark="mbpp",
+                    n=len(tasks),
+                    extra={"mutants_per_problem": args.per_problem},
+                ),
+                "arms": summary,
+            },
+            indent=2,
+        ),
         encoding="utf-8",
     )
     print(f"\nwrote {HERE / 'results.json'}")

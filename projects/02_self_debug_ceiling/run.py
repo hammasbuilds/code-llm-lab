@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
 from shared.model import available, generate_many  # noqa: E402
+from shared.provenance import stamp  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 
@@ -164,9 +165,13 @@ def main() -> int:
     (HERE / f"results_{args.benchmark}.json").write_text(
         json.dumps(
             {
-                "benchmark": args.benchmark,
-                "model": args.model,
-                "n": n,
+                **stamp(
+                    models=args.model,
+                    benchmark=args.benchmark,
+                    n=n,
+                    seeds=list(range(1, args.rounds + 1)),  # one per round, see above
+                    extra={"rounds": args.rounds},
+                ),
                 "per_round_newly_solved": per_round,
                 "cumulative_pass": [sum(per_round[: i + 1]) / n for i in range(len(per_round))],
             },

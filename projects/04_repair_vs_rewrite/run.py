@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
 from shared.model import available, generate_many  # noqa: E402
+from shared.provenance import stamp  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 
@@ -174,8 +175,14 @@ def main() -> int:
     (HERE / "results.json").write_text(
         json.dumps(
             {
-                "model": args.model,
-                "tasks": len(tasks),
+                **stamp(
+                    models=args.model,
+                    benchmark="mbpp",
+                    n=len(tasks),
+                    # Different seeds per arm, or the cache would hand the rewrite arm
+                    # the repair arm's generation and the comparison would be vacuous.
+                    seeds={"repair": 1, "rewrite": 2},
+                ),
                 "first_attempt_failures": f,
                 "repair_fixed": results["repair"],
                 "rewrite_fixed": results["rewrite"],

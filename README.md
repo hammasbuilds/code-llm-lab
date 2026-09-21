@@ -5,7 +5,7 @@
   <a href="https://github.com/hammasbuilds/code-llm-lab/actions/workflows/ci.yml"><img src="https://github.com/hammasbuilds/code-llm-lab/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
-  <img src="https://img.shields.io/badge/tests-15-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-52-brightgreen" alt="tests">
   <img src="https://img.shields.io/badge/gpu-1x%20RTX%205000-lightgrey" alt="gpu">
 </p>
 
@@ -250,10 +250,11 @@ weak link.
 shared/datasets.py   MBPP and HumanEval normalised into one task shape
 shared/execute.py    subprocess with a timeout; pass / fail / error / timeout kept apart
 shared/model.py      Ollama over HTTP, with an on-disk generation cache
+shared/provenance.py the config block every results.json carries
 projects/NN_*/run.py one measurement each, self-contained
 ```
 
-Three decisions that matter more than they look:
+Four decisions that matter more than they look:
 
 **Generation is batched.** One request at a time left the GPU at 9% utilisation — it spends
 almost all of its time waiting for the next HTTP round trip rather than decoding. Eight
@@ -265,6 +266,12 @@ attempt completed in 3 seconds because project 01 had already asked those exact 
 **`fail` and `error` are not merged.** Both mean the tests rejected the code, but only
 `fail` means the tests actually tested something — a candidate caught by crashing would
 have survived behind a guard clause.
+
+**Every result carries the config that produced it** — models, benchmark, sample size,
+temperature, seeds, commit, timestamp. A number with none of that attached is not a
+measurement, and a smoke test writes the same filename as a real run. The suite asserts
+the block is present and that no committed result reports fewer than 50 tasks, because
+an `n=4` smoke result was committed once and nothing caught it.
 
 ## Running it
 

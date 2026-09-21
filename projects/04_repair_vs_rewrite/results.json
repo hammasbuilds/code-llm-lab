@@ -1,6 +1,18 @@
 {
-  "model": "qwen2.5-coder:14b",
-  "tasks": 250,
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": {
+    "repair": 1,
+    "rewrite": 2
+  },
+  "n": 250,
+  "python": "3.11",
+  "commit": "pre-provenance",
+  "run_at": "2026-09-20 07:57:30",
   "first_attempt_failures": 60,
   "repair_fixed": 1,
   "rewrite_fixed": 3,

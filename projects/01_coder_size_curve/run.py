@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
 from shared.model import available, generate_many  # noqa: E402
+from shared.provenance import stamp  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 SIZES = ["qwen2.5-coder:3b", "qwen2.5-coder:14b"]
@@ -140,8 +141,7 @@ def main() -> int:
     (HERE / f"results_{args.benchmark}.json").write_text(
         json.dumps(
             {
-                "benchmark": args.benchmark,
-                "n": n,
+                **stamp(models=SIZES, benchmark=args.benchmark, n=n),
                 "pass_at_1": {m: len(passed[m]) / n for m in SIZES},
                 "buckets": {k: sorted(v) for k, v in buckets.items()},
             },

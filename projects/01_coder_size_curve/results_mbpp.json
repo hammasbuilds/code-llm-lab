@@ -1,6 +1,16 @@
 {
+  "models": [
+    "qwen2.5-coder:3b",
+    "qwen2.5-coder:14b"
+  ],
   "benchmark": "mbpp",
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
   "n": 250,
+  "python": "3.11",
+  "commit": "pre-provenance",
+  "run_at": "2026-09-20 07:51:54",
   "pass_at_1": {
     "qwen2.5-coder:3b": 0.6,
     "qwen2.5-coder:14b": 0.76

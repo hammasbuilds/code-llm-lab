@@ -1,7 +1,29 @@
 {
-  "model": "qwen2.5-coder:14b",
-  "n_tasks": 60,
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "temperature": [
+    0.0,
+    0.4,
+    0.7,
+    1.0
+  ],
   "samples": 5,
+  "seeds": {
+    "0.0": null,
+    ">0": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "n": 60,
+  "python": "3.11",
+  "commit": "pre-provenance",
+  "run_at": "2026-09-20 10:36:08",
   "pass_at_k": {
     "0.0": {
       "1": 0.85,

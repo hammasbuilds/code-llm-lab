@@ -1,6 +1,16 @@
 {
-  "model": "qwen2.5-coder:14b",
-  "n_tasks": 150,
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
+  "n": 150,
+  "python": "3.11",
+  "commit": "pre-provenance",
+  "run_at": "2026-09-20 07:25:30",
+  "mutants_per_problem": 8,
   "arms": {
     "from_description": {
       "suites": 150,

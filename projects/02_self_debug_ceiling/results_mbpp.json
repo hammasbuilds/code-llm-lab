@@ -1,7 +1,22 @@
 {
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
   "benchmark": "mbpp",
-  "model": "qwen2.5-coder:14b",
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
   "n": 150,
+  "python": "3.11",
+  "commit": "pre-provenance",
+  "run_at": "2026-09-20 07:37:51",
+  "rounds": 5,
   "per_round_newly_solved": [
     117,
     1,

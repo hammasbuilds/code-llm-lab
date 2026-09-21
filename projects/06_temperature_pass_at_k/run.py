@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from shared.datasets import load  # noqa: E402
 from shared.execute import extract_code, run_many  # noqa: E402
 from shared.model import available, generate_many  # noqa: E402
+from shared.provenance import stamp  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 TEMPS = [0.0, 0.4, 0.7, 1.0]
@@ -142,9 +143,16 @@ def main() -> int:
     (HERE / "results.json").write_text(
         json.dumps(
             {
-                "model": args.model,
-                "n_tasks": len(tasks),
-                "samples": n,
+                **stamp(
+                    models=args.model,
+                    benchmark="mbpp",
+                    n=len(tasks),
+                    temperature=TEMPS,
+                    samples=n,
+                    # T=0 is drawn once with no seed - the samples would be identical
+                    # anyway, and the cache then serves all five from one generation.
+                    seeds={"0.0": None, ">0": list(range(n))},
+                ),
                 "pass_at_k": {str(t): {str(k): v for k, v in d.items()} for t, d in table.items()},
                 "mean_distinct_samples": diversity,
             },
