@@ -1,0 +1,60 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 250,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
+  "python": "3.12",
+  "commit": "d0566f4",
+  "run_at": "2026-09-21 09:20:09",
+  "eligible": 190,
+  "refactors": {
+    "typehints": {
+      "n": 190,
+      "broke": 1,
+      "break_rate": 0.005263157894736842,
+      "failure_kinds": {
+        "error": 1
+      },
+      "mean_chars": 205.88947368421051,
+      "mean_chars_before": 171.20526315789473
+    },
+    "rename": {
+      "n": 190,
+      "broke": 62,
+      "break_rate": 0.3263157894736842,
+      "failure_kinds": {
+        "error": 62
+      },
+      "mean_chars": 232.0,
+      "mean_chars_before": 171.20526315789473
+    },
+    "extract": {
+      "n": 190,
+      "broke": 3,
+      "break_rate": 0.015789473684210527,
+      "failure_kinds": {
+        "fail": 1,
+        "error": 2
+      },
+      "mean_chars": 233.54736842105262,
+      "mean_chars_before": 171.20526315789473
+    },
+    "idiomatic": {
+      "n": 190,
+      "broke": 61,
+      "break_rate": 0.32105263157894737,
+      "failure_kinds": {
+        "error": 53,
+        "fail": 8
+      },
+      "mean_chars": 132.2842105263158,
+      "mean_chars_before": 171.20526315789473
+    }
+  },
+  "broke_under_any": 97,
+  "broke_under_all": 1
+}

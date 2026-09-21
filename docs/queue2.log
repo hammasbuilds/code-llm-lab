@@ -1,0 +1,103 @@
+
+########## 08_review_false_alarms  limit=250  08:23:40
+mbpp: 250 tasks, model qwen2.5-coder:14b
+
+  generating the code to be reviewed (cached from project 01)...
+    solve: 50/250
+    solve: 100/250
+    solve: 150/250
+    solve: 200/250
+    solve: 250/250
+  190 pass, 60 fail  [3s]
+
+    buggy: 50/60
+    buggy: 60/60
+  buggy      n=  60  flagged   26 ( 43.3%)  cleared   34  unparsed   0  [84s]
+    passing: 50/190
+    passing: 100/190
+    passing: 150/190
+    passing: 190/190
+  passing    n= 190  flagged   32 ( 16.8%)  cleared  158  unparsed   0  [250s]
+    reference: 50/250
+    reference: 100/250
+    reference: 150/250
+    reference: 200/250
+    reference: 250/250
+  reference  n= 250  flagged   97 ( 38.8%)  cleared  153  unparsed   0  [829s]
+
+========================================================================
+REVIEW FALSE ALARMS - 250 MBPP tasks, qwen2.5-coder:14b
+========================================================================
+  caught, of code that really is broken :  43.3%  (n=60)
+  flagged, of model code that passes    :  16.8%  (n=190)
+  flagged, of MBPP's own references     :  38.8%  (n=250)
+
+  precision, if you acted on every flag :  44.8%
+  (26 real bugs among 58 flags raised)
+  false alarms per real bug caught      :   1.23
+
+  A flag on passing code is scored as a false alarm here. Some of those are
+  real catches MBPP's three asserts missed - which bounds this number rather
+  than invalidating it.
+
+wrote D:\github\code-llm-lab\projects\08_review_false_alarms\results.json
+########## 08_review_false_alarms exit=0 08:43:06
+
+########## 11_refactor_safety  limit=250  08:43:06
+mbpp: 250 tasks, model qwen2.5-coder:14b
+
+  generating the code to refactor (cached from project 01)...
+    solve: 50/250
+    solve: 100/250
+    solve: 150/250
+    solve: 200/250
+    solve: 250/250
+  190/250 pass and are eligible  [7s]
+
+    typehints: 50/190
+    typehints: 100/190
+    typehints: 150/190
+    typehints: 190/190
+  typehints  broke    1/190 (  0.5%)  {'error': 1}  [535s]
+    rename: 50/190
+    rename: 100/190
+    rename: 150/190
+    rename: 190/190
+  rename     broke   62/190 ( 32.6%)  {'error': 62}  [503s]
+    extract: 50/190
+    extract: 100/190
+    extract: 150/190
+    extract: 190/190
+  extract    broke    3/190 (  1.6%)  {'fail': 1, 'error': 2}  [790s]
+    idiomatic: 50/190
+    idiomatic: 100/190
+    idiomatic: 150/190
+    idiomatic: 190/190
+  idiomatic  broke   61/190 ( 32.1%)  {'error': 53, 'fail': 8}  [387s]
+
+========================================================================
+REFACTOR SAFETY - 190 working solutions, qwen2.5-coder:14b
+========================================================================
+  typehints     0.5%  
+  rename       32.6%  ####################
+  extract       1.6%  #
+  idiomatic    32.1%  ###################
+
+  safest   : typehints at 0.5%
+  riskiest : rename at 32.6%
+  spread   : 32.1%
+
+  broke under at least one refactor :   97 (51.1%)
+  broke under every refactor        :    1 (0.5%)
+  <- the second group is code that was fragile to begin with; the gap between
+     them is what the choice of refactor is actually worth.
+
+wrote D:\github\code-llm-lab\projects\11_refactor_safety\results.json
+########## 11_refactor_safety exit=0 09:20:09
+
+########## 09_confidence_gating  limit=250  09:20:09
+mbpp: 250 tasks, model qwen2.5-coder:14b
+
+    solve+confidence: 50/250
+    solve+confidence: 100/250
+    solve+confidence: 150/250

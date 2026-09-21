@@ -20,21 +20,30 @@ ROOT = Path(__file__).resolve().parent.parent
 _loaded: dict[str, ModuleType] = {}
 
 
-def project(name: str) -> ModuleType:
-    """`project("05_prompt_shape_variance")` -> that project's run.py, as a module."""
-    if name in _loaded:
-        return _loaded[name]
+def project(name: str, file: str = "run.py") -> ModuleType:
+    """`project("05_prompt_shape_variance")` -> that project's run.py, as a module.
 
-    path = ROOT / "projects" / name / "run.py"
+    Pass `file` for a project's other modules, e.g.
+    `project("12_security_defaults", "tasks.py")`.
+    """
+    key = f"{name}/{file}"
+    if key in _loaded:
+        return _loaded[key]
+
+    path = ROOT / "projects" / name / file
     if not path.is_file():
         raise FileNotFoundError(path)
 
     # run.py does `sys.path.insert(0, parents[2])` to reach `shared`, which works whether
     # it is run as a script or loaded here.
-    spec = importlib.util.spec_from_file_location(f"project_{name}", path)
+    modname = f"project_{name}_{file.removesuffix('.py')}"
+    spec = importlib.util.spec_from_file_location(modname, path)
     assert spec and spec.loader
     mod = importlib.util.module_from_spec(spec)
+    # Registered BEFORE exec_module, not after: @dataclass resolves its own `cls.__module__`
+    # out of sys.modules while the class body executes, and a module that is not there yet
+    # fails with an AttributeError several frames deep in dataclasses.
     sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
-    _loaded[name] = mod
+    _loaded[key] = mod
     return mod

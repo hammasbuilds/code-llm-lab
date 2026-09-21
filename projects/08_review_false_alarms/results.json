@@ -1,0 +1,40 @@
+{
+  "models": [
+    "qwen2.5-coder:14b"
+  ],
+  "benchmark": "mbpp",
+  "n": 250,
+  "temperature": 0.0,
+  "samples": 1,
+  "seeds": null,
+  "python": "3.12",
+  "commit": "d0566f4",
+  "run_at": "2026-09-21 08:43:06",
+  "arms": {
+    "buggy": {
+      "n": 60,
+      "flagged": 26,
+      "cleared": 34,
+      "unparsed": 0,
+      "flag_rate": 0.43333333333333335
+    },
+    "passing": {
+      "n": 190,
+      "flagged": 32,
+      "cleared": 158,
+      "unparsed": 0,
+      "flag_rate": 0.16842105263157894
+    },
+    "reference": {
+      "n": 250,
+      "flagged": 97,
+      "cleared": 153,
+      "unparsed": 0,
+      "flag_rate": 0.388
+    }
+  },
+  "recall_on_buggy": 0.43333333333333335,
+  "false_alarm_rate_passing": 0.16842105263157894,
+  "false_alarm_rate_reference": 0.388,
+  "precision": 0.4482758620689655
+}

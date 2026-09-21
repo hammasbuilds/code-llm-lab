@@ -6,3 +6,6 @@ __pycache__/
 # Model responses, keyed by (model, prompt, temperature, seed). Regenerated on demand;
 # tens of thousands of files and none of it is a result.
 cache/
+
+# Smoke-test placeholders. A results file is committed only once it holds a real run -
+# see tests/test_projects.py, which refuses anything under 50 measurements.
