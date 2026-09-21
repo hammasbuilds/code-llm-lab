@@ -8,14 +8,18 @@
   "samples": 1,
   "seeds": null,
   "python": "3.12",
-  "commit": "d0566f4",
-  "run_at": "2026-09-21 09:20:09",
+  "commit": "35c1254",
+  "run_at": "2026-09-21 09:45:55",
   "eligible": 190,
   "refactors": {
     "typehints": {
       "n": 190,
       "broke": 1,
       "break_rate": 0.005263157894736842,
+      "renamed_the_function": 1,
+      "rename_rate": 0.005263157894736842,
+      "broke_the_logic": 0,
+      "logic_break_rate": 0.0,
       "failure_kinds": {
         "error": 1
       },
@@ -26,6 +30,10 @@
       "n": 190,
       "broke": 62,
       "break_rate": 0.3263157894736842,
+      "renamed_the_function": 62,
+      "rename_rate": 0.3263157894736842,
+      "broke_the_logic": 0,
+      "logic_break_rate": 0.0,
       "failure_kinds": {
         "error": 62
       },
@@ -36,6 +44,10 @@
       "n": 190,
       "broke": 3,
       "break_rate": 0.015789473684210527,
+      "renamed_the_function": 1,
+      "rename_rate": 0.005263157894736842,
+      "broke_the_logic": 2,
+      "logic_break_rate": 0.010526315789473684,
       "failure_kinds": {
         "fail": 1,
         "error": 2
@@ -47,6 +59,10 @@
       "n": 190,
       "broke": 61,
       "break_rate": 0.32105263157894737,
+      "renamed_the_function": 40,
+      "rename_rate": 0.21052631578947367,
+      "broke_the_logic": 21,
+      "logic_break_rate": 0.11052631578947368,
       "failure_kinds": {
         "error": 53,
         "fail": 8

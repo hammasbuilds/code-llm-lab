@@ -29,6 +29,7 @@ refactor caused and not a bug it inherited.
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import sys
 import time
@@ -67,6 +68,23 @@ The behaviour must not change.
 Output ONLY the resulting code - the function and any imports or helpers it needs.
 No explanation, no tests.
 """
+
+
+def defines(code: str, name: str) -> bool:
+    """Does this code still define a function called `name`?
+
+    The check that separates "the refactor broke the code" from "the refactor renamed the
+    function", which are different problems with different fixes and look identical in a
+    pass rate.
+    """
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return False
+    return any(
+        isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef) and n.name == name
+        for n in ast.walk(tree)
+    )
 
 
 def main() -> int:
@@ -112,8 +130,22 @@ def main() -> int:
         )
         broke = {s.task.task_id for s, o in zip(working, outs, strict=True) if not o.passed}
         broke_under[name] = broke
-        # How the breakage happened matters: a crash is a different failure from a
-        # silently changed answer, and only the second survives a smoke test.
+
+        # Two failures wear the same colour and are not the same problem.
+        #
+        # Asked to "rename the local variables", the model frequently renames the
+        # *function* too - `square_nums` becomes `square_numbers` - and every caller then
+        # fails with NameError. The logic is untouched and perfectly correct; the public
+        # name is gone. Reporting that together with a genuine logic error under one
+        # "broke" number would tell a reader the model cannot refactor, when what it
+        # cannot do is leave the interface alone.
+        renamed = {
+            s.task.task_id
+            for s, c, o in zip(working, codes, outs, strict=True)
+            if not o.passed and not defines(c, s.task.entry_point)
+        }
+        logic = broke - renamed
+
         kinds: dict[str, int] = {}
         for o in outs:
             if not o.passed:
@@ -123,13 +155,19 @@ def main() -> int:
             "n": len(working),
             "broke": len(broke),
             "break_rate": len(broke) / len(working),
+            "renamed_the_function": len(renamed),
+            "rename_rate": len(renamed) / len(working),
+            "broke_the_logic": len(logic),
+            "logic_break_rate": len(logic) / len(working),
             "failure_kinds": kinds,
             "mean_chars": mean_len,
             "mean_chars_before": sum(len(s.code) for s in working) / len(working),
         }
         print(
             f"  {name:10} broke {len(broke):4}/{len(working)} "
-            f"({len(broke) / len(working):6.1%})  {kinds}  [{time.time() - t0:.0f}s]"
+            f"({len(broke) / len(working):6.1%})  "
+            f"[renamed the function {len(renamed)}, broke the logic {len(logic)}]  "
+            f"[{time.time() - t0:.0f}s]"
         )
 
     print("\n" + "=" * 72)
@@ -138,6 +176,19 @@ def main() -> int:
     for name in REFACTORS:
         s = summary[name]
         print(f"  {name:11} {s['break_rate']:6.1%}  {'#' * round(60 * s['break_rate'])}")
+
+    header = f"{'refactor':12} {'broke':>7} {'renamed fn':>11} {'broke logic':>12}"
+    print("\n  " + header)
+    for name in REFACTORS:
+        v = summary[name]
+        print(
+            f"  {name:12} {v['break_rate']:7.1%} {v['rename_rate']:11.1%} "
+            f"{v['logic_break_rate']:12.1%}"
+        )
+    print(
+        "\n  'renamed fn' is the model renaming the function it was asked to leave alone.\n"
+        "  The logic is intact and every caller is broken - an API break, not a bug."
+    )
 
     rates = {k: v["break_rate"] for k, v in summary.items()}
     safest, riskiest = min(rates, key=rates.get), max(rates, key=rates.get)
