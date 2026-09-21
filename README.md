@@ -19,6 +19,8 @@ Everything runs locally against Ollama. No API keys, no hosted models.
 
 ## 01 · Where does a 5x bigger model actually pay?
 
+[`projects/01_coder_size_curve/`](projects/01_coder_size_curve/)
+
 qwen2.5-coder at 3B and 14B — same family, same recipe, so the comparison is clean.
 250 MBPP tasks, temperature 0.
 
@@ -42,6 +44,8 @@ you. The aggregate score cannot tell you that.
 
 ## 02 · How many rounds of self-debugging are worth paying for?
 
+[`projects/02_self_debug_ceiling/`](projects/02_self_debug_ceiling/)
+
 Give the model its failing test output and let it try again, up to five times. 150 tasks.
 Unlike a revision loop judged by another model, a failing assert is ground truth.
 
@@ -62,6 +66,8 @@ times did not change that. Every agent looping five times on test feedback is pa
 times the tokens for the value of two.
 
 ## 03 · Do model-written tests catch anything?
+
+[`projects/03_tests_that_kill/`](projects/03_tests_that_kill/)
 
 "Write tests for this" judged by mutation kill rate rather than coverage — a test that
 calls every line and asserts nothing has 100% coverage and catches nothing. 150 tasks.
@@ -94,6 +100,8 @@ three-assert benchmarks as it does about the model. See
 
 ## 04 · Repair the failure, or throw it away and start over?
 
+[`projects/04_repair_vs_rewrite/`](projects/04_repair_vs_rewrite/)
+
 Agents almost always patch. The alternative — discard it and regenerate from the task — is
 rarely tried and almost never compared. Both arms start from the same failed attempt and
 get exactly one more call. 250 tasks, 60 first-attempt failures.
@@ -116,6 +124,8 @@ the first attempt is very nearly all you get.**
 That is worth knowing before building a agent architecture around a retry loop.
 
 ## 07 · Code → prose → code. What survives the roundtrip?
+
+[`projects/07_docstring_roundtrip/`](projects/07_docstring_roundtrip/)
 
 Ask the model to describe the reference solution, hand that description to a fresh context,
 and ask it to implement the function. Compare against implementing from MBPP's own task
@@ -146,6 +156,8 @@ evaluate that implementation.** It is downstream of the code, so it agrees with 
 construction.
 
 ## 05 · The same task, asked five ways
+
+[`projects/05_prompt_shape_variance/`](projects/05_prompt_shape_variance/)
 
 Five phrasings carrying identical information. Same model, same temperature, same tasks,
 same execution rule — the only variable is wording. 200 tasks.
@@ -183,6 +195,8 @@ is extracted from the response. Between them they bracket how much of a publishe
 belongs to the harness rather than the model.
 
 ## 06 · The temperature you benchmark at is not the one you should deploy at
+
+[`projects/06_temperature_pass_at_k/`](projects/06_temperature_pass_at_k/)
 
 60 tasks, 5 samples each, scored with the unbiased pass@k estimator.
 
