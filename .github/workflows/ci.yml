@@ -30,7 +30,9 @@ jobs:
 
       - name: Every project is runnable and documented
         # Catches the failure this repo actually shipped with: a project folder
-        # containing code and no README, and a results file that was a smoke test.
+        # containing code and no README. The stronger check - that a results file is a
+        # real run and not a smoke test - lives in tests/test_projects.py, which can
+        # read the sample size out of the JSON.
         run: |
           fail=0
           for d in projects/*/; do
