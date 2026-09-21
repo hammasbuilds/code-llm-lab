@@ -55,19 +55,19 @@ reached once through test suites and once through docstrings.
 
 | | Project | Tasks | The finding |
 |---|---|---:|---|
-| 01 | [Where a 5x bigger model actually pays](projects/01_coder_size_curve/) | 250 | Of the 198 tasks either size can solve, the 3B already handles **75.8%**. The 14B's entire advantage is 48 tasks — and it *loses* 8 the 3B gets right, which bounds how much of the 16-point gap is signal. |
+| 01 | [Where a 5x bigger model actually pays](projects/01_coder_size_curve/) | 972 | Of the 817 tasks either size can solve, the 3B already handles **74.8%**. The 14B's advantage is 206 tasks — and it *loses* 36 the 3B gets right, a **3.7%** regression rate that held steady from the 250-task run rather than shrinking into noise. |
 | 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 150 | Rounds 1–2 captured **100%** of everything the loop ever achieved. Rounds 3–5 added nothing at all, for 60% of the compute. |
 | 03 | [Do model-written tests catch anything](projects/03_tests_that_kill/) | 150 | From the implementation, generated suites kill **93.4%** of mutants against MBPP's own 85.0%. From the task description, only **16%** of suites even agree with the reference — a measurement of the spec, not the model. |
-| 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 250 | **93.3%** of first-attempt failures survive both strategies. The gap between 1 and 3 out of 60 is two numbers inside the noise, and reporting it as a result would be wrong. |
+| 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 972 | **81.7%** of first-attempt failures survive both strategies, and the two are indistinguishable (14 vs 17 discordant, p=0.72). They fix nearly **disjoint** sets though — only 4 of 35 overlap — so running both recovers 18.3% where either alone recovers ~10%. |
 | 05 | [The same task, asked five ways](projects/05_prompt_shape_variance/) | 200 | **24%** of tasks are solved under one phrasing and failed under another. The 7.5-point spread looks like noise you could average away; the flip rate says the per-task signal is much weaker than any single score suggests. |
 | 06 | [The temperature you benchmark at is not the one you deploy at](projects/06_temperature_pass_at_k/) | 60 | The ordering flips: T=0 wins pass@1, T=0.7 wins pass@5 by **5 points**. Benchmark at T=0, deploy an agent that samples five times, and you leave that unclaimed. |
 | 07 | [Code → prose → code](projects/07_docstring_roundtrip/) | 200 | The roundtrip beats MBPP's own task description by **32.5 points** — the opposite of the expected direction, because the description was written with the answer in view. It is a leak, not a spec. |
-| 08 | [Ask a model to review correct code](projects/08_review_false_alarms/) | 250 | Asked to review MBPP's own reference solutions, it flags **38.8%** of them - against 43.3% recall on real bugs. Precision is 44.8%, so more than half of everything it raises is invented. |
+| 08 | [Ask a model to review correct code](projects/08_review_false_alarms/) | 972 | Asked to review MBPP's own reference solutions, it flags **37.3%** of them — against 45.5% recall on real bugs. It flags unfamiliar correct code at **1.7×** the rate of its own correct code (37.3% vs 21.6%). Precision 34.0%. |
 | 09 | [Ask the model how sure it is](projects/09_confidence_gating/) | 250 | The confidence score took **two distinct values** across 249 tasks, separating right from wrong answers by 0.06 points. Every threshold from 0 to 100 gives precision identical to not gating at all. |
 | 10 | [Bury the task in unrelated examples](projects/10_context_dilution/) | 200 | A **16x longer prompt** moves pass@1 by at most 3.5 points, and not monotonically. There is no dilution curve at this scale - reported as a non-result rather than dressed up as a trend. |
-| 11 | [Refactor without changing behaviour](projects/11_refactor_safety/) | 250 | `rename` breaks **32.6%** of solutions and never once breaks the logic - it renames the function the tests call. `idiomatic` breaks at the same rate, but **11.1%** are genuine silent logic changes. |
+| 11 | [Refactor without changing behaviour](projects/11_refactor_safety/) | 972 | `rename` breaks **31.8%** of solutions and 247 of those 248 are just the function being renamed. `idiomatic` breaks at the same rate, but **9.2%** are genuine silent logic changes — and it is the only refactor that makes code shorter. |
 | 12 | [What it reaches for when nobody asks](projects/12_security_defaults/) | 12 | Three of twelve security tasks fail **5 times out of 5** unprompted - pickle, MD5, path traversal - while SQL injection is handled correctly unasked. Specific lessons, not a posture. |
-| 13 | [Which part of an error message does the work](projects/13_feedback_content/) | 250 | The **assertion text is the whole signal**: 1.7% to 10.0%. The traceback is worth nothing at all (1.7%), and adding expected/actual values fixes exactly the same six tasks the assertion already fixed. |
+| 13 | [Which part of an error message does the work](projects/13_feedback_content/) | 972 | The **assertion text is the signal**: 7.9% → **15.2%**, p=0.0013 paired. Saying only "it failed" is worth nothing (p=1.00), and adding expected/actual values *costs* five fixes. Across all five framings only 17.8% of failures are ever fixed. |
 | 14 | [Tell it not to do something](projects/14_constraint_compliance/) | 150 | Compliance looks high and most of it was free: `no_recursion` reads 99% against a **97% baseline**. Only `type_hints` does real work (0% to 100%). Accuracy costs under 8 points throughout. |
 | 15 | [Eight solutions in one response](projects/15_batch_vs_single/) | 160 | Monotonic, unlike the dilution result: batching eight tasks costs **9.4 points**, and 8 of 160 solutions were never emitted at all. The *middle* positions score worst, not the end. |
 | 16 | [Is a code-tuned model worth it](projects/16_coder_vs_generalist/) | 250 | The coder advantage **grows** with scale - +8.8pp at 3B, +11.2pp at 14B - refuting the hypothesis this was written to test. The branch predicting a shrinking gap never fired. |
@@ -80,27 +80,31 @@ All twenty are built. **Every number above came out of a run on this machine**, 
 mirrored in that project's `results.json` alongside the model, sample size, temperature and
 seeds that produced it.
 
-### 01 · Where does a 5x bigger model actually pay? — 250 tasks
+### 01 · Where does a 5x bigger model actually pay? — 972 tasks
 
 qwen2.5-coder at 3B and 14B — same family, same recipe, so the comparison is clean.
 
 ```
-3B  pass@1 : 60.0%
-14B pass@1 : 76.0%
+3B  pass@1 : 62.9%
+14B pass@1 : 80.3%
 
-both         142   56.8%   the 14B bought nothing here
-big_only      48   19.2%   this is what the size is for
-small_only     8    3.2%   the 14B loses these
-neither       52   20.8%
+both         575   59.2%   the 14B bought nothing here
+big_only     206   21.2%   this is what the size is for
+small_only    36    3.7%   the 14B loses these
+neither      155   15.9%
 ```
 
-**Of the 198 tasks either size can solve, the 3B already handles 75.8%.** The 14B's entire
-advantage is 48 tasks — and it *loses* 8 the 3B gets right, which bounds how much of the
-16-point gap is signal rather than noise.
+**Of the 817 tasks either size can solve, the 3B already handles 74.8%.** The 14B's entire
+advantage is 206 tasks — and it *loses* 36 the 3B gets right.
 
-If your workload looks like MBPP, the question is not "which model is better" but "is 19.2%
-of tasks worth 5x the weights", and the answer depends on what those 48 tasks are worth to
+If your workload looks like MBPP, the question is not "which model is better" but "is 21.2%
+of tasks worth 5x the weights", and the answer depends on what those 206 tasks are worth to
 you. The aggregate score cannot tell you that.
+
+The 36 regressions are the number that survived scaling the run up. At 250 tasks this
+README called the 8 the 3B won "the noise floor"; the rate barely moved, 3.2% to 3.7%.
+**Roughly one task in 27 gets worse when you scale this family up 5x**, and that is
+invisible in the 17.4-point headline gap.
 
 - **Stack:** Ollama, `qwen2.5-coder:3b` and `:14b`, MBPP
 - **In:** a task and a model size
@@ -172,28 +176,31 @@ asserts are.
 - **Out:** kill rate against 8 single-point mutants per task, scored **against MBPP's own
   suite on the same mutants**, so the comparison is like for like
 
-### 04 · Repair the failure, or throw it away and start over? — 250 tasks
+### 04 · Repair the failure, or throw it away and start over? — 972 tasks
 
 Agents almost always patch. The alternative — discard it and regenerate from the task — is
 rarely tried and almost never compared. Both arms start from the same failed attempt and
-get exactly one more call. 60 first-attempt failures.
+get exactly one more call. 191 first-attempt failures.
 
 ```
-repair  fixed :  1  ( 1.7%)
-rewrite fixed :  3  ( 5.0%)
-neither       : 56  (93.3%)
+repair  fixed :  18  ( 9.4%)
+rewrite fixed :  21  (11.0%)
+both          :   4
+neither       : 156  (81.7%)
 ```
 
-**Neither works.** 93.3% of the failures survive both strategies. The gap between 1 and 3
-out of 60 is not a result — it is two numbers inside the noise, and reporting "rewrite beats
-repair by 3.3 points" from them would be wrong.
+**Most failures survive both.** The 1.6-point gap is still not a result: paired, it is 14
+tasks repair fixed alone against 17 rewrite fixed alone, an exact McNemar p of **0.72**.
+Four times the data turned an anecdote into a clear negative rather than into a winner.
 
-The real finding is the 93.3%, and it agrees with project 02 from a different direction:
-the tasks a model fails on its first attempt are mostly tasks it *cannot do*, not tasks it
-is one nudge away from. Retry strategies are a rounding error on MBPP. **What you get on
-the first attempt is very nearly all you get.**
+What the bigger denominator did show is that **the two fix almost disjoint sets** — only 4
+of 35 successes overlap. Either alone recovers about a tenth of the failures; both together
+recover 18.3%.
 
-That is worth knowing before building an agent architecture around a retry loop.
+So the agreement with project 02 needs qualifying. The tasks a model fails first time are
+mostly tasks it *cannot do* — 81.7% survive everything — but a retry loop is not quite the
+rounding error the 250-task run made it look, provided you are willing to pay for two
+differently-framed calls instead of one.
 
 - **Stack:** Ollama, `qwen2.5-coder:14b`, MBPP
 - **In:** one failed attempt, and a strategy — patch it, or bin it and start again
@@ -351,7 +358,7 @@ ollama pull qwen2.5-coder:14b
 ollama pull qwen2.5-coder:3b        # project 01 only
 
 uv run pytest -q                                            # 59 tests, no GPU needed
-python projects/01_coder_size_curve/run.py --limit 250       # reproduces the numbers above
+python projects/01_coder_size_curve/run.py --limit 972       # reproduces the numbers above
 ```
 
 MBPP and HumanEval load from the local Hugging Face cache; nothing downloads at runtime.
@@ -416,10 +423,11 @@ on every push.
 - **MBPP is mostly short functions.** The self-debug ceiling in particular may look
   different on tasks where the first attempt is closer to right.
 - **Temperature 0 throughout**, except project 06, which is about temperature.
-- **Sample sizes are 60–250 tasks**, chosen to fit an overnight GPU window. Large enough to
-  separate the effects reported, not large enough for small differences — which is why
-  project 04 reports the 93.3% and not the 1-versus-3.
-- **It contains seven projects, and that is the whole set.** The related work lives in
+- **Sample sizes vary by project**, chosen to fit the GPU window: the arms that cost a full
+  generation pass per task are capped, the rest run all 972 MBPP tasks. Where a difference
+  is inside the noise it is reported as such — project 04 reports the 81.7% and the p of
+  0.72, not the 9.4-versus-11.0.
+- **It contains twenty projects, and that is the whole set.** The related work lives in
   separate repos: [mbpp-false-accepts](https://github.com/hammasbuilds/mbpp-false-accepts),
   [code-eval-harness](https://github.com/hammasbuilds/code-eval-harness),
   [swebench-localization](https://github.com/hammasbuilds/swebench-localization).

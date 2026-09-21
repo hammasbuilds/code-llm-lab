@@ -3,7 +3,7 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
-  "n": 250,
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": [
@@ -13,68 +13,154 @@
     4,
     5
   ],
-  "python": "3.12",
-  "commit": "d3badbd",
-  "run_at": "2026-09-21 10:53:31",
-  "first_attempt_failures": 60,
+  "python": "3.14",
+  "commit": "3d5ba30",
+  "run_at": "2026-09-21 18:41:41",
+  "first_attempt_failures": 191,
   "arms": {
     "nothing": {
-      "n": 60,
-      "fixed": 1,
-      "fix_rate": 0.016666666666666666,
-      "mean_prompt_chars": 426.3666666666667
+      "n": 191,
+      "fixed": 15,
+      "fix_rate": 0.07853403141361257,
+      "mean_prompt_chars": 425.5445026178011
     },
     "boolean": {
-      "n": 60,
-      "fixed": 2,
-      "fix_rate": 0.03333333333333333,
-      "mean_prompt_chars": 454.3666666666667
+      "n": 191,
+      "fixed": 16,
+      "fix_rate": 0.08376963350785341,
+      "mean_prompt_chars": 453.5445026178011
     },
     "assertion": {
-      "n": 60,
-      "fixed": 6,
-      "fix_rate": 0.1,
-      "mean_prompt_chars": 510.21666666666664
+      "n": 191,
+      "fixed": 29,
+      "fix_rate": 0.1518324607329843,
+      "mean_prompt_chars": 518.3717277486911
     },
     "traceback": {
-      "n": 60,
-      "fixed": 1,
-      "fix_rate": 0.016666666666666666,
-      "mean_prompt_chars": 467.15
+      "n": 191,
+      "fixed": 18,
+      "fix_rate": 0.09424083769633508,
+      "mean_prompt_chars": 468.0994764397906
     },
     "expected": {
-      "n": 60,
-      "fixed": 6,
-      "fix_rate": 0.1,
-      "mean_prompt_chars": 548.2166666666667
+      "n": 191,
+      "fixed": 24,
+      "fix_rate": 0.1256544502617801,
+      "mean_prompt_chars": 556.3717277486911
     }
   },
   "fixed_by": {
     "nothing": [
-      "mbpp/6"
+      "mbpp/339",
+      "mbpp/340",
+      "mbpp/341",
+      "mbpp/345",
+      "mbpp/371",
+      "mbpp/379",
+      "mbpp/380",
+      "mbpp/409",
+      "mbpp/545",
+      "mbpp/569",
+      "mbpp/6",
+      "mbpp/644",
+      "mbpp/737",
+      "mbpp/836",
+      "mbpp/850"
     ],
     "boolean": [
       "mbpp/157",
-      "mbpp/6"
+      "mbpp/341",
+      "mbpp/345",
+      "mbpp/371",
+      "mbpp/379",
+      "mbpp/380",
+      "mbpp/409",
+      "mbpp/452",
+      "mbpp/469",
+      "mbpp/545",
+      "mbpp/569",
+      "mbpp/6",
+      "mbpp/644",
+      "mbpp/737",
+      "mbpp/836",
+      "mbpp/850"
     ],
     "assertion": [
       "mbpp/160",
       "mbpp/228",
       "mbpp/236",
+      "mbpp/259",
+      "mbpp/277",
+      "mbpp/289",
+      "mbpp/295",
+      "mbpp/315",
+      "mbpp/340",
+      "mbpp/341",
+      "mbpp/345",
+      "mbpp/371",
+      "mbpp/379",
+      "mbpp/380",
+      "mbpp/409",
+      "mbpp/452",
+      "mbpp/545",
+      "mbpp/569",
       "mbpp/6",
+      "mbpp/610",
+      "mbpp/688",
       "mbpp/70",
-      "mbpp/87"
+      "mbpp/737",
+      "mbpp/755",
+      "mbpp/776",
+      "mbpp/836",
+      "mbpp/850",
+      "mbpp/87",
+      "mbpp/880"
     ],
     "traceback": [
-      "mbpp/6"
+      "mbpp/339",
+      "mbpp/340",
+      "mbpp/341",
+      "mbpp/345",
+      "mbpp/371",
+      "mbpp/379",
+      "mbpp/380",
+      "mbpp/409",
+      "mbpp/452",
+      "mbpp/545",
+      "mbpp/569",
+      "mbpp/6",
+      "mbpp/644",
+      "mbpp/688",
+      "mbpp/737",
+      "mbpp/755",
+      "mbpp/836",
+      "mbpp/850"
     ],
     "expected": [
       "mbpp/160",
       "mbpp/228",
       "mbpp/236",
+      "mbpp/315",
+      "mbpp/340",
+      "mbpp/341",
+      "mbpp/345",
+      "mbpp/363",
+      "mbpp/379",
+      "mbpp/380",
+      "mbpp/409",
+      "mbpp/452",
+      "mbpp/545",
+      "mbpp/569",
       "mbpp/6",
+      "mbpp/688",
       "mbpp/70",
-      "mbpp/87"
+      "mbpp/737",
+      "mbpp/755",
+      "mbpp/776",
+      "mbpp/836",
+      "mbpp/850",
+      "mbpp/87",
+      "mbpp/880"
     ]
   }
 }

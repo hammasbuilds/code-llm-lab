@@ -3,38 +3,38 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
-  "n": 250,
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": null,
-  "python": "3.12",
-  "commit": "d0566f4",
-  "run_at": "2026-09-21 08:43:06",
+  "python": "3.14",
+  "commit": "3d5ba30",
+  "run_at": "2026-09-21 20:19:28",
   "arms": {
     "buggy": {
-      "n": 60,
-      "flagged": 26,
-      "cleared": 34,
-      "unparsed": 0,
-      "flag_rate": 0.43333333333333335
+      "n": 191,
+      "flagged": 87,
+      "cleared": 96,
+      "unparsed": 8,
+      "flag_rate": 0.45549738219895286
     },
     "passing": {
-      "n": 190,
-      "flagged": 32,
-      "cleared": 158,
-      "unparsed": 0,
-      "flag_rate": 0.16842105263157894
+      "n": 781,
+      "flagged": 169,
+      "cleared": 608,
+      "unparsed": 4,
+      "flag_rate": 0.21638924455825864
     },
     "reference": {
-      "n": 250,
-      "flagged": 97,
-      "cleared": 153,
-      "unparsed": 0,
-      "flag_rate": 0.388
+      "n": 972,
+      "flagged": 363,
+      "cleared": 601,
+      "unparsed": 8,
+      "flag_rate": 0.3734567901234568
     }
   },
-  "recall_on_buggy": 0.43333333333333335,
-  "false_alarm_rate_passing": 0.16842105263157894,
-  "false_alarm_rate_reference": 0.388,
-  "precision": 0.4482758620689655
+  "recall_on_buggy": 0.45549738219895286,
+  "false_alarm_rate_passing": 0.21638924455825864,
+  "false_alarm_rate_reference": 0.3734567901234568,
+  "precision": 0.33984375
 }

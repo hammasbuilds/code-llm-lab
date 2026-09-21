@@ -1,0 +1,485 @@
+########## 13_feedback_content --limit 972 17:09:12
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  first attempts (cached from project 01)...
+    solve: 50/972
+    solve: 100/972
+    solve: 150/972
+    solve: 200/972
+    solve: 250/972
+    solve: 300/972
+    solve: 350/972
+    solve: 400/972
+    solve: 450/972
+    solve: 500/972
+    solve: 550/972
+    solve: 600/972
+    solve: 650/972
+    solve: 700/972
+    solve: 750/972
+    solve: 800/972
+    solve: 850/972
+    solve: 900/972
+    solve: 950/972
+    solve: 972/972
+  191 first-attempt failures  [1703s]
+
+  collecting the failing assertion for each...
+    nothing: 50/191
+    nothing: 100/191
+    nothing: 150/191
+    nothing: 191/191
+  nothing    fixed   15/191 (  7.9%)  prompt    426 chars  [702s]
+    boolean: 50/191
+    boolean: 100/191
+    boolean: 150/191
+    boolean: 191/191
+  boolean    fixed   16/191 (  8.4%)  prompt    454 chars  [1015s]
+    assertion: 50/191
+    assertion: 100/191
+    assertion: 150/191
+    assertion: 191/191
+  assertion  fixed   29/191 ( 15.2%)  prompt    518 chars  [498s]
+    traceback: 50/191
+    traceback: 100/191
+    traceback: 150/191
+    traceback: 191/191
+  traceback  fixed   18/191 (  9.4%)  prompt    468 chars  [696s]
+    expected: 50/191
+    expected: 100/191
+    expected: 150/191
+    expected: 191/191
+  expected   fixed   24/191 ( 12.6%)  prompt    556 chars  [893s]
+
+============================================================================
+FEEDBACK CONTENT - 191 first-attempt failures, qwen2.5-coder:14b
+============================================================================
+  nothing       7.9%  #####
+  boolean       8.4%  #####
+  assertion    15.2%  #########
+  traceback     9.4%  ######
+  expected     12.6%  ########
+
+  best  : assertion at 15.2%
+  worst : nothing at 7.9%
+  spread: 7.3%
+
+  richest feedback over no feedback at all : +1.6%
+  context it costs to carry the traceback  : +43 chars
+
+wrote D:\github\code-llm-lab\projects\13_feedback_content\results.json
+########## 13_feedback_content exit=0 18:41:41
+########## 04_repair_vs_rewrite --limit 972 18:41:41
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  first attempt...
+    first: 50/972
+    first: 100/972
+    first: 150/972
+    first: 200/972
+    first: 250/972
+    first: 300/972
+    first: 350/972
+    first: 400/972
+    first: 450/972
+    first: 500/972
+    first: 550/972
+    first: 600/972
+    first: 650/972
+    first: 700/972
+    first: 750/972
+    first: 800/972
+    first: 850/972
+    first: 900/972
+    first: 950/972
+    first: 972/972
+  first-attempt pass@1: 80.3%  (191 failures to work with)  [17s]
+    repair: 50/191
+    repair: 100/191
+    repair: 150/191
+    repair: 191/191
+    rewrite: 50/191
+    rewrite: 100/191
+    rewrite: 150/191
+    rewrite: 191/191
+
+====================================================================
+REPAIR vs REWRITE - 191 failed first attempts, one retry each
+====================================================================
+  repair  fixed :   18  (  9.4%)
+  rewrite fixed :   21  ( 11.0%)
+  difference    : -1.6%
+
+  both worked   :    4  (  2.1%)
+  only repair   :   14  (  7.3%)
+  only rewrite  :   17  (  8.9%)
+  neither       :  156  ( 81.7%)
+
+  Trying both fixes 18.3% - +7.3% over the better single strategy, for twice the calls.
+
+wrote D:\github\code-llm-lab\projects\04_repair_vs_rewrite\results.json
+########## 04_repair_vs_rewrite exit=0 19:03:17
+########## 01_coder_size_curve --limit 972 19:03:17
+mbpp: 972 tasks
+
+  generating with qwen2.5-coder:3b
+    qwen2.5-coder:3b: 50/972
+    qwen2.5-coder:3b: 100/972
+    qwen2.5-coder:3b: 150/972
+    qwen2.5-coder:3b: 200/972
+    qwen2.5-coder:3b: 250/972
+    qwen2.5-coder:3b: 300/972
+    qwen2.5-coder:3b: 350/972
+    qwen2.5-coder:3b: 400/972
+    qwen2.5-coder:3b: 450/972
+    qwen2.5-coder:3b: 500/972
+    qwen2.5-coder:3b: 550/972
+    qwen2.5-coder:3b: 600/972
+    qwen2.5-coder:3b: 650/972
+    qwen2.5-coder:3b: 700/972
+    qwen2.5-coder:3b: 750/972
+    qwen2.5-coder:3b: 800/972
+    qwen2.5-coder:3b: 850/972
+    qwen2.5-coder:3b: 900/972
+    qwen2.5-coder:3b: 950/972
+    qwen2.5-coder:3b: 972/972
+    972 generations in 1417s
+    pass@1: 611/972  (62.9%)
+
+  generating with qwen2.5-coder:14b
+    qwen2.5-coder:14b: 50/972
+    qwen2.5-coder:14b: 100/972
+    qwen2.5-coder:14b: 150/972
+    qwen2.5-coder:14b: 200/972
+    qwen2.5-coder:14b: 250/972
+    qwen2.5-coder:14b: 300/972
+    qwen2.5-coder:14b: 350/972
+    qwen2.5-coder:14b: 400/972
+    qwen2.5-coder:14b: 450/972
+    qwen2.5-coder:14b: 500/972
+    qwen2.5-coder:14b: 550/972
+    qwen2.5-coder:14b: 600/972
+    qwen2.5-coder:14b: 650/972
+    qwen2.5-coder:14b: 700/972
+    qwen2.5-coder:14b: 750/972
+    qwen2.5-coder:14b: 800/972
+    qwen2.5-coder:14b: 850/972
+    qwen2.5-coder:14b: 900/972
+    qwen2.5-coder:14b: 950/972
+    qwen2.5-coder:14b: 972/972
+    972 generations in 0s
+    pass@1: 781/972  (80.3%)
+
+====================================================================
+WHERE THE SIZE GOES - mbpp, 972 tasks
+====================================================================
+  3B  pass@1 : 62.9%
+  14B pass@1 : 80.3%
+  difference : +17.5%
+
+  both         575   59.2%  ########################
+  big_only     206   21.2%  ########
+  small_only    36    3.7%  #
+  neither      155   15.9%  ######
+
+  Of the 817 tasks either size can solve, the 3B already handles 74.8%.
+  The 14B's entire advantage is 206 tasks (21.2% of the benchmark).
+  It also loses 36 tasks the 3B gets right, which bounds how much of the gap is real rather than noise.
+
+wrote D:\github\code-llm-lab\projects\01_coder_size_curve\results_mbpp.json
+########## 01_coder_size_curve exit=0 19:27:43
+########## 08_review_false_alarms --limit 972 19:27:43
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  generating the code to be reviewed (cached from project 01)...
+    solve: 50/972
+    solve: 100/972
+    solve: 150/972
+    solve: 200/972
+    solve: 250/972
+    solve: 300/972
+    solve: 350/972
+    solve: 400/972
+    solve: 450/972
+    solve: 500/972
+    solve: 550/972
+    solve: 600/972
+    solve: 650/972
+    solve: 700/972
+    solve: 750/972
+    solve: 800/972
+    solve: 850/972
+    solve: 900/972
+    solve: 950/972
+    solve: 972/972
+  781 pass, 191 fail  [18s]
+
+    buggy: 50/191
+    buggy: 100/191
+    buggy: 150/191
+    buggy: 191/191
+  buggy      n= 191  flagged   87 ( 45.5%)  cleared   96  unparsed   8  [606s]
+    passing: 50/781
+    passing: 100/781
+    passing: 150/781
+    passing: 200/781
+    passing: 250/781
+    passing: 300/781
+    passing: 350/781
+    passing: 400/781
+    passing: 450/781
+    passing: 500/781
+    passing: 550/781
+    passing: 600/781
+    passing: 650/781
+    passing: 700/781
+    passing: 750/781
+    passing: 781/781
+  passing    n= 781  flagged  169 ( 21.6%)  cleared  608  unparsed   4  [1028s]
+    reference: 50/972
+    reference: 100/972
+    reference: 150/972
+    reference: 200/972
+    reference: 250/972
+    reference: 300/972
+    reference: 350/972
+    reference: 400/972
+    reference: 450/972
+    reference: 500/972
+    reference: 550/972
+    reference: 600/972
+    reference: 650/972
+    reference: 700/972
+    reference: 750/972
+    reference: 800/972
+    reference: 850/972
+    reference: 900/972
+    reference: 950/972
+    reference: 972/972
+  reference  n= 972  flagged  363 ( 37.3%)  cleared  601  unparsed   8  [1450s]
+
+========================================================================
+REVIEW FALSE ALARMS - 972 MBPP tasks, qwen2.5-coder:14b
+========================================================================
+  caught, of code that really is broken :  45.5%  (n=191)
+  flagged, of model code that passes    :  21.6%  (n=781)
+  flagged, of MBPP's own references     :  37.3%  (n=972)
+
+  precision, if you acted on every flag :  34.0%
+  (87 real bugs among 256 flags raised)
+  false alarms per real bug caught      :   1.94
+
+  A flag on passing code is scored as a false alarm here. Some of those are
+  real catches MBPP's three asserts missed - which bounds this number rather
+  than invalidating it.
+
+wrote D:\github\code-llm-lab\projects\08_review_false_alarms\results.json
+########## 08_review_false_alarms exit=0 20:19:28
+########## 11_refactor_safety --limit 972 20:19:28
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  generating the code to refactor (cached from project 01)...
+    solve: 50/972
+    solve: 100/972
+    solve: 150/972
+    solve: 200/972
+    solve: 250/972
+    solve: 300/972
+    solve: 350/972
+    solve: 400/972
+    solve: 450/972
+    solve: 500/972
+    solve: 550/972
+    solve: 600/972
+    solve: 650/972
+    solve: 700/972
+    solve: 750/972
+    solve: 800/972
+    solve: 850/972
+    solve: 900/972
+    solve: 950/972
+    solve: 972/972
+  781/972 pass and are eligible  [19s]
+
+    typehints: 50/781
+    typehints: 100/781
+    typehints: 150/781
+    typehints: 200/781
+    typehints: 250/781
+    typehints: 300/781
+    typehints: 350/781
+    typehints: 400/781
+    typehints: 450/781
+    typehints: 500/781
+    typehints: 550/781
+    typehints: 600/781
+    typehints: 650/781
+    typehints: 700/781
+    typehints: 750/781
+    typehints: 781/781
+  typehints  broke   11/781 (  1.4%)  [renamed the function 10, broke the logic 1]  [2018s]
+    rename: 50/781
+    rename: 100/781
+    rename: 150/781
+    rename: 200/781
+    rename: 250/781
+    rename: 300/781
+    rename: 350/781
+    rename: 400/781
+    rename: 450/781
+    rename: 500/781
+    rename: 550/781
+    rename: 600/781
+    rename: 650/781
+    rename: 700/781
+    rename: 750/781
+    rename: 781/781
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  rename     broke  248/781 ( 31.8%)  [renamed the function 247, broke the logic 1]  [1886s]
+    extract: 50/781
+    extract: 100/781
+    extract: 150/781
+    extract: 200/781
+    extract: 250/781
+    extract: 300/781
+    extract: 350/781
+    extract: 400/781
+    extract: 450/781
+    extract: 500/781
+    extract: 550/781
+    extract: 600/781
+    extract: 650/781
+    extract: 700/781
+    extract: 750/781
+    extract: 781/781
+  extract    broke   26/781 (  3.3%)  [renamed the function 13, broke the logic 13]  [2132s]
+    idiomatic: 50/781
+    idiomatic: 100/781
+    idiomatic: 150/781
+    idiomatic: 200/781
+    idiomatic: 250/781
+    idiomatic: 300/781
+    idiomatic: 350/781
+    idiomatic: 400/781
+    idiomatic: 450/781
+    idiomatic: 500/781
+    idiomatic: 550/781
+    idiomatic: 600/781
+    idiomatic: 650/781
+    idiomatic: 700/781
+    idiomatic: 750/781
+    idiomatic: 781/781
+  idiomatic  broke  259/781 ( 33.2%)  [renamed the function 187, broke the logic 72]  [1498s]
+
+========================================================================
+REFACTOR SAFETY - 781 working solutions, qwen2.5-coder:14b
+========================================================================
+  typehints     1.4%  #
+  rename       31.8%  ###################
+  extract       3.3%  ##
+  idiomatic    33.2%  ####################
+
+  refactor       broke  renamed fn  broke logic
+  typehints       1.4%        1.3%         0.1%
+  rename         31.8%       31.6%         0.1%
+  extract         3.3%        1.7%         1.7%
+  idiomatic      33.2%       23.9%         9.2%
+
+  'renamed fn' is the model renaming the function it was asked to leave alone.
+  The logic is intact and every caller is broken - an API break, not a bug.
+
+  safest   : typehints at 1.4%
+  riskiest : idiomatic at 33.2%
+  spread   : 31.8%
+
+  broke under at least one refactor :  393 (50.3%)
+  broke under every refactor        :    9 (1.2%)
+  <- the second group is code that was fragile to begin with; the gap between
+     them is what the choice of refactor is actually worth.
+
+wrote D:\github\code-llm-lab\projects\11_refactor_safety\results.json
+########## 11_refactor_safety exit=0 22:25:25
+########## 20_feature_regression --limit 972 22:25:25
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  working solutions to extend (cached from project 01)...
+    solve: 50/972
+    solve: 100/972
+    solve: 150/972
+    solve: 200/972
+    solve: 250/972
+    solve: 300/972
+    solve: 350/972
+    solve: 400/972
+    solve: 450/972
+    solve: 500/972
+    solve: 550/972
+    solve: 600/972
+    solve: 650/972
+    solve: 700/972
+    solve: 750/972
+    solve: 800/972
+    solve: 850/972
+    solve: 900/972
+    solve: 950/972
+    solve: 972/972
+  781/972 pass and are eligible  [37s]
+
+    validate: 50/781
+    validate: 100/781
+    validate: 150/781
+    validate: 200/781
+########## RESUMED 04:02:28
+########## 20_feature_regression --limit 972 04:02:28
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  working solutions to extend (cached from project 01)...
+    solve: 50/972
+    solve: 100/972
+    solve: 150/972
+    solve: 200/972
+    solve: 250/972
+    solve: 300/972
+    solve: 350/972
+    solve: 400/972
+    solve: 450/972
+    solve: 500/972
+    solve: 550/972
+    solve: 600/972
+    solve: 650/972
+    solve: 700/972
+    solve: 750/972
+    solve: 800/972
+    solve: 850/972
+    solve: 900/972
+    solve: 950/972
+    solve: 972/972
+  781/972 pass and are eligible  [13s]
+
+    validate: 50/781
+    validate: 100/781
+    validate: 150/781
+    validate: 200/781
+    validate: 250/781
+    validate: 300/781
+    validate: 350/781
+    validate: 400/781
+    validate: 450/781
+    validate: 500/781
+    validate: 550/781
+    validate: 600/781
+    validate: 650/781
+    validate: 700/781
+    validate: 750/781
+    validate: 781/781
+  validate    regressed   81/781 ( 10.4%)  {'error': 80, 'fail': 1}  [2419s]
+    default: 50/781
+    default: 100/781
+    default: 150/781
+    default: 200/781
+    default: 250/781
+    default: 300/781
+    default: 350/781

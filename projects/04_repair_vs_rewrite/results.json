@@ -3,21 +3,21 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": {
     "repair": 1,
     "rewrite": 2
   },
-  "n": 250,
-  "python": "3.11",
-  "commit": "pre-provenance",
-  "run_at": "2026-09-20 07:57:30",
-  "first_attempt_failures": 60,
-  "repair_fixed": 1,
-  "rewrite_fixed": 3,
-  "both": 0,
-  "neither": 56,
+  "python": "3.14",
+  "commit": "3d5ba30",
+  "run_at": "2026-09-21 19:03:17",
+  "first_attempt_failures": 191,
+  "repair_fixed": 18,
+  "rewrite_fixed": 21,
+  "both": 4,
+  "neither": 156,
   "per_task": [
     {
       "task_id": "mbpp/5",
@@ -318,6 +318,661 @@
       "task_id": "mbpp/246",
       "repair": false,
       "rewrite": false
+    },
+    {
+      "task_id": "mbpp/254",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/259",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/260",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/275",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/276",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/277",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/289",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/295",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/303",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/304",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/305",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/306",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/308",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/310",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/311",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/312",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/313",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/315",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/323",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/324",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/326",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/328",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/339",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/340",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/341",
+      "repair": true,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/345",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/346",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/348",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/350",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/363",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/367",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/371",
+      "repair": true,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/374",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/375",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/379",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/380",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/398",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/400",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/407",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/409",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/415",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/431",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/433",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/436",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/438",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/442",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/443",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/444",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/448",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/452",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/453",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/461",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/462",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/469",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/483",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/484",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/493",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/510",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/515",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/519",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/521",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/523",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/530",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/535",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/538",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/545",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/546",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/547",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/564",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/569",
+      "repair": true,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/570",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/574",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/576",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/584",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/590",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/592",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/602",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/609",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/610",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/617",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/626",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/631",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/638",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/644",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/652",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/661",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/663",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/670",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/671",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/684",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/688",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/712",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/714",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/721",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/735",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/737",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/739",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/743",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/746",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/749",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/755",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/765",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/776",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/777",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/791",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/810",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/834",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/836",
+      "repair": true,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/838",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/849",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/850",
+      "repair": true,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/851",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/856",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/872",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/880",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/881",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/882",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/899",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/905",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/910",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/912",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/926",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/936",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/949",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/950",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/953",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/954",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/963",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/968",
+      "repair": false,
+      "rewrite": false
+    },
+    {
+      "task_id": "mbpp/971",
+      "repair": false,
+      "rewrite": true
+    },
+    {
+      "task_id": "mbpp/972",
+      "repair": false,
+      "rewrite": true
     }
   ]
 }

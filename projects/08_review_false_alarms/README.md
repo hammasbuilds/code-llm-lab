@@ -2,9 +2,10 @@
 <p align="center"><i>Ask a model to review correct code. How often does it invent a bug?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-250-blue" alt="">
-  <img src="https://img.shields.io/badge/recall%2520on%2520buggy-43.3%25-b8860b" alt="">
-  <img src="https://img.shields.io/badge/false%2520alarms%2520on%2520reference-38.8%25-b91c1c" alt="">
+  <img src="https://img.shields.io/badge/tasks-972-blue" alt="">
+  <img src="https://img.shields.io/badge/recall%2520on%2520buggy-45.5%25-b8860b" alt="">
+  <img src="https://img.shields.io/badge/false%2520alarms%2520on%2520reference-37.3%25-b91c1c" alt="">
+  <img src="https://img.shields.io/badge/precision-34.0%25-b91c1c" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
@@ -23,26 +24,33 @@ argument available.
 ## Result
 
 ```
-                 flagged     rate
-buggy             26/60     43.3%   <- what it catches
-passing           32/190    16.8%
-reference         97/250    38.8%   <- every one of these is wrong
+                  flagged      rate
+buggy            87/191      45.5%   <- what it catches
+passing         169/781      21.6%
+reference       363/972      37.3%   <- every one of these is wrong
 ```
 
-**It flags the reference solution almost as often as it flags real bugs** - 38.8% against
-43.3%. Precision across the run is **44.8%**: more than half of what it raises is noise.
+**It flags the reference solution almost as often as it flags real bugs** - 37.3% against
+45.5%. Precision across the run is **34.0%**: two thirds of what it raises is noise.
 
-A reviewer that catches four bugs in ten and invents four in ten is not a filter. As a gate
-it would reject a third of correct code; as advice it teaches people to ignore it.
+A reviewer that catches four or five bugs in ten and invents four in ten is not a filter. As
+a gate it would reject over a third of correct code; as advice it teaches people to ignore
+it.
 
-The gap between `passing` (16.8%) and `reference` (38.8%) is worth noticing on its own. Both
-are correct code. The difference is that one is the model's *own* output and the other is
-somebody else's style - and unfamiliar style reads as suspicious.
+The gap between `passing` (21.6%) and `reference` (37.3%) is the sharper result, and four
+times the data did not soften it. Both arms are correct code. The difference is that one is
+the model's *own* output and the other is somebody else's style &mdash; **unfamiliar style
+reads as suspicious, at 1.7&times; the rate.** A review tool applied to a codebase it did not
+write inherits that multiplier.
+
+Every number moved by under three points from the 250-task run, and precision fell from
+44.8% to 34.0%, entirely because the larger corpus has a lower share of buggy code to find.
+Nothing about the behaviour changed; the small run just had a friendlier denominator.
 
 ## Running it
 
 ```bash
-python run.py --limit 250
+python run.py --limit 972
 ```
 
 ## Limits
@@ -51,3 +59,9 @@ python run.py --limit 250
   [prompt-shape-variance](../05_prompt_shape_variance) makes.
 - "Has a bug" is a blunt question. A reviewer asked for specific classes of defect might
   behave very differently.
+- 20 responses across the three arms could not be parsed into a verdict and are excluded
+  from the rates rather than counted as either answer.
+- The `buggy` arm is buggy *by MBPP's three asserts*, which
+  [mbpp-false-accepts](https://github.com/hammasbuilds/mbpp-false-accepts) shows accept
+  17.6% of provably wrong programs. Some of the `passing` arm is wrong code the benchmark
+  did not catch, which makes the false-alarm rate on that arm a mild overestimate.
