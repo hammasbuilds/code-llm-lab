@@ -2,6 +2,7 @@
 <p align="center"><i>Seven things worth measuring about a local coder model, none of them its benchmark score.</i></p>
 
 <p align="center">
+  <a href="https://github.com/hammasbuilds/code-llm-lab/actions/workflows/ci.yml"><img src="https://github.com/hammasbuilds/code-llm-lab/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
   <img src="https://img.shields.io/badge/tests-15-brightgreen" alt="tests">

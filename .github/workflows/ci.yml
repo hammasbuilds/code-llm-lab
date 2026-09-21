@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          # No uv.lock is committed, and the default glob (**/uv.lock) makes
+          # setup-uv fail outright when it matches nothing.
+          cache-dependency-glob: "**/pyproject.toml"
+      - run: uv sync --all-groups
+
+      - name: Lint
+        run: |
+          uv run ruff check shared tests projects
+          uv run ruff format --check shared tests
+
+      - name: Test
+        # No network and no model on purpose. Every test runs on hand-written code,
+        # so neither a Hugging Face outage nor a missing GPU can redden the build.
+        run: uv run pytest -q
+
+      - name: Every project is runnable and documented
+        # Catches the failure this repo actually shipped with: a project folder
+        # containing code and no README, and a results file that was a smoke test.
+        run: |
+          fail=0
+          for d in projects/*/; do
+            [ -f "$d/run.py" ]    || { echo "::error::$d has no run.py";    fail=1; }
+            [ -f "$d/README.md" ] || { echo "::error::$d has no README.md"; fail=1; }
+            ls "$d"results*.json >/dev/null 2>&1 || { echo "::error::$d has no results"; fail=1; }
+          done
+          exit $fail
