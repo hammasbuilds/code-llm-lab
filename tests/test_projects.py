@@ -222,3 +222,90 @@ def test_committed_result_is_not_a_smoke_test(path):
 
     n = json.loads(path.read_text(encoding="utf-8"))["n"]
     assert n >= MIN_N, f"{path.parent.name} reports n={n}; that is a smoke test, not a result"
+
+
+# --- the results are internally consistent -------------------------------------------
+#
+# Every headline in the README is derived from these files, so a file that contradicts
+# itself means a published number is wrong. These check the arithmetic each project's
+# claim rests on, without hardcoding the README's text - which would only break whenever
+# a run is repeated.
+
+
+def _load(rel: str) -> dict:
+    import json
+
+    return json.loads((Path(__file__).resolve().parent.parent / "projects" / rel).read_text())
+
+
+def test_01_buckets_partition_the_benchmark():
+    d = _load("01_coder_size_curve/results_mbpp.json")
+    b = {k: set(v) for k, v in d["buckets"].items()}
+    assert sum(len(v) for v in b.values()) == d["n"]
+    # The headline is "the 3B already handles 75.8% of what either size can solve", which
+    # is only true if the buckets are disjoint.
+    for x, y in [("both", "big_only"), ("both", "small_only"), ("big_only", "small_only")]:
+        assert not b[x] & b[y], f"{x} and {y} overlap"
+    small = len(b["both"]) + len(b["small_only"])
+    big = len(b["both"]) + len(b["big_only"])
+    assert abs(small / d["n"] - d["pass_at_1"]["qwen2.5-coder:3b"]) < 1e-9
+    assert abs(big / d["n"] - d["pass_at_1"]["qwen2.5-coder:14b"]) < 1e-9
+
+
+def test_02_cumulative_matches_the_per_round_gains():
+    d = _load("02_self_debug_ceiling/results_mbpp.json")
+    rounds = d["per_round_newly_solved"]
+    assert len(rounds) == d["rounds"]
+    for i, cum in enumerate(d["cumulative_pass"]):
+        assert abs(cum - sum(rounds[: i + 1]) / d["n"]) < 1e-9
+    assert sum(rounds) <= d["n"]
+
+
+def test_03_kill_counts_cannot_exceed_the_mutants():
+    d = _load("03_tests_that_kill/results.json")
+    for arm, a in d["arms"].items():
+        assert a["suites"] == d["n"], arm
+        assert abs(a["validity"] - a["valid"] / a["suites"]) < 1e-9, arm
+        assert a["scored"] <= a["valid"], arm
+        assert a["model_killed"] <= a["mutants"], arm
+        assert a["mbpp_killed"] <= a["mutants"], arm
+
+
+def test_04_arms_and_neither_account_for_every_failure():
+    d = _load("04_repair_vs_rewrite/results.json")
+    f = d["first_attempt_failures"]
+    assert len(d["per_task"]) == f
+    union = d["repair_fixed"] + d["rewrite_fixed"] - d["both"]
+    # The headline is the 93.3% that survived both arms.
+    assert union + d["neither"] == f
+    assert d["both"] <= min(d["repair_fixed"], d["rewrite_fixed"])
+
+
+def test_05_flip_count_is_the_gap_between_any_and_all():
+    d = _load("05_prompt_shape_variance/results.json")
+    assert d["solved_by_all"] <= d["solved_by_any"] <= d["n"]
+    assert d["flipped"] == d["solved_by_any"] - d["solved_by_all"]
+    vals = list(d["pass_at_1"].values())
+    assert abs(d["spread"] - (max(vals) - min(vals))) < 1e-9
+
+
+def test_06_pass_at_k_rises_with_k_and_t0_is_flat():
+    d = _load("06_temperature_pass_at_k/results.json")
+    for t, row in d["pass_at_k"].items():
+        ks = sorted(row, key=int)
+        vals = [row[k] for k in ks]
+        assert vals == sorted(vals), f"T={t} pass@k is not monotonic in k"
+        assert d["mean_distinct_samples"][t] <= d["samples"]
+    # The mechanism behind the whole finding: at T=0 every sample is the same string, so
+    # pass@k cannot rise with k however large k gets.
+    t0 = d["pass_at_k"]["0.0"]
+    assert len(set(t0.values())) == 1
+    assert d["mean_distinct_samples"]["0.0"] == 1.0
+
+
+def test_07_the_two_arms_differ_by_exactly_gained_minus_lost():
+    d = _load("07_docstring_roundtrip/results.json")
+    n = d["n"]
+    gained, lost = len(d["gained_in_roundtrip"]), len(d["lost_in_roundtrip"])
+    assert not set(d["gained_in_roundtrip"]) & set(d["lost_in_roundtrip"])
+    assert abs((d["roundtrip_pass"] - d["direct_pass"]) * n - (gained - lost)) < 1e-6

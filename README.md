@@ -5,7 +5,7 @@
   <a href="https://github.com/hammasbuilds/code-llm-lab/actions/workflows/ci.yml"><img src="https://github.com/hammasbuilds/code-llm-lab/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
-  <img src="https://img.shields.io/badge/tests-52-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-59-brightgreen" alt="tests">
   <img src="https://img.shields.io/badge/gpu-1x%20RTX%205000-lightgrey" alt="gpu">
 </p>
 
@@ -227,7 +227,7 @@ construction.
 
 ---
 
-## All ten, at a glance
+## All seven, at a glance
 
 | # | Project | Headline |
 |---|---|---|
