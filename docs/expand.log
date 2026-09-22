@@ -611,3 +611,253 @@ mbpp: 972 tasks x 5 prompt shapes, model qwen2.5-coder:14b
     plain: 100/972
     plain: 150/972
     plain: 200/972
+    plain: 250/972
+    plain: 300/972
+    plain: 350/972
+    plain: 400/972
+    plain: 450/972
+    plain: 500/972
+    plain: 550/972
+    plain: 600/972
+    plain: 650/972
+    plain: 700/972
+    plain: 750/972
+    plain: 800/972
+    plain: 850/972
+    plain: 900/972
+    plain: 950/972
+    plain: 972/972
+  plain      pass@1  80.6%   [2469s]
+    docstring: 50/972
+    docstring: 100/972
+    docstring: 150/972
+    docstring: 200/972
+    docstring: 250/972
+    docstring: 300/972
+    docstring: 350/972
+    docstring: 400/972
+    docstring: 450/972
+    docstring: 500/972
+    docstring: 550/972
+    docstring: 600/972
+    docstring: 650/972
+    docstring: 700/972
+    docstring: 750/972
+    docstring: 800/972
+    docstring: 850/972
+    docstring: 900/972
+########## RESUMED-2 10:15:50
+########## 05_prompt_shape_variance --limit 972 10:15:50
+mbpp: 972 tasks x 5 prompt shapes, model qwen2.5-coder:14b
+
+    plain: 50/972
+    plain: 100/972
+    plain: 150/972
+    plain: 200/972
+    plain: 250/972
+    plain: 300/972
+    plain: 350/972
+    plain: 400/972
+    plain: 450/972
+    plain: 500/972
+    plain: 550/972
+    plain: 600/972
+    plain: 650/972
+    plain: 700/972
+    plain: 750/972
+    plain: 800/972
+    plain: 850/972
+    plain: 900/972
+    plain: 950/972
+    plain: 972/972
+  plain      pass@1  80.6%   [13s]
+    docstring: 50/972
+    docstring: 100/972
+    docstring: 150/972
+    docstring: 200/972
+    docstring: 250/972
+    docstring: 300/972
+    docstring: 350/972
+    docstring: 400/972
+    docstring: 450/972
+    docstring: 500/972
+    docstring: 550/972
+    docstring: 600/972
+    docstring: 650/972
+    docstring: 700/972
+    docstring: 750/972
+    docstring: 800/972
+    docstring: 850/972
+    docstring: 900/972
+    docstring: 950/972
+    docstring: 972/972
+  docstring  pass@1  78.5%   [256s]
+    comment: 50/972
+    comment: 100/972
+    comment: 150/972
+    comment: 200/972
+    comment: 250/972
+    comment: 300/972
+    comment: 350/972
+    comment: 400/972
+    comment: 450/972
+    comment: 500/972
+    comment: 550/972
+    comment: 600/972
+    comment: 650/972
+    comment: 700/972
+    comment: 750/972
+    comment: 800/972
+    comment: 850/972
+    comment: 900/972
+    comment: 950/972
+    comment: 972/972
+  comment    pass@1  80.1%   [2488s]
+    signature: 50/972
+    signature: 100/972
+    signature: 150/972
+    signature: 200/972
+    signature: 250/972
+    signature: 300/972
+    signature: 350/972
+    signature: 400/972
+########## 05_prompt_shape_variance exit=137 11:12:30
+########## 07_docstring_roundtrip --limit 972 11:12:30
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  describing reference solutions...
+    describe: 50/972
+    describe: 100/972
+    describe: 150/972
+    describe: 200/972
+########## RESUMED-3 11:12:53
+########## 05_prompt_shape_variance --limit 972 11:12:53
+mbpp: 972 tasks x 5 prompt shapes, model qwen2.5-coder:14b
+
+    plain: 50/972
+    plain: 100/972
+    plain: 150/972
+    plain: 200/972
+    plain: 250/972
+    plain: 300/972
+    plain: 350/972
+    plain: 400/972
+    plain: 450/972
+    plain: 500/972
+    plain: 550/972
+    plain: 600/972
+    plain: 650/972
+    plain: 700/972
+    plain: 750/972
+    plain: 800/972
+    plain: 850/972
+    plain: 900/972
+    plain: 950/972
+    plain: 972/972
+  plain      pass@1  80.6%   [13s]
+    docstring: 50/972
+    docstring: 100/972
+    docstring: 150/972
+    docstring: 200/972
+    docstring: 250/972
+    docstring: 300/972
+    docstring: 350/972
+    docstring: 400/972
+    docstring: 450/972
+    docstring: 500/972
+    docstring: 550/972
+    docstring: 600/972
+    docstring: 650/972
+    docstring: 700/972
+    docstring: 750/972
+    docstring: 800/972
+    docstring: 850/972
+    docstring: 900/972
+    docstring: 950/972
+    docstring: 972/972
+  docstring  pass@1  78.5%   [14s]
+    comment: 50/972
+    comment: 100/972
+    comment: 150/972
+    comment: 200/972
+    comment: 250/972
+    comment: 300/972
+    comment: 350/972
+    comment: 400/972
+    comment: 450/972
+    comment: 500/972
+    comment: 550/972
+    comment: 600/972
+    comment: 650/972
+    comment: 700/972
+    comment: 750/972
+    comment: 800/972
+    comment: 850/972
+    comment: 900/972
+    comment: 950/972
+    comment: 972/972
+  comment    pass@1  80.1%   [14s]
+    signature: 50/972
+    signature: 100/972
+    signature: 150/972
+    signature: 200/972
+    signature: 250/972
+    signature: 300/972
+    signature: 350/972
+    signature: 400/972
+    signature: 450/972
+    signature: 500/972
+    signature: 550/972
+    signature: 600/972
+    signature: 650/972
+    signature: 700/972
+    signature: 750/972
+    signature: 800/972
+    signature: 850/972
+    signature: 900/972
+    signature: 950/972
+    signature: 972/972
+  signature  pass@1  79.8%   [1571s]
+    terse: 50/972
+    terse: 100/972
+    terse: 150/972
+    terse: 200/972
+    terse: 250/972
+    terse: 300/972
+    terse: 350/972
+    terse: 400/972
+    terse: 450/972
+    terse: 500/972
+    terse: 550/972
+    terse: 600/972
+    terse: 650/972
+    terse: 700/972
+    terse: 750/972
+    terse: 800/972
+    terse: 850/972
+    terse: 900/972
+    terse: 950/972
+    terse: 972/972
+  terse      pass@1  79.2%   [9729s]
+
+====================================================================
+PROMPT SHAPE VARIANCE - 972 tasks, qwen2.5-coder:14b, temperature 0
+====================================================================
+  plain        80.6%  ################################################
+  comment      80.1%  ################################################
+  signature    79.8%  ################################################
+  terse        79.2%  ################################################
+  docstring    78.5%  ###############################################
+
+  best  : plain at 80.6%
+  worst : docstring at 78.5%
+  spread: 2.1% attributable to prompt formatting alone
+  stdev : 0.7%
+
+  Solved by at least one shape : 860 (88.5%)
+  Solved by every shape        : 642 (66.0%)
+  Flipped on phrasing alone    : 218 (22.4%) <- same model, same task, different wording
+
+wrote D:\github\code-llm-lab\projects\05_prompt_shape_variance\results.json
+########## 05 finished 14:22:38
+########## YIELDING to 01_faithful judge run 14:22:38

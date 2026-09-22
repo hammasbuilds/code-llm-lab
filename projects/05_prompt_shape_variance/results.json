@@ -3,22 +3,22 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": null,
-  "n": 200,
-  "python": "3.11",
-  "commit": "pre-provenance",
-  "run_at": "2026-09-20 10:03:47",
+  "python": "3.14",
+  "commit": "b3f78c5",
+  "run_at": "2026-09-22 14:21:55",
   "pass_at_1": {
-    "plain": 0.785,
-    "docstring": 0.755,
-    "comment": 0.745,
-    "signature": 0.745,
-    "terse": 0.71
+    "plain": 0.8055555555555556,
+    "docstring": 0.7849794238683128,
+    "comment": 0.801440329218107,
+    "signature": 0.7983539094650206,
+    "terse": 0.7921810699588477
   },
-  "spread": 0.07500000000000007,
-  "solved_by_any": 168,
-  "solved_by_all": 120,
-  "flipped": 48
+  "spread": 0.020576131687242816,
+  "solved_by_any": 860,
+  "solved_by_all": 642,
+  "flipped": 218
 }

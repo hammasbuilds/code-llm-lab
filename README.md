@@ -104,7 +104,7 @@ splits — all 164 problems are held out — which is part of why it is the clea
 | 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 150 | Rounds 1–2 captured **100%** of everything the loop ever achieved. Rounds 3–5 added nothing at all, for 60% of the compute. &#9888; **Being re-measured** — every round was shown the string `AssertionError` rather than a real error, which is the condition most likely to produce a flat loop. |
 | 03 | [Do model-written tests catch anything](projects/03_tests_that_kill/) | 150 | From the implementation, generated suites kill **93.4%** of mutants against MBPP's own 85.0%. From the task description, only **16%** of suites even agree with the reference — a measurement of the spec, not the model. |
 | 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 972 | **77.0%** of first-attempt failures survive both, and the two stay indistinguishable (23 vs 17 discordant, p=0.43) — but they fix nearly **disjoint** sets, only 4 of 44 overlapping, so running both recovers 23.0%. Giving repair a real traceback instead of the word `AssertionError` was worth **+9 fixes (p=0.035)**, while rewrite — which never reads one — did not move by a single task. |
-| 05 | [The same task, asked five ways](projects/05_prompt_shape_variance/) | 200 | **24%** of tasks are solved under one phrasing and failed under another. The 7.5-point spread looks like noise you could average away; the flip rate says the per-task signal is much weaker than any single score suggests. |
+| 05 | [The same task, asked five ways](projects/05_prompt_shape_variance/) | 972 | The five phrasings score within **2.1 points** of each other — and still disagree about **218 tasks (22.4%)**, solved under one wording and failed under another. A stable aggregate is not evidence of stable behaviour; the wins and losses cancel. At 200 tasks the spread read 7.5 points and averaged away; the flip rate held. |
 | 06 | [The temperature you benchmark at is not the one you deploy at](projects/06_temperature_pass_at_k/) | 60 | The ordering flips: T=0 wins pass@1, T=0.7 wins pass@5 by **5 points**. Benchmark at T=0, deploy an agent that samples five times, and you leave that unclaimed. |
 | 07 | [Code → prose → code](projects/07_docstring_roundtrip/) | 200 | The roundtrip beats MBPP's own task description by **32.5 points** — the opposite of the expected direction, because the description was written with the answer in view. It is a leak, not a spec. |
 | 08 | [Ask a model to review correct code](projects/08_review_false_alarms/) | 972 | Asked to review MBPP's own reference solutions, it flags **37.3%** of them — against 45.5% recall on real bugs. It flags unfamiliar correct code at **1.7×** the rate of its own correct code (37.3% vs 21.6%). Precision 34.0%. |
@@ -259,37 +259,45 @@ everything — but 23.0% do not, and that is no longer a rounding error.
 - **Out:** both arms on the same 60 failures, under **different seeds**, or the cache would
   serve the rewrite arm the repair arm's generation and the comparison would be vacuous
 
-### 05 · The same task, asked five ways — 200 tasks
+### 05 · The same task, asked five ways — 972 tasks
 
 Five phrasings carrying identical information. Same model, same temperature, same tasks,
 same execution rule — the only variable is wording.
 
 ```
-plain       78.5%
-docstring   75.5%
-comment     74.5%
-signature   74.5%
-terse       71.0%
+plain       80.6%
+comment     80.1%
+signature   79.8%
+terse       79.2%
+docstring   78.5%
 
-spread       7.5%   attributable to formatting alone
+spread       2.1%   attributable to formatting alone   (stdev 0.7%)
 ```
 
-7.5 points is worth knowing, but the sharper number is underneath it:
+The aggregate barely moves. Two points between best and worst, standard deviation under
+one. On the score alone you would say prompt shape does not matter here. Underneath it:
 
 ```
-solved by at least one phrasing : 168  (84.0%)
-solved by every phrasing        : 120  (60.0%)
-flipped on phrasing alone       :  48  (24.0%)
+solved by at least one phrasing : 860  (88.5%)
+solved by every phrasing        : 642  (66.0%)
+flipped on phrasing alone       : 218  (22.4%)
 ```
 
-**Just under a quarter of tasks are solved under one wording and failed under another.**
-For those 48 the benchmark is not measuring whether the model can write the function. It is
-measuring which sentence it was handed.
+**218 tasks are solved under one wording and failed under another** — while the scores
+those wordings produce sit within two points of each other. For those 218 the benchmark is
+not measuring whether the model can write the function. It is measuring which sentence it
+was handed.
 
-The aggregate hides this completely. A 7.5-point spread looks like noise you could average
-away; a 24% flip rate means the per-task signal is much weaker than any single score
-suggests, and that two papers reporting 74% and 78% on this benchmark may not disagree about
-the model at all.
+Both numbers together are the finding. **A stable aggregate is not evidence of stable
+behaviour.** The phrasings agree on the total almost exactly *because* the tasks each one
+wins and loses cancel out, not because they solve the same tasks. There is also 8 points of
+headroom nobody collects: the best single phrasing reaches 80.6%, but 88.5% of tasks are
+solvable by some phrasing.
+
+At 200 tasks the spread read 7.5 points and the flip rate 24%. Five times the data took two
+thirds off the spread and left the flip rate within 1.6 points — which is what the earlier
+write-up predicted would happen, having called the spread noise and the flip rate the real
+quantity.
 
 This is the input half of a pair.
 [code-eval-harness](https://github.com/hammasbuilds/code-eval-harness) measured the output
