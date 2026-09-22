@@ -524,3 +524,39 @@ mbpp: 972 tasks, model qwen2.5-coder:14b
     generalise: 600/781
     generalise: 650/781
     generalise: 700/781
+    generalise: 750/781
+    generalise: 781/781
+  generalise  regressed   27/781 (  3.5%)  {'error': 24, 'fail': 3}  [2150s]
+
+============================================================================
+FEATURE REGRESSION - 781 working solutions, qwen2.5-coder:14b
+============================================================================
+  validate      10.4%  ######
+  default        0.4%  
+  logging        0.0%  
+  generalise     3.5%  ##
+
+  safest change  : logging at 0.0%
+  riskiest change: validate at 10.4%
+
+  Adding an optional parameter with a default regressed 0.4% of functions.
+  That change cannot break a caller by construction - the old call signature and
+  the old behaviour are both still valid - so every one of those is the model
+  rewriting something it was asked to leave alone.
+
+  regressed under at least one change :  105 (13.4%)
+  regressed under every change        :    0 (0.0%)
+
+  The original tests say nothing about the new requirement, so they can only
+  fail by the model changing behaviour nobody asked it to change.
+
+wrote D:\github\code-llm-lab\projects\20_feature_regression\results.json
+########## 20_feature_regression exit=0 06:57:14
+########## 09_confidence_gating --limit 972 06:57:14
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+    solve+confidence: 50/972
+    solve+confidence: 100/972
+    solve+confidence: 150/972
+    solve+confidence: 200/972
+    solve+confidence: 250/972

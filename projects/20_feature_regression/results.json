@@ -3,46 +3,49 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
-  "n": 250,
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": null,
-  "python": "3.12",
-  "commit": "d3badbd",
-  "run_at": "2026-09-21 15:42:49",
-  "eligible": 190,
+  "python": "3.14",
+  "commit": "8fae8cb",
+  "run_at": "2026-09-22 06:57:14",
+  "eligible": 781,
   "changes": {
     "validate": {
-      "n": 190,
-      "regressed": 21,
-      "regression_rate": 0.11052631578947368,
+      "n": 781,
+      "regressed": 81,
+      "regression_rate": 0.10371318822023047,
       "failure_kinds": {
-        "error": 21
+        "error": 80,
+        "fail": 1
       }
     },
     "default": {
-      "n": 190,
-      "regressed": 2,
-      "regression_rate": 0.010526315789473684,
+      "n": 781,
+      "regressed": 3,
+      "regression_rate": 0.0038412291933418692,
       "failure_kinds": {
-        "error": 2
+        "error": 2,
+        "fail": 1
       }
     },
     "logging": {
-      "n": 190,
+      "n": 781,
       "regressed": 0,
       "regression_rate": 0.0,
       "failure_kinds": {}
     },
     "generalise": {
-      "n": 190,
-      "regressed": 8,
-      "regression_rate": 0.042105263157894736,
+      "n": 781,
+      "regressed": 27,
+      "regression_rate": 0.034571062740076826,
       "failure_kinds": {
-        "error": 8
+        "error": 24,
+        "fail": 3
       }
     }
   },
-  "regressed_under_any": 29,
+  "regressed_under_any": 105,
   "regressed_under_all": 0
 }
