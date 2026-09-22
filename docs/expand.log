@@ -861,3 +861,253 @@ PROMPT SHAPE VARIANCE - 972 tasks, qwen2.5-coder:14b, temperature 0
 wrote D:\github\code-llm-lab\projects\05_prompt_shape_variance\results.json
 ########## 05 finished 14:22:38
 ########## YIELDING to 01_faithful judge run 14:22:38
+########## judge reached 600/600 14:36:39
+########## sql-analyst-agent eval 14:36:39
+Usage: python -m sqlanalyst.cli [OPTIONS] COMMAND [ARGS]...
+Try 'python -m sqlanalyst.cli --help' for help.
++- Error ---------------------------------------------------------------------+
+| No such command 'evaluate'. Did you mean 'eval'?                            |
++-----------------------------------------------------------------------------+
+########## sql-analyst-agent eval exit=2 14:36:41
+########## code-eval-harness 164 14:36:41
+env: ‘.venv/Scripts/python.exe’: No such file or directory
+########## code-eval-harness 164 exit=127 14:36:41
+########## mbpp-false-accepts humaneval 14:36:41
+problems: 164  model: qwen2.5-coder:14b  split: humaneval
+generations: 0 cached, 164 to go
+  25/164  4.51s each  eta 10 min
+  50/164  4.16s each  eta 8 min
+  75/164  3.77s each  eta 6 min
+  100/164  4.03s each  eta 4 min
+  125/164  4.17s each  eta 3 min
+  150/164  4.44s each  eta 1 min
+  164/164  4.44s each  eta 0 min
+
+running generations against HumanEval's asserts...
+  accepted by HumanEval : 147/164  (89.6%)  <- pass@1
+  fail             : 14
+  error            : 3
+
+searching for separating inputs on 147 accepted solutions...
+  done in 13s
+
+======================================================================
+UNDERSPECIFIED - accepted solutions that differ from the reference
+======================================================================
+  problems attempted    : 164
+  accepted by HumanEval : 147  (89.6%)
+  of those, DISAGREE    : 29  (19.7% of accepted)
+
+  => 19.7% of the solutions HumanEval accepted behave differently from the
+     reference on some input. The asserts did not decide between them, and
+     which of the two is correct is a question HumanEval does not answer.
+
+  witnesses:
+    task    2 truncate_number        f(-3.5)
+          reference ('ok', '0.5')   generated ('ok', '-0.5')
+    task   17 parse_music            f('o o o oo')
+          reference ('exc', 'KeyError')   generated ('ok', '[4, 4, 4]')
+    task   20 find_closest_elements  f([])
+          reference ('ok', 'None')   generated ('exc', 'IndexError')
+    task   24 largest_divisor        f(1)
+          reference ('exc', 'ZeroDivisionError')   generated ('ok', 'None')
+    task   25 factorize              f(-2)
+          reference ('exc', 'ValueError')   generated ('ok', '[]')
+    task   35 max_element            f([])
+          reference ('exc', 'IndexError')   generated ('exc', 'ValueError')
+    task   44 change_base            f(0, 3)
+          reference ('ok', "''")   generated ('ok', "'0'")
+    task   49 modp                   f(-3, 5)
+          reference ('ok', '1')   generated ('ok', '2')
+########## mbpp-false-accepts humaneval exit=0 14:49:09
+########## 07_docstring_roundtrip --limit 972 14:49:09
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  describing reference solutions...
+    describe: 50/972
+    describe: 100/972
+    describe: 150/972
+    describe: 200/972
+    describe: 250/972
+    describe: 300/972
+    describe: 350/972
+    describe: 400/972
+    describe: 450/972
+    describe: 500/972
+    describe: 550/972
+    describe: 600/972
+    describe: 650/972
+    describe: 700/972
+    describe: 750/972
+    describe: 800/972
+    describe: 850/972
+    describe: 900/972
+    describe: 950/972
+    describe: 972/972
+  [3480s]
+  implementing from the direct description...
+    direct: 50/972
+    direct: 100/972
+    direct: 150/972
+    direct: 200/972
+    direct: 250/972
+    direct: 300/972
+    direct: 350/972
+    direct: 400/972
+    direct: 450/972
+    direct: 500/972
+    direct: 550/972
+    direct: 600/972
+    direct: 650/972
+    direct: 700/972
+    direct: 750/972
+    direct: 800/972
+    direct: 850/972
+    direct: 900/972
+    direct: 950/972
+    direct: 972/972
+  implementing from the roundtrip description...
+    roundtrip: 50/972
+    roundtrip: 100/972
+    roundtrip: 150/972
+    roundtrip: 200/972
+    roundtrip: 250/972
+    roundtrip: 300/972
+    roundtrip: 350/972
+    roundtrip: 400/972
+    roundtrip: 450/972
+    roundtrip: 500/972
+    roundtrip: 550/972
+    roundtrip: 600/972
+    roundtrip: 650/972
+    roundtrip: 700/972
+    roundtrip: 750/972
+    roundtrip: 800/972
+    roundtrip: 850/972
+    roundtrip: 900/972
+    roundtrip: 950/972
+    roundtrip: 972/972
+
+====================================================================
+DOCSTRING ROUNDTRIP - 972 tasks, qwen2.5-coder:14b
+====================================================================
+  from MBPP's description   :  51.6%
+  from the model's own prose:  83.3%
+  drift                     : +31.7%
+
+  solved from code-description but not MBPP's :  333 (34.3%)
+  solved from MBPP's but LOST in the roundtrip:   25 (2.6%)
+
+  mean description length: 444 chars
+  MBPP's own descriptions average 79 chars.
+
+  The model's description of the code beats the benchmark's description of
+  the task - it was written with the answer in view, which is exactly why a
+  docstring generated from an implementation is not an independent spec.
+
+wrote D:\github\code-llm-lab\projects\07_docstring_roundtrip\results.json
+########## 07_docstring_roundtrip exit=0 17:00:12
+########## 02_self_debug_ceiling --limit 500 17:00:12
+mbpp: 500 tasks, up to 5 rounds
+
+    round 1: 50/500
+    round 1: 100/500
+    round 1: 150/500
+    round 1: 200/500
+    round 1: 250/500
+    round 1: 300/500
+    round 1: 350/500
+    round 1: 400/500
+    round 1: 450/500
+    round 1: 500/500
+  round 1: +381 newly solved, cumulative 381/500 (76.2%)  [918s]
+    round 2: 50/119
+    round 2: 100/119
+    round 2: 119/119
+  round 2: +19 newly solved, cumulative 400/500 (80.0%)  [1306s]
+    round 3: 50/100
+    round 3: 100/100
+  round 3: +2 newly solved, cumulative 402/500 (80.4%)  [1634s]
+    round 4: 50/98
+    round 4: 98/98
+  round 4: +1 newly solved, cumulative 403/500 (80.6%)  [1860s]
+    round 5: 50/97
+    round 5: 97/97
+  round 5: +0 newly solved, cumulative 403/500 (80.6%)  [2165s]
+
+====================================================================
+SELF-DEBUG CEILING - mbpp, 500 tasks, qwen2.5-coder:14b
+====================================================================
+   round  newly solved  cumulative   share of total gain
+       1           381      76.2%                94.5%  ############################
+       2            19      80.0%                 4.7%  #
+       3             2      80.4%                 0.5%  
+       4             1      80.6%                 0.2%  
+       5             0      80.6%                 0.0%  
+
+  Rounds 1-2 captured 99.3% of everything the loop ever achieved.
+  Rounds 3-5 added 3 tasks (0.6% of the benchmark) for 60% of the compute.
+
+wrote D:\github\code-llm-lab\projects\02_self_debug_ceiling\results_mbpp.json
+########## 02_self_debug_ceiling exit=0 17:36:18
+########## 03_tests_that_kill --limit 500 17:36:18
+mbpp: 500 tasks, model qwen2.5-coder:14b
+
+  generating suites: from_description
+    from_description: 50/500
+    from_description: 100/500
+    from_description: 150/500
+    from_description: 200/500
+    from_description: 250/500
+    from_description: 300/500
+    from_description: 350/500
+    from_description: 400/500
+    from_description: 450/500
+    from_description: 500/500
+    500 suites in 3615s
+<unknown>:3: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+    suites that pass the reference: 83/500  (16.6%)
+
+  generating suites: from_code
+    from_code: 50/500
+    from_code: 100/500
+    from_code: 150/500
+    from_code: 200/500
+    from_code: 250/500
+    from_code: 300/500
+    from_code: 350/500
+    from_code: 400/500
+    from_code: 450/500
+    from_code: 500/500
+    500 suites in 3480s
+<unknown>:3: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+    suites that pass the reference: 202/500  (40.4%)
+
+====================================================================
+MODEL-WRITTEN TESTS - 500 MBPP tasks, qwen2.5-coder:14b
+====================================================================
+                        valid   scored   asserts   kill rate
+  from_description      16.6%       64      10.6       90.7%
+  from_code             40.4%      164      10.6       93.8%
+
+  On the suites that are valid (164 tasks, 723 mutants):
+    model-written kill rate :  93.8%  ######################################
+    MBPP's own kill rate    :  85.5%  ##################################
+    difference              : +8.3%
+
+  The model wrote 3.5x as many asserts as MBPP ships, and caught +8.3% more.
+
+  Working from the task description alone, only 16.6% of suites
+  even agree with the reference - the descriptions do not say whether the
+  function returns a list or a tuple, or what empty input should do. That is a
+  measurement of the spec, not of the model.
+
+wrote D:\github\code-llm-lab\projects\03_tests_that_kill\results.json
+########## 03_tests_that_kill exit=0 19:38:41
+########## 18_determinism --limit 400 --runs 5 19:38:41
+########## RESUMED-4 (task scheduler) 20:55:38
+########## 18_determinism --limit 400 --runs 5 20:55:38

@@ -3,24 +3,24 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
+  "n": 500,
   "temperature": 0.0,
   "samples": 1,
   "seeds": null,
-  "n": 150,
-  "python": "3.11",
-  "commit": "pre-provenance",
-  "run_at": "2026-09-20 07:25:30",
+  "python": "3.14",
+  "commit": "9586001",
+  "run_at": "2026-09-22 19:38:41",
   "mutants_per_problem": 8,
   "arms": {
     "from_description": {
-      "suites": 150,
-      "valid": 24,
-      "validity": 0.16,
-      "scored": 19,
-      "mutants": 90,
-      "model_killed": 80,
-      "mbpp_killed": 76,
-      "mean_asserts": 12.105263157894736,
+      "suites": 500,
+      "valid": 83,
+      "validity": 0.166,
+      "scored": 64,
+      "mutants": 269,
+      "model_killed": 244,
+      "mbpp_killed": 230,
+      "mean_asserts": 10.609375,
       "per_task": [
         {
           "task_id": "mbpp/8",
@@ -154,18 +154,333 @@
           "mutants": 8,
           "model_killed": 7,
           "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/152",
+          "asserts": 11,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/161",
+          "asserts": 16,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/168",
+          "asserts": 8,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/192",
+          "asserts": 10,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/196",
+          "asserts": 7,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/197",
+          "asserts": 9,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/199",
+          "asserts": 17,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/202",
+          "asserts": 7,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/204",
+          "asserts": 10,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/222",
+          "asserts": 12,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/238",
+          "asserts": 11,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/240",
+          "asserts": 7,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/242",
+          "asserts": 7,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/250",
+          "asserts": 8,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/253",
+          "asserts": 9,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/256",
+          "asserts": 11,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/258",
+          "asserts": 9,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/273",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/281",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/282",
+          "asserts": 10,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/284",
+          "asserts": 12,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/297",
+          "asserts": 9,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/309",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/320",
+          "asserts": 7,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/332",
+          "asserts": 8,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/338",
+          "asserts": 8,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/345",
+          "asserts": 7,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/352",
+          "asserts": 10,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/373",
+          "asserts": 11,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/377",
+          "asserts": 13,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/378",
+          "asserts": 6,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/388",
+          "asserts": 17,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/394",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/395",
+          "asserts": 10,
+          "mutants": 7,
+          "model_killed": 6,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/404",
+          "asserts": 13,
+          "mutants": 2,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/405",
+          "asserts": 8,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/425",
+          "asserts": 10,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/426",
+          "asserts": 8,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/428",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/447",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/456",
+          "asserts": 7,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/458",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/480",
+          "asserts": 12,
+          "mutants": 7,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/486",
+          "asserts": 20,
+          "mutants": 8,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/487",
+          "asserts": 6,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 7
         }
       ]
     },
     "from_code": {
-      "suites": 150,
-      "valid": 61,
-      "validity": 0.4066666666666667,
-      "scored": 48,
-      "mutants": 213,
-      "model_killed": 199,
-      "mbpp_killed": 181,
-      "mean_asserts": 11.041666666666666,
+      "suites": 500,
+      "valid": 202,
+      "validity": 0.404,
+      "scored": 164,
+      "mutants": 723,
+      "model_killed": 678,
+      "mbpp_killed": 618,
+      "mean_asserts": 10.615853658536585,
       "per_task": [
         {
           "task_id": "mbpp/2",
@@ -502,6 +817,818 @@
           "mutants": 1,
           "model_killed": 1,
           "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/152",
+          "asserts": 8,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/156",
+          "asserts": 7,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/159",
+          "asserts": 20,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/161",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/162",
+          "asserts": 8,
+          "mutants": 7,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/168",
+          "asserts": 8,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/169",
+          "asserts": 11,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/171",
+          "asserts": 6,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/175",
+          "asserts": 18,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/176",
+          "asserts": 10,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/183",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/184",
+          "asserts": 16,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 0
+        },
+        {
+          "task_id": "mbpp/189",
+          "asserts": 14,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/191",
+          "asserts": 18,
+          "mutants": 6,
+          "model_killed": 6,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/192",
+          "asserts": 11,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/195",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/197",
+          "asserts": 9,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/199",
+          "asserts": 16,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/202",
+          "asserts": 7,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/204",
+          "asserts": 10,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/207",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/212",
+          "asserts": 9,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/214",
+          "asserts": 11,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/217",
+          "asserts": 11,
+          "mutants": 3,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/221",
+          "asserts": 10,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/222",
+          "asserts": 11,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/224",
+          "asserts": 20,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/226",
+          "asserts": 7,
+          "mutants": 6,
+          "model_killed": 6,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/227",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/229",
+          "asserts": 9,
+          "mutants": 7,
+          "model_killed": 7,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/233",
+          "asserts": 9,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/234",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/238",
+          "asserts": 6,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/240",
+          "asserts": 10,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/242",
+          "asserts": 6,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/248",
+          "asserts": 6,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/249",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/250",
+          "asserts": 7,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/253",
+          "asserts": 10,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/256",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/258",
+          "asserts": 10,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/260",
+          "asserts": 7,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/266",
+          "asserts": 8,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/272",
+          "asserts": 7,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/273",
+          "asserts": 10,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/280",
+          "asserts": 9,
+          "mutants": 7,
+          "model_killed": 7,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/281",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/284",
+          "asserts": 12,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/293",
+          "asserts": 11,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/297",
+          "asserts": 10,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/300",
+          "asserts": 6,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/305",
+          "asserts": 10,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/309",
+          "asserts": 10,
+          "mutants": 2,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/313",
+          "asserts": 9,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/315",
+          "asserts": 20,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/316",
+          "asserts": 9,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/323",
+          "asserts": 11,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/327",
+          "asserts": 13,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/329",
+          "asserts": 9,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/331",
+          "asserts": 20,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/332",
+          "asserts": 10,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/336",
+          "asserts": 10,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/338",
+          "asserts": 8,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/339",
+          "asserts": 13,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/343",
+          "asserts": 14,
+          "mutants": 7,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/345",
+          "asserts": 7,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/349",
+          "asserts": 20,
+          "mutants": 5,
+          "model_killed": 5,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/351",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/352",
+          "asserts": 12,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/358",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/363",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/368",
+          "asserts": 12,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/370",
+          "asserts": 5,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/373",
+          "asserts": 11,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/376",
+          "asserts": 7,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/377",
+          "asserts": 9,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/378",
+          "asserts": 6,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/385",
+          "asserts": 11,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/388",
+          "asserts": 16,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/389",
+          "asserts": 11,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/394",
+          "asserts": 10,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/395",
+          "asserts": 15,
+          "mutants": 7,
+          "model_killed": 6,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/397",
+          "asserts": 20,
+          "mutants": 8,
+          "model_killed": 4,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/401",
+          "asserts": 6,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/403",
+          "asserts": 20,
+          "mutants": 7,
+          "model_killed": 7,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/404",
+          "asserts": 11,
+          "mutants": 2,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/414",
+          "asserts": 14,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 6
+        },
+        {
+          "task_id": "mbpp/417",
+          "asserts": 8,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/421",
+          "asserts": 8,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/426",
+          "asserts": 9,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/428",
+          "asserts": 8,
+          "mutants": 8,
+          "model_killed": 6,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/432",
+          "asserts": 8,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/436",
+          "asserts": 7,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/441",
+          "asserts": 7,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/445",
+          "asserts": 6,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/446",
+          "asserts": 12,
+          "mutants": 4,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/447",
+          "asserts": 9,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/449",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/450",
+          "asserts": 10,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/452",
+          "asserts": 10,
+          "mutants": 3,
+          "model_killed": 3,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/455",
+          "asserts": 16,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 7
+        },
+        {
+          "task_id": "mbpp/456",
+          "asserts": 8,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/458",
+          "asserts": 8,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/460",
+          "asserts": 7,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/464",
+          "asserts": 8,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/465",
+          "asserts": 7,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/467",
+          "asserts": 10,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/470",
+          "asserts": 8,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
+        },
+        {
+          "task_id": "mbpp/480",
+          "asserts": 10,
+          "mutants": 7,
+          "model_killed": 3,
+          "mbpp_killed": 3
+        },
+        {
+          "task_id": "mbpp/482",
+          "asserts": 14,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/484",
+          "asserts": 11,
+          "mutants": 1,
+          "model_killed": 1,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/486",
+          "asserts": 18,
+          "mutants": 8,
+          "model_killed": 4,
+          "mbpp_killed": 4
+        },
+        {
+          "task_id": "mbpp/488",
+          "asserts": 5,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 8
+        },
+        {
+          "task_id": "mbpp/490",
+          "asserts": 11,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 1
+        },
+        {
+          "task_id": "mbpp/492",
+          "asserts": 13,
+          "mutants": 8,
+          "model_killed": 8,
+          "mbpp_killed": 5
+        },
+        {
+          "task_id": "mbpp/499",
+          "asserts": 5,
+          "mutants": 2,
+          "model_killed": 2,
+          "mbpp_killed": 2
         }
       ]
     }

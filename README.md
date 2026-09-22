@@ -48,14 +48,16 @@ is one nudge from — reached once by looping five times on test feedback and on
 repair against rewrite. **03 and 07** both say MBPP's task *descriptions* are the weak link,
 reached once through test suites and once through docstrings.
 
-> **That pair needs a caveat, and half of it has now been re-measured.** Both projects were
-> handed the string `AssertionError` in place of an error message (see
+> **Both halves of that pair were re-measured, and both survived.** Each was handed the
+> string `AssertionError` in place of an error message (see
 > [Problems hit](#problems-hit-while-building-this)), which handicaps only the arms that
-> *read* feedback — so "feedback does not help" is exactly what the bug would manufacture.
-> **04 has been re-run** and its conclusion survives (p=0.43, was 0.72), but its repair arm
-> gained 9 fixes while the rewrite arm returned the identical 21 tasks. **02 has not**; it is
-> in the queue with the fix applied, and until it lands its "rounds 3–5 add nothing" should
-> be read as unconfirmed.
+> *read* feedback — so "feedback does not help" is exactly what the bug would manufacture,
+> and neither number could be trusted until it was re-run. **04**: conclusion holds at
+> p=0.43, though its repair arm gained 9 fixes while rewrite returned the identical 21 tasks.
+> **02**: the plateau is unchanged, rounds 1–2 still capturing 99.3%. The ceiling is real
+> and is not made of missing error messages. The same bug did *not* spare
+> [13](projects/13_feedback_content/), which reversed outright — which is what makes the two
+> that survived worth believing.
 
 > **What you get on the first attempt is very nearly all you get — and a good part of what
 > you get is the prompt rather than the model.**
@@ -101,12 +103,12 @@ splits — all 164 problems are held out — which is part of why it is the clea
 | | Project | Tasks | The finding |
 |---|---|---:|---|
 | 01 | [Where a 5x bigger model actually pays](projects/01_coder_size_curve/) | 972 | Of the 817 tasks either size can solve, the 3B already handles **74.8%**, and the 14B *loses* 36 it gets right (**3.7%**, stable across splits). On MBPP's **held-out 500** the size advantage is **+16.2 points**, not the +17.5 the full corpus reports — see the contamination caveat above. |
-| 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 150 | Rounds 1–2 captured **100%** of everything the loop ever achieved. Rounds 3–5 added nothing at all, for 60% of the compute. &#9888; **Being re-measured** — every round was shown the string `AssertionError` rather than a real error, which is the condition most likely to produce a flat loop. |
-| 03 | [Do model-written tests catch anything](projects/03_tests_that_kill/) | 150 | From the implementation, generated suites kill **93.4%** of mutants against MBPP's own 85.0%. From the task description, only **16%** of suites even agree with the reference — a measurement of the spec, not the model. |
+| 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 500 | Rounds 1–2 capture **99.3%** of everything the loop achieves; rounds 3–5 add 3 tasks for 60% of the compute. **Re-measured with a real traceback** after the `AssertionError` bug — the plateau is unchanged, so the ceiling is real and not made of missing error messages. |
+| 03 | [Do model-written tests catch anything](projects/03_tests_that_kill/) | 500 | From the implementation, generated suites kill **93.8%** of mutants against MBPP's own **85.5%** — +8.3 points on 164 suites and 723 mutants, with 3.5× the asserts. From the task description only **16.6%** of suites even agree with the reference: a measurement of the spec, not the model. |
 | 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 972 | **77.0%** of first-attempt failures survive both, and the two stay indistinguishable (23 vs 17 discordant, p=0.43) — but they fix nearly **disjoint** sets, only 4 of 44 overlapping, so running both recovers 23.0%. Giving repair a real traceback instead of the word `AssertionError` was worth **+9 fixes (p=0.035)**, while rewrite — which never reads one — did not move by a single task. |
 | 05 | [The same task, asked five ways](projects/05_prompt_shape_variance/) | 972 | The five phrasings score within **2.1 points** of each other — and still disagree about **218 tasks (22.4%)**, solved under one wording and failed under another. A stable aggregate is not evidence of stable behaviour; the wins and losses cancel. At 200 tasks the spread read 7.5 points and averaged away; the flip rate held. |
 | 06 | [The temperature you benchmark at is not the one you deploy at](projects/06_temperature_pass_at_k/) | 60 | The ordering flips: T=0 wins pass@1, T=0.7 wins pass@5 by **5 points**. Benchmark at T=0, deploy an agent that samples five times, and you leave that unclaimed. |
-| 07 | [Code → prose → code](projects/07_docstring_roundtrip/) | 200 | The roundtrip beats MBPP's own task description by **32.5 points** — the opposite of the expected direction, because the description was written with the answer in view. It is a leak, not a spec. |
+| 07 | [Code → prose → code](projects/07_docstring_roundtrip/) | 972 | The roundtrip beats MBPP's own task description by **31.7 points** (83.3% vs 51.6%) — the opposite of the expected direction. 333 tasks are solved from the code-derived description and only 25 the other way, a thirteen-to-one exchange. The description was written with the answer in view: a leak, not a spec. |
 | 08 | [Ask a model to review correct code](projects/08_review_false_alarms/) | 972 | Asked to review MBPP's own reference solutions, it flags **37.3%** of them — against 45.5% recall on real bugs. It flags unfamiliar correct code at **1.7×** the rate of its own correct code (37.3% vs 21.6%). Precision 34.0%. |
 | 09 | [Ask the model how sure it is](projects/09_confidence_gating/) | 972 | It says **100** for 99.0% of tasks, including the 191 it gets wrong — three distinct values across 967 answers, separating right from wrong by **0.1 points**. Every threshold from 0 to 80 is identical to not gating, and demanding a perfect 100 still auto-merges 99.5%. The dial is not connected to anything. |
 | 10 | [Bury the task in unrelated examples](projects/10_context_dilution/) | 200 | A **16x longer prompt** moves pass@1 by at most 3.5 points, and not monotonically. There is no dilution curve at this scale - reported as a non-result rather than dressed up as a trend. |
@@ -160,26 +162,32 @@ split, 3.2% on its training split. The size *advantage* does not survive as clea
 - **Out:** pass@1 for each size **and the four-way bucket split** — which is the part an
   aggregate score destroys, because `both` and `neither` cancel out of the difference
 
-### 02 · How many rounds of self-debugging are worth paying for? — 150 tasks
+### 02 · How many rounds of self-debugging are worth paying for? — 500 tasks
 
 Give the model its failing test output and let it try again, up to five times. Unlike a
 revision loop judged by another model, a failing assert is ground truth.
 
 ```
-round 1: +117 solved   cumulative 78.0%
-round 2:   +1 solved   cumulative 78.7%
-round 3:   +0
-round 4:   +0
-round 5:   +0
+round 1: +381 solved   cumulative 76.2%    94.5% of the total gain
+round 2:  +19 solved   cumulative 80.0%     4.7%
+round 3:   +2           cumulative 80.4%     0.5%
+round 4:   +1           cumulative 80.6%     0.2%
+round 5:   +0           cumulative 80.6%     0.0%
 ```
 
-**Rounds 1–2 captured 100% of everything the loop ever achieved. Rounds 3–5 added nothing
-at all, for 60% of the compute.**
+**Rounds 1–2 captured 99.3% of everything the loop ever achieved. Rounds 3–5 added three
+tasks — 0.6% of the benchmark — for 60% of the compute.**
 
-The 32 tasks still failing after round 1 were, with one exception, not tasks the model was
-one nudge away from solving. They were tasks it could not do, and showing it the error five
-times did not change that. Every agent looping five times on test feedback is paying five
-times the tokens for the value of two.
+The tasks still failing after round 2 were not tasks the model was one nudge away from
+solving. They were tasks it could not do, and showing it the error three more times did not
+change that. Every agent looping five times on test feedback is paying five times the tokens
+for the value of two.
+
+This number was in doubt until it was re-run. Every round used to be shown the bare string
+`AssertionError` rather than a real error, and a loop given no information plateauing
+immediately is exactly what that bug would produce. Re-measured with a real traceback, the
+plateau is unchanged — unlike [13](projects/13_feedback_content/), which had the same bug and
+reversed outright.
 
 - **Stack:** Ollama, `qwen2.5-coder:14b`, MBPP
 - **In:** a task, and on every round after the first, the model's own code plus the real
@@ -188,20 +196,20 @@ times the tokens for the value of two.
   from a final total. Each round is seeded separately, or the cache would hand back round
   one's answer and the flat curve would be an artefact
 
-### 03 · Do model-written tests catch anything? — 150 tasks
+### 03 · Do model-written tests catch anything? — 500 tasks
 
 "Write tests for this" judged by mutation kill rate rather than coverage — a test that
 calls every line and asserts nothing has 100% coverage and catches nothing.
 
 ```
                     valid   scored   asserts   kill rate
-from_description    16.0%       19      12.1       88.9%
-from_code           40.7%       48      11.0       93.4%
+from_description    16.6%       64      10.6       90.7%
+from_code           40.4%      164      10.6       93.8%
 ```
 
 Two different findings here.
 
-**Working from the task description, only 16% of suites even agree with the reference.**
+**Working from the task description, only 16.6% of suites even agree with the reference.**
 Not because the tests are bad — because the sentence does not say whether the function
 returns a list or a tuple, or what empty input does, and the model has to guess. That is a
 measurement of the spec, not of the model.
@@ -209,12 +217,12 @@ measurement of the spec, not of the model.
 **Working from the implementation, the tests are good.** On the suites that are valid:
 
 ```
-model-written kill rate : 93.4%
-MBPP's own kill rate    : 85.0%
-difference              : +8.5%
+model-written kill rate : 93.8%
+MBPP's own kill rate    : 85.5%
+difference              : +8.3%
 ```
 
-The model wrote 3.7x as many asserts as MBPP ships and caught 8.5 points more of the
+The model wrote 3.5x as many asserts as MBPP ships and caught 8.3 points more of the
 mutations. Generated tests are better than this benchmark's own — which says as much about
 three-assert benchmarks as it does about the model. See
 [mbpp-false-accepts](https://github.com/hammasbuilds/mbpp-false-accepts) for how thin three
@@ -344,28 +352,29 @@ exact optimum is not.
   the naive "any of k passed" is biased upward and shifts with n, which makes numbers from
   different papers incomparable
 
-### 07 · Code → prose → code. What survives the roundtrip? — 200 tasks
+### 07 · Code → prose → code. What survives the roundtrip? — 972 tasks
 
 Ask the model to describe the reference solution, hand that description to a fresh context,
 and ask it to implement the function. Compare against implementing from MBPP's own task
 description.
 
 ```
-from MBPP's description    : 48.0%
-from the model's own prose : 80.5%
-drift                      : +32.5%
+from MBPP's description    : 51.6%
+from the model's own prose : 83.3%
+drift                      : +31.7%
 ```
 
-**The roundtrip is 32.5 points better**, which is the opposite of the expected direction —
-information is supposed to be lost, not gained. 73 tasks (36.5%) are solved from the
-code-derived description and not from MBPP's; only 8 (4.0%) go the other way.
+**The roundtrip is 31.7 points better**, which is the opposite of the expected direction —
+information is supposed to be lost, not gained. 333 tasks (34.3%) are solved from the
+code-derived description and not from MBPP's; only 25 (2.6%) go the other way. That is a
+thirteen-to-one exchange, not a trade.
 
 The explanation is not that the model writes good documentation. It is that **the
 description was written with the answer in view.** It is a leak, not a spec. MBPP's
-descriptions average 78 characters; the model's average 445, and those extra characters
+descriptions average 79 characters; the model's average 444, and those extra characters
 encode decisions — return type, edge-case behaviour — that the task sentence never made.
 
-That is the same finding project 03 reached from the other side: only 16% of test suites
+That is the same finding project 03 reached from the other side: only 16.6% of test suites
 written from MBPP's descriptions agree with the reference, because the descriptions do not
 say what the function should return. Two independent measurements point at the task
 descriptions as the weak link, not the model.

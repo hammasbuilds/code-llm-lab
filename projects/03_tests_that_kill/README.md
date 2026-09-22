@@ -2,7 +2,7 @@
 <p align="center"><i>Do model-written tests catch anything?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-150-blue" alt="">
+  <img src="https://img.shields.io/badge/tasks-500-blue" alt="">
   <img src="https://img.shields.io/badge/scored%20by-mutation%20kill%20rate-e879f9" alt="">
   <img src="https://img.shields.io/badge/arms-2-lightgrey" alt="">
 </p>
@@ -22,21 +22,24 @@ place and ask whether the tests notice.
 
 ```
                     valid   scored   asserts   kill rate
-from_description     16.0%       19      12.1       88.9%
-from_code            40.7%       48      11.0       93.4%
+from_description     16.6%       64      10.6       90.7%
+from_code            40.4%      164      10.6       93.8%
 ```
 
 Two separate findings.
 
-**Written from the implementation, the tests are good.** On valid suites the model kills
-93.4% of mutants against MBPP's own
-85.0%, using 3.7&times; as
-many asserts. Generated tests beat the benchmark's own.
+**Written from the implementation, the tests are good.** On the 164 valid suites (723
+mutants) the model kills **93.8%** against MBPP's own **85.5%** on the same tasks &mdash;
+**+8.3 points**, using 3.5&times; as many asserts. Generated tests beat the benchmark's own.
 
-**Written from the task description, only 16.0% of suites even agree with
-the reference.** Not because the tests are bad &mdash; the sentence never says whether the
-function returns a list or a tuple, so the model guesses. That number measures the *spec*,
-not the model.
+**Written from the task description, only 16.6% of suites even agree with the reference.**
+Not because the tests are bad &mdash; the sentence never says whether the function returns a
+list or a tuple, or what empty input should do, so the model guesses. That number measures
+the *spec*, not the model.
+
+Both numbers held across a 3.3&times; increase in tasks: at 150 they read 16.0% / 40.7%
+valid and 93.4% vs 85.0% on kill rate. The `scored` column is the one that improved, from 48
+suites to 164 &mdash; the +8.3 point gap now rests on a denominator that can carry it.
 
 [docstring roundtrip](../07_docstring_roundtrip) reaches the same conclusion from the
 opposite side.
@@ -50,7 +53,7 @@ splitting it in two is what separates "the spec was too thin" from "the tests we
 ## Running it
 
 ```bash
-python run.py --limit 150 --per-problem 8
+python run.py --limit 500 --per-problem 8
 ```
 
 Reuses the mutation engine from
