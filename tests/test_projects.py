@@ -243,6 +243,35 @@ def test_confidence_is_clamped_and_optional():
     assert parse(None) is None
 
 
+def test_one_broken_function_does_not_discard_the_whole_batch():
+    # The original returned {} whenever the blob failed to parse, so a single unmatched
+    # bracket threw away every function in the batch. That happened once in twenty batches
+    # and was the entirety of this project's "8 of 160 solutions were never emitted".
+    split = project("15_batch_vs_single").split_functions
+    blob = (
+        "import math\n\n"
+        "def good_one(n):\n    return n + 1\n\n"
+        "def broken(n):\n    return (n + 1))\n\n"  # stray paren
+        "def good_two(n):\n    return n * 2\n"
+    )
+    funcs = split(blob)
+    assert set(funcs) == {"good_one", "good_two"}  # broken one dropped, others survive
+    assert "import math" in funcs["good_one"]
+    compile(funcs["good_two"], "<candidate>", "exec")
+
+
+def test_a_clean_batch_is_unaffected_by_the_fallback():
+    split = project("15_batch_vs_single").split_functions
+    blob = "def a(x):\n    return x\n\n\ndef b(x):\n    return -x\n"
+    assert set(split(blob)) == {"a", "b"}
+
+
+def test_a_broken_import_line_does_not_take_the_functions_with_it():
+    split = project("15_batch_vs_single").split_functions
+    blob = "import \n\ndef solo(n):\n    return n\n"
+    assert "solo" in split(blob)
+
+
 def test_confidence_line_is_removed_from_the_submitted_code():
     # The model writes CONFIDENCE *inside* the code fence, so it lands in the executed
     # candidate - 262 of 263 responses in the current run. It survives only because

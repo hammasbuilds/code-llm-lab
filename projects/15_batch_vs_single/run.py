@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -60,16 +61,15 @@ same order. No explanation, no tests.
 """
 
 
-def split_functions(code: str) -> dict[str, str]:
-    """Every top-level function in the response, keyed by name, with its imports attached.
+_TOP_DEF = re.compile(r"^(?:async\s+)?def\s+([A-Za-z_]\w*)", re.M)
 
-    A batch answer is one blob. Scoring it whole would let any one broken function fail the
-    other seven, which would measure parsing rather than batching.
-    """
+
+def _from_tree(code: str) -> dict[str, str] | None:
+    """Functions via a clean parse of the whole blob, or None if it does not parse."""
     try:
         tree = ast.parse(code)
     except SyntaxError:
-        return {}
+        return None
     lines = code.splitlines()
     header = "\n".join(
         "\n".join(lines[n.lineno - 1 : n.end_lineno])
@@ -78,10 +78,63 @@ def split_functions(code: str) -> dict[str, str]:
     )
     out: dict[str, str] = {}
     for n in tree.body:
-        if isinstance(n, ast.FunctionDef):
+        if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef):
             body = "\n".join(lines[n.lineno - 1 : n.end_lineno])
             out[n.name] = f"{header}\n\n{body}" if header else body
     return out
+
+
+def _by_scanning(code: str) -> dict[str, str]:
+    """Each top-level `def` block parsed on its own, keeping the ones that are valid.
+
+    Used only when the blob as a whole does not parse. Imports are taken from the lines
+    above the first `def`, and only if that prefix is itself valid, so a broken import line
+    cannot take the functions down with it.
+    """
+    starts = [m.start() for m in _TOP_DEF.finditer(code)]
+    if not starts:
+        return {}
+    prefix = code[: starts[0]]
+    header_lines = [ln for ln in prefix.splitlines() if ln.startswith(("import ", "from "))]
+    header = "\n".join(header_lines)
+    try:
+        ast.parse(header)
+    except SyntaxError:
+        header = ""
+
+    out: dict[str, str] = {}
+    bounds = starts + [len(code)]
+    for i in range(len(starts)):
+        chunk = code[bounds[i] : bounds[i + 1]].rstrip()
+        try:
+            tree = ast.parse(chunk)
+        except SyntaxError:
+            continue  # this one function is broken; the others are not its problem
+        for n in tree.body:
+            if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef):
+                out[n.name] = f"{header}\n\n{chunk}" if header else chunk
+    return out
+
+
+def split_functions(code: str) -> dict[str, str]:
+    """Every top-level function in the response, keyed by name, with its imports attached.
+
+    A batch answer is one blob, and scoring it whole would let any one broken function fail
+    the other seven - which would measure parsing rather than batching.
+
+    That is what the first version did anyway. It called `ast.parse` on the whole blob and
+    returned `{}` on `SyntaxError`, so a single unmatched bracket discarded every function
+    in the batch. It happened once in twenty batches, and the eight functions it threw away
+    were the whole of this project's "8 of 160 solutions were never emitted at all" - a
+    claim about the model that was a claim about one stray `)` on line 2.
+
+    So: parse the blob if it parses, and otherwise fall back to parsing each `def` block on
+    its own, which is what the paragraph above always said this did.
+    """
+    whole = _from_tree(code)
+    if whole:
+        return whole
+    return _by_scanning(code)
 
 
 def main() -> int:

@@ -11,6 +11,29 @@
 
 ---
 
+> ### &#9888; These numbers are being re-measured
+>
+> `split_functions` called `ast.parse` on the whole batch response and returned nothing on
+> `SyntaxError`, so **one unmatched bracket discarded all eight functions in that batch**.
+> It happened in 1 of 20 batches at size 8, and those eight are the entirety of the
+> "8 of 160 solutions were never emitted at all" claim below - a statement about the model
+> that was a statement about one stray `)` on line 2 of one response.
+>
+> Re-scored on the *same* cached responses, with each `def` block parsed on its own:
+>
+> | batch size | pass, before | pass, after | never emitted, before | after |
+> |---:|---:|---:|---:|---:|
+> | 1 | 121/160 | 121/160 | 0 | 0 |
+> | 2 | 116/160 | 116/160 | 0 | 0 |
+> | 4 | 113/160 | 113/160 | 0 | 0 |
+> | **8** | 106/160 | **111/160** | **8** | **1** |
+>
+> So the cost of batching eight is **6.2 points, not 9.4** - a third of the reported figure
+> was the parser - and exactly **one** function was genuinely missing. Sizes 1, 2 and 4 are
+> untouched, which is the check that the fix is not simply inflating everything.
+>
+> The full re-run is queued at 972 tasks and will replace the tables below.
+
 Batching tasks into one request is the obvious way to cut cost. This measures what it
 costs in return: solve the same 160 tasks one per request, then two, four and eight per
 request, and score them identically.

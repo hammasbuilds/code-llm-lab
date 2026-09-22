@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
   <img src="https://img.shields.io/badge/API%20keys-none%20required-success" alt="api keys">
-  <img src="https://img.shields.io/badge/tests-131-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-134-brightgreen" alt="tests">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
@@ -114,7 +114,7 @@ splits — all 164 problems are held out — which is part of why it is the clea
 | 12 | [What it reaches for when nobody asks](projects/12_security_defaults/) | 12 | Three of twelve security tasks fail **5 times out of 5** unprompted - pickle, MD5, path traversal - while SQL injection is handled correctly unasked. Specific lessons, not a posture. |
 | 13 | [Which part of an error message does the work](projects/13_feedback_content/) | 972 | A length-matched **padding** control scores 7.3%, *below* the 8.4% no-feedback baseline — so none of the gain is prompt length. Showing the actual value doubles it to **18.3%** (p=0.0003). An earlier run called the traceback worthless; the arm had never been sent one. |
 | 14 | [Tell it not to do something](projects/14_constraint_compliance/) | 150 | Compliance looks high and most of it was free: `no_recursion` reads 99% against a **97% baseline**. Only `type_hints` does real work (0% to 100%). Accuracy costs under 8 points throughout. |
-| 15 | [Eight solutions in one response](projects/15_batch_vs_single/) | 160 | Monotonic, unlike the dilution result: batching eight tasks costs **9.4 points**, and 8 of 160 solutions were never emitted at all. The *middle* positions score worst, not the end. |
+| 15 | [Eight solutions in one response](projects/15_batch_vs_single/) | 160 | &#9888; **Being re-measured.** The reported 9.4-point cost and "8 of 160 never emitted" were inflated by the response splitter, which discarded a whole batch on one stray `)`. Corrected on the same responses: **6.2 points** and **1** genuinely missing function. |
 | 16 | [Is a code-tuned model worth it](projects/16_coder_vs_generalist/) | 250 | The coder advantage **grows** with scale - +8.8pp at 3B, +11.2pp at 14B - refuting the hypothesis this was written to test. The branch predicting a shrinking gap never fired. |
 | 17 | [Does writing tests first help](projects/17_test_first/) | 200 | Writing tests first and thinking out loud first land **within one point** of each other, so the TDD framing does no work. The number read 17.0% before three harness bugs were fixed - a 54-point swing with the model's output unchanged. |
 | 18 | [Temperature 0 is not the same as deterministic](projects/18_determinism/) | 120 | Five identical runs gave **five identical pass@1 figures** - and 1.7% of tasks flipped verdict anyway. The score is stable because the flips cancelled, which is not the same as the decoding being deterministic. |
