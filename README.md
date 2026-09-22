@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
   <img src="https://img.shields.io/badge/API%20keys-none%20required-success" alt="api keys">
-  <img src="https://img.shields.io/badge/tests-121-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-125-brightgreen" alt="tests">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
@@ -48,6 +48,13 @@ is one nudge from — reached once by looping five times on test feedback and on
 repair against rewrite. **03 and 07** both say MBPP's task *descriptions* are the weak link,
 reached once through test suites and once through docstrings.
 
+> **Both halves of the 02/04 pair are being re-measured and their current numbers should not
+> be relied on.** Each was handed the string `AssertionError` in place of an error message
+> (see [Problems hit](#problems-hit-while-building-this)). That handicaps only the arms that
+> *read* feedback — a debug loop, and the repair half of repair-versus-rewrite — so a result
+> saying feedback does not help is exactly the result the bug would manufacture. Project 13,
+> which had the same bug, reversed on re-measurement.
+
 > **What you get on the first attempt is very nearly all you get — and a good part of what
 > you get is the prompt rather than the model.**
 
@@ -67,7 +74,7 @@ reached once through test suites and once through docstrings.
 | 10 | [Bury the task in unrelated examples](projects/10_context_dilution/) | 200 | A **16x longer prompt** moves pass@1 by at most 3.5 points, and not monotonically. There is no dilution curve at this scale - reported as a non-result rather than dressed up as a trend. |
 | 11 | [Refactor without changing behaviour](projects/11_refactor_safety/) | 972 | `rename` breaks **31.8%** of solutions and 247 of those 248 are just the function being renamed. `idiomatic` breaks at the same rate, but **9.2%** are genuine silent logic changes — and it is the only refactor that makes code shorter. |
 | 12 | [What it reaches for when nobody asks](projects/12_security_defaults/) | 12 | Three of twelve security tasks fail **5 times out of 5** unprompted - pickle, MD5, path traversal - while SQL injection is handled correctly unasked. Specific lessons, not a posture. |
-| 13 | [Which part of an error message does the work](projects/13_feedback_content/) | 972 | The **assertion text is the signal**: 7.9% → **15.2%**, p=0.0013 paired. Saying only "it failed" is worth nothing (p=1.00), and adding expected/actual values *costs* five fixes. Across all five framings only 17.8% of failures are ever fixed. |
+| 13 | [Which part of an error message does the work](projects/13_feedback_content/) | 972 | A length-matched **padding** control scores 7.3%, *below* the 8.4% no-feedback baseline — so none of the gain is prompt length. Showing the actual value doubles it to **18.3%** (p=0.0003). An earlier run called the traceback worthless; the arm had never been sent one. |
 | 14 | [Tell it not to do something](projects/14_constraint_compliance/) | 150 | Compliance looks high and most of it was free: `no_recursion` reads 99% against a **97% baseline**. Only `type_hints` does real work (0% to 100%). Accuracy costs under 8 points throughout. |
 | 15 | [Eight solutions in one response](projects/15_batch_vs_single/) | 160 | Monotonic, unlike the dilution result: batching eight tasks costs **9.4 points**, and 8 of 160 solutions were never emitted at all. The *middle* positions score worst, not the end. |
 | 16 | [Is a code-tuned model worth it](projects/16_coder_vs_generalist/) | 250 | The coder advantage **grows** with scale - +8.8pp at 3B, +11.2pp at 14B - refuting the hypothesis this was written to test. The branch predicting a shrinking gap never fired. |
@@ -447,6 +454,24 @@ on every push.
   project imported that way returns the first project's module and the test still passes.
 - **Path resolution read 22.2% where the full path read 96.1%** in a sibling repo — a
   non-monotonic result that turned out to be a scoring artefact, not a finding.
+- **Three projects sent a model the word `AssertionError` and called it an error message.**
+  `Outcome.detail` is stderr's *last line*, which for an assertion failure is exactly that
+  one word — no file, no line, no source, no values. Project 13 sent it under the name
+  `traceback` and concluded tracebacks were worthless; 02 fed it to every round of a debug
+  loop; 04 gave it to the repair arm while the rewrite arm, which never reads an error
+  message, was untouched. Sent a real traceback, project 13's arm clears the baseline at
+  p=0.013 — the opposite of what it had reported twice.
+- **An arm carried a constant for 191 tasks and the results file said so.** Project 13's
+  `expected` arm read a value from `detail`, but its probe *prints* the value and therefore
+  *succeeds* — and a successful outcome has no `detail`. So it returned
+  `(could not be evaluated)` precisely when the value existed. The tell was sitting in the
+  committed JSON: `expected` minus `assertion` was **38.0000000000** characters, a constant,
+  and real values do not all have the same length.
+- **A wrong number produced a wrong explanation.** Because `expected` scored below
+  `assertion`, the write-up blamed prompt length. A length-matched padding control now
+  scores *below* the no-feedback baseline, so length buys nothing and the real cause was
+  that the extra text announced a harness failure. The control exists because the story
+  was plausible and wrong.
 
 ## Keywords
 

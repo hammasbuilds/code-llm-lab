@@ -1,0 +1,30 @@
+waiting for project 13 05:25:47
+project 13 did not finish in 40m - running 04 anyway 06:05:50
+########## 04_repair_vs_rewrite --limit 972 06:05:51
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  first attempt...
+    first: 50/972
+    first: 100/972
+    first: 150/972
+    first: 200/972
+    first: 250/972
+    first: 300/972
+    first: 350/972
+    first: 400/972
+    first: 450/972
+    first: 500/972
+    first: 550/972
+    first: 600/972
+    first: 650/972
+    first: 700/972
+    first: 750/972
+    first: 800/972
+    first: 850/972
+    first: 900/972
+    first: 950/972
+    first: 972/972
+  first-attempt pass@1: 80.3%  (191 failures to work with)  [19s]
+    repair: 50/191
+    repair: 100/191
+    repair: 150/191

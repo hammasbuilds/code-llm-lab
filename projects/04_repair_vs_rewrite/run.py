@@ -97,7 +97,14 @@ def main() -> int:
         [(c, list(t.tests), t.setup) for c, t in zip(codes, tasks, strict=True)],
         args.workers,
     )
-    failed = [(t, c, o.detail) for t, c, o in zip(tasks, codes, outs, strict=True) if not o.passed]
+    # `.traceback`, not `.detail`: `detail` is stderr's last line, and for an
+    # AssertionError that is the bare word "AssertionError". The repair arm was being
+    # handed no information at all, which is not a fair test of repair against rewrite -
+    # rewrite does not need the error message, so a broken error message handicaps only
+    # one of the two arms.
+    failed = [
+        (t, c, o.traceback) for t, c, o in zip(tasks, codes, outs, strict=True) if not o.passed
+    ]
     print(
         f"  first-attempt pass@1: {(len(tasks) - len(failed)) / len(tasks):.1%}  "
         f"({len(failed)} failures to work with)  [{time.time() - t0:.0f}s]"

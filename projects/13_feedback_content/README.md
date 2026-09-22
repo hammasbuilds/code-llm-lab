@@ -3,9 +3,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/failures%2520retried-191-blue" alt="">
-  <img src="https://img.shields.io/badge/best%2520arm-15.2%25-2ea44f" alt="">
-  <img src="https://img.shields.io/badge/no%2520feedback-7.9%25-64748b" alt="">
-  <img src="https://img.shields.io/badge/p-0.0013-2ea44f" alt="">
+  <img src="https://img.shields.io/badge/best%2520arm-18.3%25-2ea44f" alt="">
+  <img src="https://img.shields.io/badge/no%2520feedback-8.4%25-64748b" alt="">
+  <img src="https://img.shields.io/badge/length%2520alone-7.3%25-b91c1c" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
@@ -13,69 +13,99 @@
 ---
 
 Take the 191 tasks the model got wrong on its first attempt across all 972 MBPP problems
-and hand each failure back five different ways. The arms are nested on purpose, so each one
-adds exactly one thing:
+and hand each failure back six different ways:
 
 ```
 nothing      "that was wrong, try again"
-boolean      + which assertion failed
-assertion    + the text of the failing assert
-traceback    + the Python traceback
-expected     + the expected and actual values
+boolean      + the tests failed, no detail
+assertion    the assert that failed, and nothing else
+traceback    the real traceback: exception, source line, caret
+expected     the failing assert plus what the code produced instead
+padding      a control - matched to `expected`'s length, character for character,
+             with true statements about the harness that say nothing about the failure
 ```
 
-Every arm retries the same 191 tasks, so the comparison is paired and the p-values below
-are exact McNemar tests on the discordant pairs - the tasks one arm fixed and the other
-did not.
+The arms **replace** each other rather than nesting. Every arm retries the same 191 tasks,
+so the comparison is paired and the p-values are exact McNemar tests on the discordant
+tasks - the ones where one arm succeeded and the other did not.
 
 ## Result
 
 ```
-                fixed          vs "nothing"
-nothing       15/191   7.9%        -
-boolean       16/191   8.4%    p = 1.00      <- saying "it failed" is saying nothing
-assertion     29/191  15.2%    p = 0.0013    <- the signal
-traceback     18/191   9.4%    p = 0.25
-expected      24/191  12.6%    p = 0.035
+                fixed          vs "nothing"     prompt
+padding       14/191   7.3%    p = 0.63          548 chars   <- length alone
+nothing       16/191   8.4%       -              426
+boolean       19/191   9.9%    p = 0.38          454         <- "it failed" is not information
+traceback     27/191  14.1%    p = 0.013         643
+assertion     29/191  15.2%    p = 0.0023        518
+expected      35/191  18.3%    p = 0.0003        548         <- best
 ```
 
-**The assertion text is the signal.** Showing the failing assert nearly doubles the fix
-rate, 7.9% to 15.2%, and it is the only arm that clears significance comfortably. Telling
-the model *that* it failed without showing the assert (`boolean`) is worth nothing at all:
-three tasks gained, two lost, p = 1.00.
+**The padding control is the result.** It is exactly as long as the best arm - 548
+characters against 548 - and it scores **below the no-feedback baseline**. Length buys
+nothing. Whatever the informative arms gained, they gained from what they said, and that is
+now measured rather than assumed.
 
-**Adding the expected and actual values makes it worse, not better.** `expected` fixes 24
-where `assertion` fixes 29, and 23 of its 24 are a subset of `assertion`'s - it is the same
-signal with 38 more characters of padding and five fewer fixes. That is the opposite of
-what the 250-task run suggested, where the two arms fixed an identical set of six tasks and
-looked interchangeable.
+**Showing the model the actual value is the most useful single thing you can do.** `expected`
+more than doubles the baseline, 8.4% to 18.3%, at 122 characters. Its edge over `assertion`
+alone (+9 tasks, -3) is **not** individually significant at p = 0.15, so the honest ranking
+is "`expected` and `assertion` are the two strong arms, `expected` ahead" - not "`expected`
+beats `assertion`".
 
-Per character, the ranking is the same and sharper:
+**Telling it that it failed, without telling it how, is worth nothing.** `boolean` adds 28
+characters and 3 tasks, p = 0.38.
+
+Per character bought:
 
 ```
              extra chars    extra fixes    cost per fix
-assertion         17,730             14       1,266
-traceback          8,128              3       2,709
-expected          24,988              9       2,776
-boolean            5,348              1       5,348
+expected          23,373             19       1,230
+assertion         17,730             13       1,364
+boolean            5,348              3       1,783
+traceback         41,563             11       3,778
+padding           23,373             -2         n/a
 ```
 
-**The ceiling is low regardless.** Across all five framings only **34 of 191** failures were
-ever fixed by any of them - 17.8%. Four fifths of first-attempt failures are not a
-communication problem, which agrees with [self-debug-ceiling](../02_self_debug_ceiling):
-the second attempt is not where the wins are.
+The traceback works, but it is the **most expensive** way to say it: the longest payload of
+the six, carrying the same assert line the cheap arm carries, for three times the cost per
+fix.
 
-### What the small run got wrong
+**The ceiling is 22.0%.** Across all six framings only 42 of 191 failures were ever fixed by
+any of them. Four fifths of first-attempt failures are not a communication problem, which
+agrees with [self-debug-ceiling](../02_self_debug_ceiling).
 
-At 250 tasks this repository reported that the traceback was **"worse than useless - the
-same as saying nothing at all"**, on 1 fixed task out of 60. At 972 it fixes 18 of 191
-against the baseline's 15, p = 0.25. That is not "worse than useless"; it is *not
-distinguishable from the baseline*, which is a weaker and much less interesting claim. The
-original sentence was one task's worth of noise written up as a finding.
+### This project previously reported the opposite, because of a harness bug
 
-The practical advice survives and is now worth stating: **send the assert, send nothing
-else.** The traceback costs tokens and buys nothing measurable, and the expected/actual
-values actively cost you fixes.
+Two earlier runs concluded the traceback was **"worse than useless - the same as saying
+nothing at all"**. That was not a fact about tracebacks. The arm was never sent one.
+
+`Outcome.detail` is the **last line** of stderr, and for an `AssertionError` that line is
+the bare word `AssertionError` - fourteen characters, no file, no line, no source, no
+values. So the arm's entire payload was:
+
+```
+Running the tests gave:
+AssertionError
+```
+
+which is the `boolean` arm reworded. The two scored alike because they *were* alike. Sent a
+real traceback, the arm clears the baseline at p = 0.013.
+
+The `expected` arm was broken in the same family. Its value probe *prints* the answer, so
+the probe succeeds - and a successful `Outcome` carries no `detail`. The code read `detail`,
+so it returned `(could not be evaluated)` precisely when the value was available, for every
+task in both runs. The tell was in the committed results file: `expected` minus `assertion`
+was **38.0000000000** characters, a constant, and `len("It produced: (could not be
+evaluated)\n")` is exactly 38. Real values do not all have the same length.
+
+That bug also produced a wrong *explanation*. `expected` scored below `assertion`, and the
+write-up attributed it to longer prompts costing something. It was not length - the extra
+text was noise announcing that the harness had failed. The `padding` arm exists so that
+question is now settled by a control instead of by a plausible story.
+
+Both bugs are pinned by tests in `tests/test_shared.py`, and the same `.detail` misuse was
+found and fixed in [self-debug-ceiling](../02_self_debug_ceiling) and
+[repair-vs-rewrite](../04_repair_vs_rewrite), which were feeding it into repair prompts.
 
 ## Running it
 
@@ -85,11 +115,13 @@ python run.py --limit 972
 
 ## Limits
 
-- One model (`qwen2.5-coder:14b`) at temperature 0, one retry per arm. Whether a stronger
-  model needs less of the message is not measured here.
-- MBPP assertions are short and literal, and the whole program is one function. A failure
-  deep inside a larger program produces a traceback carrying much more than MBPP's does,
-  and none of this should be read as "tracebacks are useless" in general.
-- The arms are nested, so `expected` contains everything `assertion` contains. It fixing
-  *fewer* tasks means longer prompts cost something, not that the extra values are harmful
-  on their own.
+- One model (`qwen2.5-coder:14b`) at temperature 0, one retry per arm, one seed per arm.
+  A task that flips is one coin, not a rate.
+- `padding` controls for **length**, not layout: it matches `expected`'s character count
+  exactly but is one unbroken line where `expected` has newlines.
+- 17 of 191 failures genuinely have no recoverable value - the call raises or does not
+  terminate - and `expected` degrades to `(could not be evaluated)` on those, which is now
+  what that string honestly means.
+- MBPP assertions are short and literal and the whole program is one function. A traceback
+  from deep inside a larger program carries far more than MBPP's does, so the "traceback is
+  expensive per fix" result should not be read as a general claim.

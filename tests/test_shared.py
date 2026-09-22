@@ -53,6 +53,42 @@ def test_crlf_source_does_not_become_a_syntax_error():
     assert run(code, ["assert add(1, 2) == 3"]).status == "pass"
 
 
+def test_detail_is_one_line_and_traceback_is_the_whole_thing():
+    # `detail` for an AssertionError is the bare word "AssertionError" - 14 characters
+    # with no file, no line, no source and no values. Project 13 sent that string to a
+    # model for two published runs under the name `traceback`, and reported the result
+    # as a finding about tracebacks. These assert the two are different things.
+    out = run("def add(a, b):\n    return a - b\n", ["assert add(1, 2) == 3"])
+    assert out.status == "fail"
+    assert out.detail == "AssertionError"
+    assert "assert add(1, 2) == 3" in out.traceback
+    assert len(out.traceback) > len(out.detail)
+
+
+def test_traceback_drops_the_harness_frame():
+    # The runner writes everything into one temp file, so the first frame names a path
+    # that does not exist for whoever reads the output.
+    out = run("def add(a, b):\n    return a - b\n", ["assert add(1, 2) == 3"])
+    assert "candidate.py" not in out.traceback
+
+
+def test_a_passing_probe_returns_its_value_on_stdout():
+    # The inverted-check bug: a probe that prints a value SUCCEEDS, and a successful
+    # Outcome carries no `detail`. Reading `detail` for the answer therefore returned
+    # nothing exactly when the answer existed, and project 13's `expected` arm shipped
+    # the literal string "(could not be evaluated)" for every task in two runs.
+    out = run("def add(a, b):\n    return a - b\n\n\n\nprint(repr(add(1, 2)))", [])
+    assert out.passed
+    assert out.stdout == "-1"
+    assert "__OK__" not in out.stdout
+
+
+def test_a_probe_that_raises_has_no_value():
+    out = run("def f():\n    return 1 / 0\n\n\n\nprint(repr(f()))", [])
+    assert not out.passed
+    assert out.stdout == ""
+
+
 # --- code extraction -----------------------------------------------------------------
 
 

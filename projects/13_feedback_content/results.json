@@ -11,23 +11,24 @@
     2,
     3,
     4,
-    5
+    5,
+    6
   ],
   "python": "3.14",
-  "commit": "3d5ba30",
-  "run_at": "2026-09-21 18:41:41",
+  "commit": "327c7ab",
+  "run_at": "2026-09-22 06:26:21",
   "first_attempt_failures": 191,
   "arms": {
     "nothing": {
       "n": 191,
-      "fixed": 15,
-      "fix_rate": 0.07853403141361257,
+      "fixed": 16,
+      "fix_rate": 0.08376963350785341,
       "mean_prompt_chars": 425.5445026178011
     },
     "boolean": {
       "n": 191,
-      "fixed": 16,
-      "fix_rate": 0.08376963350785341,
+      "fixed": 19,
+      "fix_rate": 0.09947643979057591,
       "mean_prompt_chars": 453.5445026178011
     },
     "assertion": {
@@ -38,19 +39,107 @@
     },
     "traceback": {
       "n": 191,
-      "fixed": 18,
-      "fix_rate": 0.09424083769633508,
-      "mean_prompt_chars": 468.0994764397906
+      "fixed": 27,
+      "fix_rate": 0.14136125654450263,
+      "mean_prompt_chars": 643.151832460733
     },
     "expected": {
       "n": 191,
-      "fixed": 24,
-      "fix_rate": 0.1256544502617801,
-      "mean_prompt_chars": 556.3717277486911
+      "fixed": 35,
+      "fix_rate": 0.18324607329842932,
+      "mean_prompt_chars": 547.9162303664922
+    },
+    "padding": {
+      "n": 191,
+      "fixed": 14,
+      "fix_rate": 0.07329842931937172,
+      "mean_prompt_chars": 547.9162303664922
     }
   },
+  "comparisons": {
+    "boolean_vs_nothing": {
+      "only_arm": 4,
+      "only_other": 1,
+      "p": 0.375
+    },
+    "assertion_vs_nothing": {
+      "only_arm": 15,
+      "only_other": 2,
+      "p": 0.002349853515625
+    },
+    "traceback_vs_nothing": {
+      "only_arm": 14,
+      "only_other": 3,
+      "p": 0.012725830078125
+    },
+    "expected_vs_nothing": {
+      "only_arm": 23,
+      "only_other": 4,
+      "p": 0.000310748815536499
+    },
+    "padding_vs_nothing": {
+      "only_arm": 1,
+      "only_other": 3,
+      "p": 0.625
+    },
+    "expected_vs_assertion": {
+      "only_arm": 9,
+      "only_other": 3,
+      "p": 0.14599609375
+    },
+    "traceback_vs_assertion": {
+      "only_arm": 2,
+      "only_other": 4,
+      "p": 0.6875
+    }
+  },
+  "fixed_any": [
+    "mbpp/137",
+    "mbpp/157",
+    "mbpp/160",
+    "mbpp/228",
+    "mbpp/236",
+    "mbpp/259",
+    "mbpp/277",
+    "mbpp/289",
+    "mbpp/295",
+    "mbpp/315",
+    "mbpp/326",
+    "mbpp/33",
+    "mbpp/339",
+    "mbpp/340",
+    "mbpp/341",
+    "mbpp/345",
+    "mbpp/363",
+    "mbpp/371",
+    "mbpp/379",
+    "mbpp/380",
+    "mbpp/407",
+    "mbpp/409",
+    "mbpp/42",
+    "mbpp/452",
+    "mbpp/469",
+    "mbpp/545",
+    "mbpp/569",
+    "mbpp/6",
+    "mbpp/610",
+    "mbpp/631",
+    "mbpp/644",
+    "mbpp/688",
+    "mbpp/70",
+    "mbpp/737",
+    "mbpp/739",
+    "mbpp/755",
+    "mbpp/776",
+    "mbpp/834",
+    "mbpp/836",
+    "mbpp/850",
+    "mbpp/87",
+    "mbpp/880"
+  ],
   "fixed_by": {
     "nothing": [
+      "mbpp/289",
       "mbpp/339",
       "mbpp/340",
       "mbpp/341",
@@ -69,6 +158,9 @@
     ],
     "boolean": [
       "mbpp/157",
+      "mbpp/277",
+      "mbpp/289",
+      "mbpp/340",
       "mbpp/341",
       "mbpp/345",
       "mbpp/371",
@@ -117,7 +209,15 @@
       "mbpp/880"
     ],
     "traceback": [
-      "mbpp/339",
+      "mbpp/160",
+      "mbpp/228",
+      "mbpp/236",
+      "mbpp/259",
+      "mbpp/277",
+      "mbpp/289",
+      "mbpp/295",
+      "mbpp/315",
+      "mbpp/33",
       "mbpp/340",
       "mbpp/341",
       "mbpp/345",
@@ -129,38 +229,66 @@
       "mbpp/545",
       "mbpp/569",
       "mbpp/6",
-      "mbpp/644",
       "mbpp/688",
       "mbpp/737",
+      "mbpp/739",
       "mbpp/755",
-      "mbpp/836",
-      "mbpp/850"
+      "mbpp/776",
+      "mbpp/850",
+      "mbpp/87"
     ],
     "expected": [
+      "mbpp/137",
       "mbpp/160",
       "mbpp/228",
       "mbpp/236",
+      "mbpp/259",
+      "mbpp/277",
+      "mbpp/289",
+      "mbpp/295",
       "mbpp/315",
+      "mbpp/326",
+      "mbpp/33",
       "mbpp/340",
       "mbpp/341",
-      "mbpp/345",
       "mbpp/363",
       "mbpp/379",
       "mbpp/380",
+      "mbpp/407",
       "mbpp/409",
+      "mbpp/42",
       "mbpp/452",
+      "mbpp/469",
       "mbpp/545",
       "mbpp/569",
       "mbpp/6",
+      "mbpp/631",
       "mbpp/688",
       "mbpp/70",
       "mbpp/737",
       "mbpp/755",
       "mbpp/776",
+      "mbpp/834",
       "mbpp/836",
       "mbpp/850",
       "mbpp/87",
       "mbpp/880"
+    ],
+    "padding": [
+      "mbpp/157",
+      "mbpp/289",
+      "mbpp/339",
+      "mbpp/340",
+      "mbpp/341",
+      "mbpp/379",
+      "mbpp/380",
+      "mbpp/409",
+      "mbpp/545",
+      "mbpp/569",
+      "mbpp/6",
+      "mbpp/737",
+      "mbpp/836",
+      "mbpp/850"
     ]
   }
 }

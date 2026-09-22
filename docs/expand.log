@@ -483,3 +483,35 @@ mbpp: 972 tasks, model qwen2.5-coder:14b
     default: 250/781
     default: 300/781
     default: 350/781
+    default: 400/781
+    default: 450/781
+    default: 500/781
+    default: 550/781
+    default: 600/781
+    default: 650/781
+    default: 700/781
+    default: 750/781
+    default: 781/781
+  default     regressed    3/781 (  0.4%)  {'error': 2, 'fail': 1}  [2104s]
+    logging: 50/781
+    logging: 100/781
+    logging: 150/781
+    logging: 200/781
+    logging: 250/781
+    logging: 300/781
+    logging: 350/781
+    logging: 400/781
+    logging: 450/781
+    logging: 500/781
+    logging: 550/781
+    logging: 600/781
+    logging: 650/781
+    logging: 700/781
+    logging: 750/781
+    logging: 781/781
+  logging     regressed    0/781 (  0.0%)  {}  [3799s]
+    generalise: 50/781
+    generalise: 100/781
+    generalise: 150/781
+    generalise: 200/781
+    generalise: 250/781

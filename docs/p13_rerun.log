@@ -1,0 +1,87 @@
+mbpp: 972 tasks, model qwen2.5-coder:14b
+
+  first attempts (cached from project 01)...
+    solve: 50/972
+    solve: 100/972
+    solve: 150/972
+    solve: 200/972
+    solve: 250/972
+    solve: 300/972
+    solve: 350/972
+    solve: 400/972
+    solve: 450/972
+    solve: 500/972
+    solve: 550/972
+    solve: 600/972
+    solve: 650/972
+    solve: 700/972
+    solve: 750/972
+    solve: 800/972
+    solve: 850/972
+    solve: 900/972
+    solve: 950/972
+    solve: 972/972
+  191 first-attempt failures  [20s]
+
+  collecting the failing assertion for each...
+    nothing: 50/191
+    nothing: 100/191
+    nothing: 150/191
+    nothing: 191/191
+  nothing    fixed   16/191 (  8.4%)  prompt    426 chars  [76s]
+    boolean: 50/191
+    boolean: 100/191
+    boolean: 150/191
+    boolean: 191/191
+  boolean    fixed   19/191 (  9.9%)  prompt    454 chars  [116s]
+    assertion: 50/191
+    assertion: 100/191
+    assertion: 150/191
+    assertion: 191/191
+  assertion  fixed   29/191 ( 15.2%)  prompt    518 chars  [5s]
+    traceback: 50/191
+    traceback: 100/191
+    traceback: 150/191
+    traceback: 191/191
+  traceback  fixed   27/191 ( 14.1%)  prompt    643 chars  [1451s]
+    expected: 50/191
+    expected: 100/191
+    expected: 150/191
+    expected: 191/191
+  expected   fixed   35/191 ( 18.3%)  prompt    548 chars  [1457s]
+    padding: 50/191
+    padding: 100/191
+    padding: 150/191
+    padding: 191/191
+  padding    fixed   14/191 (  7.3%)  prompt    548 chars  [1819s]
+
+============================================================================
+FEEDBACK CONTENT - 191 first-attempt failures, qwen2.5-coder:14b
+============================================================================
+  nothing       8.4%  #####
+  boolean       9.9%  ######
+  assertion    15.2%  #########
+  traceback    14.1%  ########
+  expected     18.3%  ###########
+  padding       7.3%  ####
+
+  best  : expected at 18.3%
+  worst : padding at 7.3%
+  spread: 11.0%
+
+  --- paired, vs `nothing` (exact McNemar on discordant tasks) ---
+    boolean     +  4 / -1    p = 0.3750
+    assertion   + 15 / -2    p = 0.0023  <- significant
+    traceback   + 14 / -3    p = 0.0127  <- significant
+    expected    + 23 / -4    p = 0.0003  <- significant
+    padding     +  1 / -3    p = 0.6250
+
+  --- paired, the two controls ---
+    padding    vs nothing    +  1 / -3    p = 0.6250   does length alone buy anything?
+    expected   vs assertion  +  9 / -3    p = 0.1460   does adding the actual value help or cost?
+    traceback  vs assertion  +  2 / -4    p = 0.6875   does the assert wrapped in a traceback help or cost?
+
+  ceiling: 42/191 (22.0%) of failures were fixed by at least one
+  of the 6 framings. The rest are not a communication problem.
+
+wrote D:\github\code-llm-lab\projects\13_feedback_content\results.json

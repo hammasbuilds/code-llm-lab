@@ -10,23 +10,31 @@ options cost different amounts of context:
 - `nothing`   - "that was wrong, try again". The cheapest possible signal.
 - `boolean`   - the tests failed, no detail.
 - `assertion` - the assert that failed and nothing else.
-- `traceback` - the full traceback, exception type and line.
-- `expected`  - the failing assert plus what it produced instead.
+- `traceback` - the full traceback: exception, source line, and the caret under the call.
+- `expected`  - the failing assert plus what the code produced instead.
+- `padding`   - a control. Matched to `expected`'s length, character for character, with
+                true statements about the harness that say nothing about the failure.
 
-If `traceback` and `nothing` land in the same place, then the loop is not reading the error
-at all - it is just being asked again, and every byte of captured stderr is wasted context.
-That is a cheap thing to know before building the plumbing to collect it.
+The arms **replace** each other; they are not nested. `expected` is the only one that
+strictly contains another (`assertion`), and `traceback` contains the same source line
+wrapped in ceremony. That is the comparison worth having: the same fact, presented two
+ways, at two prices.
+
+`padding` is here because every informative arm is also a longer arm. Without it, "the
+richer arm did better" and "the longer arm did better" are the same observation, and an
+earlier version of this project attributed a difference to length without ever testing it.
 
 Every arm starts from the **same** failed first attempt, so the only variable is the
 feedback. One retry each, because project 02 established that later rounds add nothing.
 
-    python run.py --limit 250
+    python run.py --limit 972
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 import time
 from pathlib import Path
@@ -59,7 +67,38 @@ FEEDBACK = {
     "assertion": "\nThis assertion failed:\n{assertion}\n",
     "traceback": "\nRunning the tests gave:\n{detail}\n",
     "expected": "\nThis assertion failed:\n{assertion}\nIt produced: {actual}\n",
+    # A control, not a strategy anyone would use. Every informative arm is also a *longer*
+    # arm, so a difference between them could be the content or could be the extra tokens.
+    # This one is padded to exactly the length of `expected` with true statements about the
+    # harness that say nothing whatsoever about this failure. Whatever it scores is what
+    # length alone buys.
+    "padding": "{padding}",
 }
+
+# Repeated and cut to length. Every sentence is true and none of it is about the task,
+# the code, or why it failed.
+FILLER = (
+    "The tests are run in a separate process. "
+    "The process has a wall-clock limit. "
+    "Standard output and standard error are both captured. "
+    "The working directory is a temporary one. "
+)
+
+
+def mcnemar(a: set[str], b: set[str]) -> tuple[int, int, float]:
+    """(fixed by a only, fixed by b only, exact two-sided p) over the discordant tasks.
+
+    Exact binomial rather than the chi-square approximation, because several of these
+    comparisons have single-digit discordant counts and the approximation is not usable
+    there - which is exactly where a difference is most likely to be over-read.
+    """
+    only_a, only_b = len(a - b), len(b - a)
+    n = only_a + only_b
+    if n == 0:
+        return 0, 0, 1.0
+    k = min(only_a, only_b)
+    p = sum(math.comb(n, i) for i in range(k + 1)) / 2**n * 2
+    return only_a, only_b, min(1.0, p)
 
 
 def first_failing_assert(code: str, task) -> str:
@@ -75,12 +114,21 @@ def actual_value(code: str, assertion: str, task) -> str:
 
     Reported rather than guessed: an arm that silently degrades to `assertion` whenever the
     value cannot be recovered is not the arm it claims to be.
+
+    The probe *prints* the value, so the answer is on stdout and the probe succeeds. An
+    earlier version read `out.detail` instead, which a successful Outcome leaves empty -
+    so it returned "(could not be evaluated)" precisely when the value was available, and
+    the `expected` arm carried that literal string for every task in two published runs.
+    The tell was in the results file: `expected` minus `assertion` was 38.0000 characters,
+    a constant, and real values do not all have the same length.
     """
     expr = assertion.removeprefix("assert ").split("==")[0].strip()
     probe = f"{code}\n\n{task.setup}\n\nprint(repr({expr}))"
     out = run(probe, [], "")
-    if out.status in ("pass", "fail") and out.detail:
-        return out.detail.strip().splitlines()[-1][:200]
+    if out.stdout:
+        return out.stdout.strip().splitlines()[-1][:200]
+    # A genuine failure to evaluate: the call raises, loops, or the expression could not be
+    # recovered from the assert. Naming it is right; returning it for a success was not.
     return "(could not be evaluated)"
 
 
@@ -112,17 +160,33 @@ def main() -> int:
     assertions = [first_failing_assert(s.code, s.task) for s in failed]
     actuals = [actual_value(s.code, a, s.task) for s, a in zip(failed, assertions, strict=True)]
 
+    # `expected`'s length per task, so `padding` can be matched to it exactly rather than
+    # on the mean - the mean would leave individual prompts mismatched in both directions.
+    expected_len = [
+        len(FEEDBACK["expected"].format(assertion=a, actual=v, detail="", padding=""))
+        for a, v in zip(assertions, actuals, strict=True)
+    ]
+    paddings = [(FILLER * (n // len(FILLER) + 1))[:n] for n in expected_len]
+
     summary: dict[str, dict] = {}
     fixed_by: dict[str, set[str]] = {}
 
     for arm, template in FEEDBACK.items():
         t0 = time.time()
         prompts = []
-        for s, assertion, actual in zip(failed, assertions, actuals, strict=True):
+        for s, assertion, actual, padding in zip(
+            failed, assertions, actuals, paddings, strict=True
+        ):
             fb = template.format(
                 assertion=assertion,
-                detail=(s.outcome.detail or "the tests failed")[:600],
+                # The real traceback, not `detail`. `detail` is the last line of stderr,
+                # which for an AssertionError is the bare word "AssertionError" - fourteen
+                # characters carrying no file, no line and no values. Two earlier runs of
+                # this project sent that string and reported the result as a finding about
+                # tracebacks.
+                detail=(s.outcome.traceback or "the tests failed")[:600],
                 actual=actual,
+                padding=padding,
             )
             prompts.append(RETRY.format(prompt=s.task.prompt, code=s.code, feedback=fb))
 
@@ -165,23 +229,43 @@ def main() -> int:
     rates = {k: v["fix_rate"] for k, v in summary.items()}
     best, worst = max(rates, key=rates.get), min(rates, key=rates.get)
     spread = rates[best] - rates[worst]
-    baseline = rates["nothing"]
 
     print(f"\n  best  : {best} at {rates[best]:.1%}")
     print(f"  worst : {worst} at {rates[worst]:.1%}")
     print(f"  spread: {spread:.1%}")
-    print(f"\n  richest feedback over no feedback at all : {rates['traceback'] - baseline:+.1%}")
-    extra_chars = (
-        summary["traceback"]["mean_prompt_chars"] - summary["nothing"]["mean_prompt_chars"]
-    )
-    print(f"  context it costs to carry the traceback  : {extra_chars:+.0f} chars")
 
-    if spread < 0.05:
-        print(
-            "\n  Every arm lands within 5 points, including the one that is handed nothing\n"
-            "  but 'try again'. On these failures the retry is not reading the error - it is\n"
-            "  being asked a second time, and the captured stderr is paying for nothing."
-        )
+    # Every arm retries the same failures, so the arms are paired and the unpaired
+    # difference in rates throws away which tasks moved. An earlier write-up of this
+    # project called a 1-task gap a finding; these are the numbers that would have
+    # refused it.
+    print("\n  --- paired, vs `nothing` (exact McNemar on discordant tasks) ---")
+    comparisons = {}
+    for arm in FEEDBACK:
+        if arm == "nothing":
+            continue
+        b, c, p = mcnemar(fixed_by[arm], fixed_by["nothing"])
+        comparisons[f"{arm}_vs_nothing"] = {"only_arm": b, "only_other": c, "p": p}
+        flag = "  <- significant" if p < 0.05 else ""
+        print(f"    {arm:11} +{b:>3} / -{c:<3}  p = {p:.4f}{flag}")
+
+    # The two that matter for "is it the content or the length", stated as comparisons
+    # rather than left for a reader to subtract.
+    print("\n  --- paired, the two controls ---")
+    for a, b_arm, why in (
+        ("padding", "nothing", "does length alone buy anything?"),
+        ("expected", "assertion", "does adding the actual value help or cost?"),
+        ("traceback", "assertion", "does the assert wrapped in a traceback help or cost?"),
+    ):
+        b, c, p = mcnemar(fixed_by[a], fixed_by[b_arm])
+        comparisons[f"{a}_vs_{b_arm}"] = {"only_arm": b, "only_other": c, "p": p}
+        print(f"    {a:10} vs {b_arm:10} +{b:>3} / -{c:<3}  p = {p:.4f}   {why}")
+
+    union = set().union(*fixed_by.values())
+    print(
+        f"\n  ceiling: {len(union)}/{len(failed)} ({len(union) / len(failed):.1%}) of failures "
+        f"were fixed by at least one\n  of the {len(FEEDBACK)} framings. The rest are not a "
+        "communication problem."
+    )
 
     (HERE / "results.json").write_text(
         json.dumps(
@@ -194,6 +278,8 @@ def main() -> int:
                     extra={"first_attempt_failures": len(failed)},
                 ),
                 "arms": summary,
+                "comparisons": comparisons,
+                "fixed_any": sorted(union),
                 "fixed_by": {k: sorted(v) for k, v in fixed_by.items()},
             },
             indent=2,

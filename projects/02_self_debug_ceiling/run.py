@@ -127,7 +127,12 @@ def main() -> int:
         )
         newly = 0
         for task, code, outcome in zip(todo, codes, outcomes, strict=True):
-            state[task.task_id] = (code, outcome.detail)
+            # `.traceback`, not `.detail`. `detail` is stderr's last line, which for an
+            # AssertionError is the bare word "AssertionError" - so every round of this
+            # loop was shown "Running the tests gave: AssertionError" and nothing more.
+            # A debug loop handed no information plateauing after two rounds is not
+            # evidence about debug loops; it is evidence about the harness.
+            state[task.task_id] = (code, outcome.traceback)
             if outcome.passed:
                 solved_at[task.task_id] = rnd
                 newly += 1

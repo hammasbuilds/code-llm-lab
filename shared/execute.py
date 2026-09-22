@@ -47,10 +47,37 @@ _FENCE = re.compile(r"```(?:python)?\s*\n(.*?)```", re.DOTALL)
 class Outcome:
     status: str
     detail: str = ""
+    # The whole of stderr, not just its last line. `detail` is deliberately the last line
+    # because most callers want a one-line label, but for an AssertionError that line is
+    # the bare word "AssertionError" - no file, no line number, no source, no values.
+    # A caller that wanted to show a model "what the tests printed" and reached for
+    # `detail` was showing it fourteen characters, and project 13 did exactly that for
+    # two runs while calling the arm `traceback`.
+    stderr: str = ""
+    # What the candidate printed, with the runner's own success marker removed. Needed by
+    # anything that probes a program for a *value* rather than a verdict: such a probe
+    # succeeds, and a successful Outcome carries no `detail` at all, so a caller reading
+    # `detail` for the answer gets the empty string exactly when the answer exists.
+    stdout: str = ""
 
     @property
     def passed(self) -> bool:
         return self.status == "pass"
+
+    @property
+    def traceback(self) -> str:
+        """The real traceback, with the harness's own wrapper frame dropped.
+
+        The runner writes solution, setup and asserts into one temporary file, so every
+        traceback's first frame is that file rather than anything the model wrote. It is
+        noise at best and misdirection at worst - it points at a path that does not exist
+        on the reader's machine.
+        """
+        if not self.stderr:
+            return self.detail
+        lines = self.stderr.splitlines()
+        kept = [ln for ln in lines if "candidate.py" not in ln]
+        return "\n".join(kept).strip() or self.stderr.strip()
 
 
 def extract_code(raw: str) -> str:
@@ -180,13 +207,14 @@ def run(code: str, tests, setup: str = "", timeout: float = TIMEOUT) -> Outcome:
         except OSError as exc:
             return Outcome("error", f"spawn failed: {exc}")
 
+    out = (r.stdout or "").replace("__OK__", "").strip()
     if "__OK__" in (r.stdout or ""):
-        return Outcome("pass")
+        return Outcome("pass", "", "", out)
     err = (r.stderr or "").strip()
     last = err.rsplit("\n", 1)[-1] if err else ""
     if "AssertionError" in err:
-        return Outcome("fail", last)
-    return Outcome("error", last[:200])
+        return Outcome("fail", last, err, out)
+    return Outcome("error", last[:200], err, out)
 
 
 def run_many(jobs: list[tuple], workers: int = 6) -> list[Outcome]:
