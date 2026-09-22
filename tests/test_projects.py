@@ -243,6 +243,26 @@ def test_confidence_is_clamped_and_optional():
     assert parse(None) is None
 
 
+def test_confidence_line_is_removed_from_the_submitted_code():
+    # The model writes CONFIDENCE *inside* the code fence, so it lands in the executed
+    # candidate - 262 of 263 responses in the current run. It survives only because
+    # "CONFIDENCE: 100" is a valid bare annotation. These four are all SyntaxError, and
+    # parse_confidence reads a number out of every one, so without the strip the
+    # confidence would be recorded while the code it describes was scored as broken.
+    strip = project("09_confidence_gating").strip_confidence_line
+    body = "def add(a, b):\n    return a + b\n\n"
+    for tail in ("CONFIDENCE: 95", "CONFIDENCE: 95%", "**CONFIDENCE: 95**", "The CONFIDENCE: 95"):
+        cleaned = strip(body + tail)
+        assert "CONFIDENCE" not in cleaned
+        compile(cleaned, "<candidate>", "exec")  # would raise SyntaxError on three of four
+
+
+def test_stripping_confidence_leaves_real_code_alone():
+    strip = project("09_confidence_gating").strip_confidence_line
+    code = "def f(n):\n    return n * 2\n"
+    assert strip(code).strip() == code.strip()
+
+
 def test_gate_precision_and_coverage():
     gate = project("09_confidence_gating").gate
     rows = [(90, True), (90, False), (50, True), (40, False)]

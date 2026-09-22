@@ -72,6 +72,22 @@ def parse_confidence(raw: str | None) -> int | None:
     return max(0, min(100, int(m[-1])))
 
 
+def strip_confidence_line(code: str) -> str:
+    """Drop the `CONFIDENCE: n` line, which the model writes *inside* the code fence.
+
+    This is defensive rather than corrective: measured over the current run it changes
+    nothing, because `CONFIDENCE: 100` happens to be a valid bare annotation in Python and
+    executes as a no-op. That is luck, not design. `CONFIDENCE: 95%`, `**CONFIDENCE: 95**`
+    and any prose prefix are all `SyntaxError`, and the regex above parses the number out of
+    every one of them - so the confidence would be recorded while the code it describes was
+    scored as broken. A prompt that asks for code and metadata in one response should not
+    depend on the metadata being accidentally valid code.
+    """
+    kept = [ln for ln in code.splitlines() if not _CONF.search(ln)]
+    # A trailing "# Confidence level" comment is left alone; it is already inert.
+    return "\n".join(kept).rstrip() + "\n"
+
+
 def gate(rows: list[tuple[int, bool]], threshold: int) -> tuple[float, float, int]:
     """(precision, coverage, n_merged) for auto-merging everything at or above `threshold`."""
     merged = [ok for conf, ok in rows if conf >= threshold]
@@ -102,7 +118,7 @@ def main() -> int:
         workers=args.workers,
         progress="solve+confidence",
     )
-    codes = [extract_code(r) if r else "" for r in raws]
+    codes = [strip_confidence_line(extract_code(r)) if r else "" for r in raws]
     confs = [parse_confidence(r) for r in raws]
     outs = run_many(
         [(c, list(t.tests), t.setup) for c, t in zip(codes, tasks, strict=True)],
