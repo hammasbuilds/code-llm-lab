@@ -28,3 +28,26 @@ mbpp: 972 tasks, model qwen2.5-coder:14b
     repair: 50/191
     repair: 100/191
     repair: 150/191
+    repair: 191/191
+    rewrite: 50/191
+    rewrite: 100/191
+    rewrite: 150/191
+    rewrite: 191/191
+
+====================================================================
+REPAIR vs REWRITE - 191 failed first attempts, one retry each
+====================================================================
+  repair  fixed :   27  ( 14.1%)
+  rewrite fixed :   21  ( 11.0%)
+  difference    : +3.1%
+
+  both worked   :    4  (  2.1%)
+  only repair   :   23  ( 12.0%)
+  only rewrite  :   17  (  8.9%)
+  neither       :  147  ( 77.0%)
+
+  Trying both fixes 23.0% - +8.9% over the better single strategy, for twice the calls.
+
+wrote D:\github\code-llm-lab\projects\04_repair_vs_rewrite\results.json
+########## 04_repair_vs_rewrite exit=0 06:36:21
+RERUN FIXED DONE 06:36:21

@@ -48,12 +48,14 @@ is one nudge from — reached once by looping five times on test feedback and on
 repair against rewrite. **03 and 07** both say MBPP's task *descriptions* are the weak link,
 reached once through test suites and once through docstrings.
 
-> **Both halves of the 02/04 pair are being re-measured and their current numbers should not
-> be relied on.** Each was handed the string `AssertionError` in place of an error message
-> (see [Problems hit](#problems-hit-while-building-this)). That handicaps only the arms that
-> *read* feedback — a debug loop, and the repair half of repair-versus-rewrite — so a result
-> saying feedback does not help is exactly the result the bug would manufacture. Project 13,
-> which had the same bug, reversed on re-measurement.
+> **That pair needs a caveat, and half of it has now been re-measured.** Both projects were
+> handed the string `AssertionError` in place of an error message (see
+> [Problems hit](#problems-hit-while-building-this)), which handicaps only the arms that
+> *read* feedback — so "feedback does not help" is exactly what the bug would manufacture.
+> **04 has been re-run** and its conclusion survives (p=0.43, was 0.72), but its repair arm
+> gained 9 fixes while the rewrite arm returned the identical 21 tasks. **02 has not**; it is
+> in the queue with the fix applied, and until it lands its "rounds 3–5 add nothing" should
+> be read as unconfirmed.
 
 > **What you get on the first attempt is very nearly all you get — and a good part of what
 > you get is the prompt rather than the model.**
@@ -63,9 +65,9 @@ reached once through test suites and once through docstrings.
 | | Project | Tasks | The finding |
 |---|---|---:|---|
 | 01 | [Where a 5x bigger model actually pays](projects/01_coder_size_curve/) | 972 | Of the 817 tasks either size can solve, the 3B already handles **74.8%**. The 14B's advantage is 206 tasks — and it *loses* 36 the 3B gets right, a **3.7%** regression rate that held steady from the 250-task run rather than shrinking into noise. |
-| 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 150 | Rounds 1–2 captured **100%** of everything the loop ever achieved. Rounds 3–5 added nothing at all, for 60% of the compute. |
+| 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 150 | Rounds 1–2 captured **100%** of everything the loop ever achieved. Rounds 3–5 added nothing at all, for 60% of the compute. &#9888; **Being re-measured** — every round was shown the string `AssertionError` rather than a real error, which is the condition most likely to produce a flat loop. |
 | 03 | [Do model-written tests catch anything](projects/03_tests_that_kill/) | 150 | From the implementation, generated suites kill **93.4%** of mutants against MBPP's own 85.0%. From the task description, only **16%** of suites even agree with the reference — a measurement of the spec, not the model. |
-| 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 972 | **81.7%** of first-attempt failures survive both strategies, and the two are indistinguishable (14 vs 17 discordant, p=0.72). They fix nearly **disjoint** sets though — only 4 of 35 overlap — so running both recovers 18.3% where either alone recovers ~10%. |
+| 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 972 | **77.0%** of first-attempt failures survive both, and the two stay indistinguishable (23 vs 17 discordant, p=0.43) — but they fix nearly **disjoint** sets, only 4 of 44 overlapping, so running both recovers 23.0%. Giving repair a real traceback instead of the word `AssertionError` was worth **+9 fixes (p=0.035)**, while rewrite — which never reads one — did not move by a single task. |
 | 05 | [The same task, asked five ways](projects/05_prompt_shape_variance/) | 200 | **24%** of tasks are solved under one phrasing and failed under another. The 7.5-point spread looks like noise you could average away; the flip rate says the per-task signal is much weaker than any single score suggests. |
 | 06 | [The temperature you benchmark at is not the one you deploy at](projects/06_temperature_pass_at_k/) | 60 | The ordering flips: T=0 wins pass@1, T=0.7 wins pass@5 by **5 points**. Benchmark at T=0, deploy an agent that samples five times, and you leave that unclaimed. |
 | 07 | [Code → prose → code](projects/07_docstring_roundtrip/) | 200 | The roundtrip beats MBPP's own task description by **32.5 points** — the opposite of the expected direction, because the description was written with the answer in view. It is a leak, not a spec. |
@@ -190,24 +192,27 @@ rarely tried and almost never compared. Both arms start from the same failed att
 get exactly one more call. 191 first-attempt failures.
 
 ```
-repair  fixed :  18  ( 9.4%)
+repair  fixed :  27  (14.1%)
 rewrite fixed :  21  (11.0%)
 both          :   4
-neither       : 156  (81.7%)
+neither       : 147  (77.0%)
 ```
 
-**Most failures survive both.** The 1.6-point gap is still not a result: paired, it is 14
-tasks repair fixed alone against 17 rewrite fixed alone, an exact McNemar p of **0.72**.
-Four times the data turned an anecdote into a clear negative rather than into a winner.
+**Most failures survive both.** The 3.1-point gap is not a result: paired, it is 23 tasks
+repair fixed alone against 17 rewrite fixed alone, an exact McNemar p of **0.43**.
 
-What the bigger denominator did show is that **the two fix almost disjoint sets** — only 4
-of 35 successes overlap. Either alone recovers about a tenth of the failures; both together
-recover 18.3%.
+What the full corpus shows is that **the two fix almost disjoint sets** — only 4 of 44
+successes overlap. Either alone recovers about an eighth of the failures; both together
+recover 23.0%.
 
-So the agreement with project 02 needs qualifying. The tasks a model fails first time are
-mostly tasks it *cannot do* — 81.7% survive everything — but a retry loop is not quite the
-rounding error the 250-task run made it look, provided you are willing to pay for two
-differently-framed calls instead of one.
+This arm was also where the `AssertionError` bug did the most damage, because it handicaps
+only the side that reads an error message. Repaired with a real traceback, repair went
+18 → 27 fixes (p=0.035) while rewrite returned **the identical 21 tasks, one for one** —
+the control that makes the rest of it believable.
+
+So the agreement with project 02 needs qualifying, and 02 is being re-measured with the same
+fix. The tasks a model fails first time are mostly tasks it *cannot do* — 77.0% survive
+everything — but 23.0% do not, and that is no longer a rounding error.
 
 - **Stack:** Ollama, `qwen2.5-coder:14b`, MBPP
 - **In:** one failed attempt, and a strategy — patch it, or bin it and start again
@@ -432,8 +437,8 @@ on every push.
 - **Temperature 0 throughout**, except project 06, which is about temperature.
 - **Sample sizes vary by project**, chosen to fit the GPU window: the arms that cost a full
   generation pass per task are capped, the rest run all 972 MBPP tasks. Where a difference
-  is inside the noise it is reported as such — project 04 reports the 81.7% and the p of
-  0.72, not the 9.4-versus-11.0.
+  is inside the noise it is reported as such — project 04 reports the 77.0% and the p of
+  0.43, not the 14.1-versus-11.0.
 - **It contains twenty projects, and that is the whole set.** The related work lives in
   separate repos: [mbpp-false-accepts](https://github.com/hammasbuilds/mbpp-false-accepts),
   [code-eval-harness](https://github.com/hammasbuilds/code-eval-harness),

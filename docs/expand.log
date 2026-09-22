@@ -515,3 +515,5 @@ mbpp: 972 tasks, model qwen2.5-coder:14b
     generalise: 150/781
     generalise: 200/781
     generalise: 250/781
+    generalise: 300/781
+    generalise: 350/781

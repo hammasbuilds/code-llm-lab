@@ -11,13 +11,13 @@
     "rewrite": 2
   },
   "python": "3.14",
-  "commit": "3d5ba30",
-  "run_at": "2026-09-21 19:03:17",
+  "commit": "9daec70",
+  "run_at": "2026-09-22 06:36:21",
   "first_attempt_failures": 191,
-  "repair_fixed": 18,
+  "repair_fixed": 27,
   "rewrite_fixed": 21,
   "both": 4,
-  "neither": 156,
+  "neither": 147,
   "per_task": [
     {
       "task_id": "mbpp/5",
@@ -51,7 +51,7 @@
     },
     {
       "task_id": "mbpp/33",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -86,7 +86,7 @@
     },
     {
       "task_id": "mbpp/87",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -201,7 +201,7 @@
     },
     {
       "task_id": "mbpp/160",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -291,7 +291,7 @@
     },
     {
       "task_id": "mbpp/228",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -306,7 +306,7 @@
     },
     {
       "task_id": "mbpp/236",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -326,7 +326,7 @@
     },
     {
       "task_id": "mbpp/259",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -346,17 +346,17 @@
     },
     {
       "task_id": "mbpp/277",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
       "task_id": "mbpp/289",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
       "task_id": "mbpp/295",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -406,7 +406,7 @@
     },
     {
       "task_id": "mbpp/315",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -431,7 +431,7 @@
     },
     {
       "task_id": "mbpp/339",
-      "repair": true,
+      "repair": false,
       "rewrite": false
     },
     {
@@ -736,7 +736,7 @@
     },
     {
       "task_id": "mbpp/644",
-      "repair": true,
+      "repair": false,
       "rewrite": false
     },
     {
@@ -801,7 +801,7 @@
     },
     {
       "task_id": "mbpp/739",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -831,7 +831,7 @@
     },
     {
       "task_id": "mbpp/776",
-      "repair": false,
+      "repair": true,
       "rewrite": false
     },
     {
@@ -856,7 +856,7 @@
     },
     {
       "task_id": "mbpp/836",
-      "repair": true,
+      "repair": false,
       "rewrite": false
     },
     {
