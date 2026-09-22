@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
   <img src="https://img.shields.io/badge/API%20keys-none%20required-success" alt="api keys">
-  <img src="https://img.shields.io/badge/tests-137-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-140-brightgreen" alt="tests">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
@@ -118,7 +118,7 @@ splits — all 164 problems are held out — which is part of why it is the clea
 | 16 | [Is a code-tuned model worth it](projects/16_coder_vs_generalist/) | 250 | The coder advantage **grows** with scale - +8.8pp at 3B, +11.2pp at 14B - refuting the hypothesis this was written to test. The branch predicting a shrinking gap never fired. |
 | 17 | [Does writing tests first help](projects/17_test_first/) | 200 | Writing tests first and thinking out loud first land **within one point** of each other, so the TDD framing does no work. The number read 17.0% before three harness bugs were fixed - a 54-point swing with the model's output unchanged. |
 | 18 | [Temperature 0 is not the same as deterministic](projects/18_determinism/) | 120 | Five identical runs gave **five identical pass@1 figures** - and 1.7% of tasks flipped verdict anyway. The score is stable because the flips cancelled, which is not the same as the decoding being deterministic. |
-| 19 | [An instruction hidden in a code comment](projects/19_comment_injection/) | 60 | **Four in five** loud instructions planted in comments are obeyed - hard-coding a credential 100% of the time, against a 0% baseline. Dropping the imperative drops compliance to 28.6%: the defence is phrasing. |
+| 19 | [Put an instruction in a code comment](projects/19_comment_injection/) | 200 | Loud injected instructions are obeyed **80%** of the time — a hard-coded credential 100%, where the baseline is zero. &#9888; Quiet-register rates are being re-measured: three checks were substring tests that counted the model *quoting the comment back* as compliance, so the loud/quiet gap is **57 points, not 51**. |
 | 20 | [Add a feature to working code](projects/20_feature_regression/) | 972 | Asked to add input validation, **10.4%** of working solutions regress — 80 of those 81 by *refusing* input the original accepted, not by computing it wrong. Asked to add a log line: **0 of 781**. The control arm, which cannot break a caller by construction, still regressed 3 — a 0.4% background rate of gratuitous edits. |
 
 All twenty are built. **Every number above came out of a run on this machine**, and each is

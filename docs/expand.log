@@ -565,3 +565,9 @@ mbpp: 972 tasks, model qwen2.5-coder:14b
     solve+confidence: 400/972
     solve+confidence: 450/972
     solve+confidence: 500/972
+    solve+confidence: 550/972
+    solve+confidence: 600/972
+    solve+confidence: 650/972
+    solve+confidence: 700/972
+    solve+confidence: 750/972
+    solve+confidence: 800/972
