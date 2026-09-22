@@ -243,6 +243,34 @@ def test_confidence_is_clamped_and_optional():
     assert parse(None) is None
 
 
+def test_constraint_checks_judge_the_function_under_test_not_the_first_one():
+    # 1.5% of submissions define a helper before the answer - `kadane` above
+    # `max_sub_array_sum_repeated`. Checking fns[0] then judges the helper, so a model that
+    # annotated exactly what it was asked to annotate is recorded as non-compliant.
+    complies = project("14_constraint_compliance").complies
+    code = (
+        "def helper(a):\n    return a + 1\n\n\ndef answer(x: int) -> int:\n    return helper(x)\n"
+    )
+    assert complies("type_hints", code, "answer") is True
+
+
+def test_single_return_means_exactly_one():
+    complies = project("14_constraint_compliance").complies
+    one = "def answer(x):\n    return x\n"
+    two = "def answer(x):\n    if x:\n        return 1\n    return 2\n"
+    none = "def answer(x):\n    print(x)\n"
+    assert complies("single_return", one, "answer") is True
+    assert complies("single_return", two, "answer") is False
+    # The prompt asks for exactly one. "At most one" would accept this.
+    assert complies("single_return", none, "answer") is False
+
+
+def test_single_return_ignores_returns_inside_nested_functions():
+    complies = project("14_constraint_compliance").complies
+    code = "def answer(x):\n    def inner():\n        return 1\n    return inner()\n"
+    assert complies("single_return", code, "answer") is True
+
+
 def test_one_broken_function_does_not_discard_the_whole_batch():
     # The original returned {} whenever the blob failed to parse, so a single unmatched
     # bracket threw away every function in the batch. That happened once in twenty batches

@@ -51,7 +51,38 @@ Output ONLY the function definition and any imports it needs. No explanation, no
 
 
 def _funcs(tree: ast.AST) -> list[ast.FunctionDef]:
-    return [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+    return [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef | ast.AsyncFunctionDef)]
+
+
+def _target(tree: ast.AST, entry_point: str | None) -> ast.FunctionDef | None:
+    """The function the task is about, not merely the first one defined.
+
+    1.5% of submissions define a helper before the answer - `sum_of_divisors` above
+    `amicable_numbers_sum`, `kadane` above `max_sub_array_sum_repeated`. Checking `fns[0]`
+    then judges the helper, so a model that annotated exactly what it was asked to annotate
+    is recorded as non-compliant because its untyped scratch function came first.
+    """
+    fns = _funcs(tree)
+    if not fns:
+        return None
+    if entry_point:
+        for fn in fns:
+            if fn.name == entry_point:
+                return fn
+    # No entry point given, or the model never defined it: the answer is conventionally
+    # last, after whatever it needed to build first.
+    return fns[-1]
+
+
+def _own_returns(fn: ast.FunctionDef) -> int:
+    """Returns belonging to `fn` itself, not to functions nested inside it."""
+    count = 0
+    for node in ast.walk(fn):
+        if isinstance(node, ast.Return):
+            count += 1
+        elif isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef) and node is not fn:
+            count -= sum(isinstance(k, ast.Return) for k in ast.walk(node))
+    return count
 
 
 def _no_recursion(tree: ast.AST) -> bool:
@@ -86,21 +117,21 @@ def _no_builtin_sort(tree: ast.AST) -> bool:
     return True
 
 
-def _type_hints(tree: ast.AST) -> bool:
-    fns = _funcs(tree)
-    if not fns:
+def _type_hints(tree: ast.AST, entry_point: str | None = None) -> bool:
+    fn = _target(tree, entry_point)
+    if fn is None:
         return False
-    # The top-level function is the one under test; helpers are not the point.
-    fn = fns[0]
     args = [a for a in fn.args.args if a.arg not in ("self", "cls")]
     return bool(fn.returns) and all(a.annotation for a in args)
 
 
-def _single_return(tree: ast.AST) -> bool:
-    fns = _funcs(tree)
-    if not fns:
+def _single_return(tree: ast.AST, entry_point: str | None = None) -> bool:
+    fn = _target(tree, entry_point)
+    if fn is None:
         return False
-    return sum(isinstance(n, ast.Return) for n in ast.walk(fns[0])) <= 1
+    # "Exactly one", as the prompt asks. A function with no return at all satisfies "at
+    # most one" but is not what was requested, and the old check accepted it.
+    return _own_returns(fn) == 1
 
 
 CONSTRAINTS = {
@@ -122,12 +153,17 @@ CONSTRAINTS = {
 }
 
 
-def complies(name: str, code: str) -> bool | None:
+def complies(name: str, code: str, entry_point: str | None = None) -> bool | None:
     try:
         tree = ast.parse(code)
     except SyntaxError:
         return None
-    return CONSTRAINTS[name][1](tree)
+    check = CONSTRAINTS[name][1]
+    # Only the two whole-function checks need to know which function is the answer; the
+    # rest are properties of the whole submission.
+    if check in (_type_hints, _single_return):
+        return check(tree, entry_point)
+    return check(tree)
 
 
 def main() -> int:
@@ -170,10 +206,15 @@ def main() -> int:
         row = {"pass_at_1": passed}
         if arm == "none":
             row["baseline_compliance"] = {
-                name: sum(complies(name, c) is True for c in codes) / n for name in CONSTRAINTS
+                name: sum(
+                    complies(name, c, t.entry_point) is True
+                    for c, t in zip(codes, tasks, strict=True)
+                )
+                / n
+                for name in CONSTRAINTS
             }
         else:
-            verdicts = [complies(arm, c) for c in codes]
+            verdicts = [complies(arm, c, t.entry_point) for c, t in zip(codes, tasks, strict=True)]
             row["compliance"] = sum(v is True for v in verdicts) / n
             row["unparseable"] = sum(v is None for v in verdicts)
             # Complied AND still works - the only cell that is actually a success.
