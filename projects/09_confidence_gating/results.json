@@ -3,63 +3,64 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
-  "n": 250,
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": null,
-  "python": "3.12",
-  "commit": "d3badbd",
-  "run_at": "2026-09-21 09:56:06",
-  "stated_confidence": 249,
-  "pass_at_1_all_tasks": 0.752,
-  "pass_at_1_gatable": 0.7550200803212851,
-  "mean_confidence_correct": 99.97340425531915,
-  "mean_confidence_wrong": 99.91803278688525,
-  "separation": 0.05537146843390417,
+  "python": "3.14",
+  "commit": "eb23ee0",
+  "run_at": "2026-09-22 08:18:08",
+  "stated_confidence": 967,
+  "pass_at_1_all_tasks": 0.7983539094650206,
+  "pass_at_1_gatable": 0.8024819027921406,
+  "mean_confidence_correct": 99.98067010309278,
+  "mean_confidence_wrong": 99.89528795811518,
+  "separation": 0.08538214497760066,
   "distinct_values": [
+    85,
     95,
     100
   ],
   "gate": {
     "0": {
-      "precision": 0.7550200803212851,
+      "precision": 0.8024819027921406,
       "coverage": 1.0,
-      "merged": 249
+      "merged": 967
     },
     "50": {
-      "precision": 0.7550200803212851,
+      "precision": 0.8024819027921406,
       "coverage": 1.0,
-      "merged": 249
+      "merged": 967
     },
     "60": {
-      "precision": 0.7550200803212851,
+      "precision": 0.8024819027921406,
       "coverage": 1.0,
-      "merged": 249
+      "merged": 967
     },
     "70": {
-      "precision": 0.7550200803212851,
+      "precision": 0.8024819027921406,
       "coverage": 1.0,
-      "merged": 249
+      "merged": 967
     },
     "80": {
-      "precision": 0.7550200803212851,
+      "precision": 0.8024819027921406,
       "coverage": 1.0,
-      "merged": 249
+      "merged": 967
     },
     "90": {
-      "precision": 0.7550200803212851,
-      "coverage": 1.0,
-      "merged": 249
+      "precision": 0.8033126293995859,
+      "coverage": 0.9989658738366081,
+      "merged": 966
     },
     "95": {
-      "precision": 0.7550200803212851,
-      "coverage": 1.0,
-      "merged": 249
+      "precision": 0.8033126293995859,
+      "coverage": 0.9989658738366081,
+      "merged": 966
     },
     "100": {
-      "precision": 0.757085020242915,
-      "coverage": 0.9919678714859438,
-      "merged": 247
+      "precision": 0.8035343035343036,
+      "coverage": 0.9948293691830403,
+      "merged": 962
     }
   }
 }

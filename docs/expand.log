@@ -571,3 +571,43 @@ mbpp: 972 tasks, model qwen2.5-coder:14b
     solve+confidence: 700/972
     solve+confidence: 750/972
     solve+confidence: 800/972
+    solve+confidence: 850/972
+    solve+confidence: 900/972
+    solve+confidence: 950/972
+    solve+confidence: 972/972
+  [4853s]
+
+========================================================================
+CONFIDENCE GATING - 972 MBPP tasks, qwen2.5-coder:14b
+========================================================================
+  stated a confidence      : 967/972 (99.5%)
+  pass@1, all tasks        : 79.8%
+  pass@1, those tasks only : 80.2%  <- the baseline a gate must beat
+
+  mean confidence when correct :  100.0   (n=776)
+  mean confidence when wrong   :   99.9   (n=191)
+  separation                   :   +0.1 points
+
+  distinct confidence values used: 3  [85, 95, 100]
+
+  threshold  merged  coverage  precision   vs base
+          0     967    100.0%      80.2%       +0.0%
+         50     967    100.0%      80.2%       +0.0%
+         60     967    100.0%      80.2%       +0.0%
+         70     967    100.0%      80.2%       +0.0%
+         80     967    100.0%      80.2%       +0.0%
+         90     966     99.9%      80.3%       +0.1%
+         95     966     99.9%      80.3%       +0.1%
+        100     962     99.5%      80.4%       +0.1%
+
+  Gating at 100 lifts precision to 80.4% (+0.1%) while auto-merging 99.5% of tasks.
+
+wrote D:\github\code-llm-lab\projects\09_confidence_gating\results.json
+########## 09_confidence_gating exit=0 08:18:08
+########## 05_prompt_shape_variance --limit 972 08:18:08
+mbpp: 972 tasks x 5 prompt shapes, model qwen2.5-coder:14b
+
+    plain: 50/972
+    plain: 100/972
+    plain: 150/972
+    plain: 200/972
