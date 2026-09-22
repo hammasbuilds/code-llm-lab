@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="python">
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="model">
   <img src="https://img.shields.io/badge/API%20keys-none%20required-success" alt="api keys">
-  <img src="https://img.shields.io/badge/tests-125-brightgreen" alt="tests">
+  <img src="https://img.shields.io/badge/tests-129-brightgreen" alt="tests">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
@@ -60,11 +60,47 @@ reached once through test suites and once through docstrings.
 > **What you get on the first attempt is very nearly all you get — and a good part of what
 > you get is the prompt rather than the model.**
 
+## A caveat that applies to every MBPP row below
+
+MBPP ships an official split by `task_id` (Austin et al. 2021): **11–510 is test**, 511–600
+validation, and **601–974 is training data** — public since 2021, and therefore in the
+pretraining corpus of any model trained on public code. These projects ran on all 974.
+
+That is not a neutral choice. Measured on the same cached generations:
+
+| split | n | qwen2.5-coder:3b | qwen2.5-coder:14b |
+|---|---:|---:|---:|
+| **test** (held out) | 500 | 60.6% | **76.8%** |
+| **train** (public since 2021) | 372 | 65.3% | **85.2%** |
+| gap | | +4.7 (p=0.15) | **+8.4 (p=0.002)** |
+
+**The 14B is 8.4 points better on MBPP's training split than on its test split**, 95% CI
++3.2 to +13.6. The 3B shows a smaller gap that does not reach significance. A gap that grows
+with model size is what memorisation looks like: the larger model has absorbed more of the
+same public corpus.
+
+Two consequences, stated rather than buried:
+
+- **The headline pass@1 of 80.3% is inflated.** On the held-out 500 it is **76.8%**, and
+  that is the number comparable to published MBPP results. Anything quoting all 974 —
+  including every table below — is measuring partly on training data.
+- **The measured size advantage shrinks on clean data**, from +19.9 points on the train
+  split to **+16.2** on the test split. Project 01's finding survives; its magnitude was
+  overstated by about a fifth.
+
+Not everything moves. Project 01's *regression* rate — tasks the 3B gets right and the 14B
+gets wrong — reads 3.6% on test, 3.2% on train and 3.7% overall, so that finding is
+independent of contamination.
+
+`load("mbpp", split="test")` now exists for this. The default stays `all` so existing
+results remain reproducible, and each project states which it used. HumanEval has no
+splits — all 164 problems are held out — which is part of why it is the cleaner comparison.
+
 ## Projects
 
 | | Project | Tasks | The finding |
 |---|---|---:|---|
-| 01 | [Where a 5x bigger model actually pays](projects/01_coder_size_curve/) | 972 | Of the 817 tasks either size can solve, the 3B already handles **74.8%**. The 14B's advantage is 206 tasks — and it *loses* 36 the 3B gets right, a **3.7%** regression rate that held steady from the 250-task run rather than shrinking into noise. |
+| 01 | [Where a 5x bigger model actually pays](projects/01_coder_size_curve/) | 972 | Of the 817 tasks either size can solve, the 3B already handles **74.8%**, and the 14B *loses* 36 it gets right (**3.7%**, stable across splits). On MBPP's **held-out 500** the size advantage is **+16.2 points**, not the +17.5 the full corpus reports — see the contamination caveat above. |
 | 02 | [How many self-debug rounds are worth paying for](projects/02_self_debug_ceiling/) | 150 | Rounds 1–2 captured **100%** of everything the loop ever achieved. Rounds 3–5 added nothing at all, for 60% of the compute. &#9888; **Being re-measured** — every round was shown the string `AssertionError` rather than a real error, which is the condition most likely to produce a flat loop. |
 | 03 | [Do model-written tests catch anything](projects/03_tests_that_kill/) | 150 | From the implementation, generated suites kill **93.4%** of mutants against MBPP's own 85.0%. From the task description, only **16%** of suites even agree with the reference — a measurement of the spec, not the model. |
 | 04 | [Repair the failure, or throw it away](projects/04_repair_vs_rewrite/) | 972 | **77.0%** of first-attempt failures survive both, and the two stay indistinguishable (23 vs 17 discordant, p=0.43) — but they fix nearly **disjoint** sets, only 4 of 44 overlapping, so running both recovers 23.0%. Giving repair a real traceback instead of the word `AssertionError` was worth **+9 fixes (p=0.035)**, while rewrite — which never reads one — did not move by a single task. |
@@ -113,7 +149,11 @@ you. The aggregate score cannot tell you that.
 The 36 regressions are the number that survived scaling the run up. At 250 tasks this
 README called the 8 the 3B won "the noise floor"; the rate barely moved, 3.2% to 3.7%.
 **Roughly one task in 27 gets worse when you scale this family up 5x**, and that is
-invisible in the 17.4-point headline gap.
+invisible in the headline gap.
+
+It is also the number that survived splitting the corpus: 3.6% on MBPP's held-out test
+split, 3.2% on its training split. The size *advantage* does not survive as cleanly — it is
++19.9 points on the contaminated half and **+16.2 on the held-out 500**.
 
 - **Stack:** Ollama, `qwen2.5-coder:3b` and `:14b`, MBPP
 - **In:** a task and a model size

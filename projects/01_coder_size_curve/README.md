@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/model-qwen2.5--coder-orange" alt="">
   <img src="https://img.shields.io/badge/benchmark-MBPP-lightgrey" alt="">
   <img src="https://img.shields.io/badge/3B%20covers-74.8%25-2ea44f" alt="">
+  <img src="https://img.shields.io/badge/held--out%20gap-%2B16.2-b8860b" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
@@ -38,6 +39,29 @@ advantage is 206 tasks &mdash; and it *loses* 36 the 3B gets right.
 That reframes the deployment question. Not "which model is better" but "is 21.2% of tasks
 worth five times the weights", and an aggregate score cannot answer it.
 
+### Held out only: the advantage is smaller
+
+MBPP's task ids 601-974 are its **training** split, public since 2021 and in the pretraining
+corpus of any model trained on public code. The table above runs on all 972, which mixes
+them in. Split apart:
+
+| | n | 3B | 14B | gap | 14B loses |
+|---|---:|---:|---:|---:|---:|
+| **test** (11-510, held out) | 500 | 60.6% | **76.8%** | **+16.2** | 3.6% |
+| train (601-974, public) | 372 | 65.3% | 85.2% | +19.9 | 3.2% |
+| all | 972 | 62.9% | 80.3% | +17.5 | 3.7% |
+
+**The 14B is 8.4 points better on the training split than the test split** (p=0.002); the 3B
+gains only 4.7 and does not reach significance (p=0.15). A contamination gap that grows with
+model size is what memorisation looks like.
+
+So the honest size advantage is **+16.2 points on held-out data**, not +17.5. The finding
+holds; its magnitude was overstated by about a fifth, and 76.8% - not 80.3% - is the figure
+comparable to a published MBPP score.
+
+The regression rate does not move: 3.6% on test, 3.2% on train, 3.7% overall. Whatever
+causes the 14B to lose tasks the 3B wins, it is not memorisation.
+
 ### The 36 regressions are the number that survived scaling up
 
 At 250 tasks the 3B won 8 tasks, and this README called those 8 "the honest noise floor".
@@ -48,14 +72,16 @@ with more data; it is a stable property of the pair.
 
 **Roughly one task in 27 gets worse when you scale this family up 5&times;.** If you are
 swapping a 3B for a 14B in something already in production, that is the number to plan
-around, and it is invisible in the 17.4-point headline gap.
+around, and it is invisible in the headline gap at any split.
 
 ## Running it
 
 ```bash
-python run.py --limit 972              # MBPP
-python run.py --benchmark humaneval    # the other one
+python run.py --limit 972              # MBPP, all splits (the tables above)
+python run.py --benchmark humaneval    # 164 problems, all held out
 ```
+
+`load("mbpp", split="test")` restricts to the held-out 500.
 
 Needs Ollama with both `qwen2.5-coder:3b` and `qwen2.5-coder:14b`.
 

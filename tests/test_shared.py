@@ -89,6 +89,50 @@ def test_a_probe_that_raises_has_no_value():
     assert out.stdout == ""
 
 
+# --- mbpp splits ---------------------------------------------------------------------
+#
+# These pin the boundaries rather than the data, so they pass without the dataset. The
+# ranges are MBPP's own (Austin et al. 2021) and getting one wrong silently mixes public
+# training data into a held-out measurement - worth 8.4 points on qwen2.5-coder:14b.
+
+
+def test_mbpp_split_boundaries_are_the_published_ones():
+    from shared.datasets import MBPP_SPLITS
+
+    assert MBPP_SPLITS["test"] == (11, 510)
+    assert MBPP_SPLITS["validation"] == (511, 600)
+    assert MBPP_SPLITS["train"] == (601, 974)
+    assert MBPP_SPLITS["prompt"] == (1, 10)
+
+
+def test_mbpp_splits_do_not_overlap_and_cover_everything():
+    from shared.datasets import MBPP_SPLITS
+
+    named = [v for k, v in MBPP_SPLITS.items() if k != "all"]
+    covered = sorted(i for lo, hi in named for i in range(lo, hi + 1))
+    assert covered == list(range(1, 975))  # no gaps, and no id counted twice
+
+
+def test_unknown_mbpp_split_is_rejected():
+    import pytest
+
+    from shared.datasets import load
+
+    with pytest.raises(ValueError, match="unknown mbpp split"):
+        load("mbpp", split="nonexistent")
+
+
+def test_humaneval_rejects_a_split_rather_than_ignoring_it():
+    import pytest
+
+    from shared.datasets import load
+
+    # Silently returning all 164 for split="train" would let a caller believe it had
+    # separated held-out data when it had not.
+    with pytest.raises(ValueError, match="no 'train' split"):
+        load("humaneval", split="train")
+
+
 # --- code extraction -----------------------------------------------------------------
 
 

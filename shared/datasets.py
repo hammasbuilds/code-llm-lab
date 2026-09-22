@@ -20,6 +20,20 @@ from pathlib import Path
 
 _CALLED = re.compile(r"assert\s+(?:not\s+)?([A-Za-z_]\w*)\s*\(")
 
+# MBPP ships an official split by task_id (Austin et al. 2021), and it matters more here
+# than a split usually does. Nothing in this repo trains anything - but qwen2.5-coder was
+# pretrained on public code, and tasks 601-974 have been public MBPP *training* data since
+# 2021. Measured on this model they are 8.4 points easier than the held-out test split
+# (85.2% vs 76.8%, p=0.002), so a run over all 974 reports a number inflated by the share
+# of training data in it, and is not comparable to any published MBPP figure.
+MBPP_SPLITS = {
+    "prompt": (1, 10),  # the few-shot examples the paper prompts with
+    "test": (11, 510),  # what "MBPP pass@1" means in published work
+    "validation": (511, 600),
+    "train": (601, 974),  # public since 2021; treat results here as contaminated
+    "all": (1, 974),
+}
+
 
 @dataclass(frozen=True)
 class Task:
@@ -56,7 +70,16 @@ def _find(pattern: str) -> Path | None:
     return None
 
 
-def load_mbpp(limit: int | None = None) -> list[Task]:
+def load_mbpp(limit: int | None = None, split: str = "all") -> list[Task]:
+    """MBPP, optionally restricted to one of its official splits.
+
+    The default stays `all` so existing results remain reproducible, but `test` is the
+    honest default for any number meant to be compared with published work - see
+    `MBPP_SPLITS` for why the difference is not cosmetic.
+    """
+    if split not in MBPP_SPLITS:
+        raise ValueError(f"unknown mbpp split {split!r}; expected one of {sorted(MBPP_SPLITS)}")
+    lo, hi = MBPP_SPLITS[split]
     path = _find("datasets--Muennighoff--mbpp/snapshots/*/data/mbpp.jsonl")
     if path is None:
         raise FileNotFoundError("MBPP not in the local Hugging Face cache")
@@ -65,6 +88,8 @@ def load_mbpp(limit: int | None = None) -> list[Task]:
         if not line.strip():
             continue
         r = json.loads(line)
+        if not lo <= int(r["task_id"]) <= hi:
+            continue
         tests = tuple(r["test_list"])
         entry = next((m.group(1) for t in tests if (m := _CALLED.search(t))), "")
         if not entry:
@@ -111,10 +136,14 @@ def load_humaneval(limit: int | None = None) -> list[Task]:
     return out
 
 
-def load(benchmark: str = "mbpp", limit: int | None = None) -> list[Task]:
+def load(benchmark: str = "mbpp", limit: int | None = None, split: str = "all") -> list[Task]:
     if benchmark == "mbpp":
-        return load_mbpp(limit)
+        return load_mbpp(limit, split)
     if benchmark == "humaneval":
+        # HumanEval has no splits: all 164 problems are held out, which is one reason it
+        # is the cleaner comparison and why `split` is rejected rather than ignored here.
+        if split not in ("all", "test"):
+            raise ValueError(f"humaneval has no {split!r} split; it is 164 held-out problems")
         return load_humaneval(limit)
     raise ValueError(f"unknown benchmark {benchmark!r}; expected mbpp or humaneval")
 
