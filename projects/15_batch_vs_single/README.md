@@ -2,37 +2,15 @@
 <p align="center"><i>Ask for eight solutions in one response. What does batching cost?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-160-blue" alt="">
-  <img src="https://img.shields.io/badge/drop%2520at%2520batch%25208-9.4pp-b91c1c" alt="">
-  <img src="https://img.shields.io/badge/not%2520emitted-8-b8860b" alt="">
+  <img src="https://img.shields.io/badge/tasks-968-blue" alt="">
+  <img src="https://img.shields.io/badge/drop%2520at%2520batch%25208-4.5pp-b91c1c" alt="">
+  <img src="https://img.shields.io/badge/not%2520emitted-2%2520of%2520968-2ea44f" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
 
 ---
 
-> ### &#9888; These numbers are being re-measured
->
-> `split_functions` called `ast.parse` on the whole batch response and returned nothing on
-> `SyntaxError`, so **one unmatched bracket discarded all eight functions in that batch**.
-> It happened in 1 of 20 batches at size 8, and those eight are the entirety of the
-> "8 of 160 solutions were never emitted at all" claim below - a statement about the model
-> that was a statement about one stray `)` on line 2 of one response.
->
-> Re-scored on the *same* cached responses, with each `def` block parsed on its own:
->
-> | batch size | pass, before | pass, after | never emitted, before | after |
-> |---:|---:|---:|---:|---:|
-> | 1 | 121/160 | 121/160 | 0 | 0 |
-> | 2 | 116/160 | 116/160 | 0 | 0 |
-> | 4 | 113/160 | 113/160 | 0 | 0 |
-> | **8** | 106/160 | **111/160** | **8** | **1** |
->
-> So the cost of batching eight is **6.2 points, not 9.4** - a third of the reported figure
-> was the parser - and exactly **one** function was genuinely missing. Sizes 1, 2 and 4 are
-> untouched, which is the check that the fix is not simply inflating everything.
->
-> The full re-run is queued at 972 tasks and will replace the tables below.
 
 Batching tasks into one request is the obvious way to cut cost. This measures what it
 costs in return: solve the same 160 tasks one per request, then two, four and eight per
@@ -40,35 +18,61 @@ request, and score them identically.
 
 ## Result
 
-```
-batch   pass@1    not emitted
-1       75.6%          0
-2       72.5%          0
-4       70.6%          0
-8       66.3%          8
-```
-
-**Monotonic, and it costs 9.4 points by batch 8.** Unlike
-[context-dilution](../10_context_dilution), where no trend appeared, this one is a real
-ordering: every increase in batch size loses accuracy.
-
-**Eight tasks also means eight answers, and at batch 8 the model simply stopped emitting
-some** - 8 of 160 solutions never appeared in the response at all. Those are scored as
-failures, because a solution you did not get is not a solution.
-
-The by-position numbers say the loss is not "it gets tired at the end":
+968 tasks (trimmed to a multiple of 8 so every batch size sees identical work).
 
 ```
-batch 8, by position:  75%  60%  70%  60%  55%  65%  70%  75%
+batch=1   79.1%
+batch=2   77.9%   -1.2
+batch=4   76.2%   -2.9
+batch=8   74.6%   -4.5
+
+functions never emitted at all : 2 of 968
 ```
 
-The *middle* is worst. First and last positions score 75%; position 4 scores 55%. That is a
-primacy-and-recency shape, not a truncation.
+**Asking for eight functions at once costs 4.5 points**, and the cost is monotonic in batch
+size - unlike [context-dilution](../10_context_dilution), where a 16x longer prompt produced
+no curve at all. Length is not what hurts here; being one of several answers is.
+
+### Position matters, but not by as much as the raw numbers say
+
+```
+slot   1      2      3      4      5      6      7      8
+     73.6%  75.2%  72.7%  70.2%  78.5%  72.7%  67.8%  86.0%
+```
+
+Read directly, that says the last slot beats the first by 12.4 points - and beats asking for
+the function *on its own* (79.1%), which is impossible. **Each slot holds a different 121
+tasks**, so position is confounded with task difficulty. Against each slot's own single-task
+baseline:
+
+| slot | batch=8 | batch=1, same tasks | real effect |
+|---|---:|---:|---:|
+| 1 | 73.6% | 78.5% | **-4.9** |
+| 4 | 70.2% | 76.0% | -5.8 |
+| 7 | 67.8% | 76.0% | **-8.2** |
+| 8 | 86.0% | 83.5% | **+2.5** |
+
+Slot 8's tasks were already the easiest in the set. The honest finding is smaller and
+different from the raw table: **every position degrades except the last**, the worst is the
+*second to last* rather than the first, and the first-to-last difference is about 7 points
+of effect rather than 12.4 of score.
+
+### The parser was the previous finding
+
+This project used to report a **9.4-point** cost and **"8 of 160 solutions never emitted at
+all"**. `split_functions` called `ast.parse` on the whole batch response and returned nothing
+on `SyntaxError`, so **one unmatched bracket discarded all eight functions in that batch**.
+It happened in 1 of 20 batches, and those eight were the entire "never emitted" claim - a
+statement about the model that was a statement about one stray `)` on line 2.
+
+Re-scored on the same responses with each `def` block parsed on its own, sizes 1, 2 and 4 did
+not move at all and size 8 recovered 7 of the 8. That the unaffected sizes stayed still is
+what shows the fix repaired one case rather than inflating everything.
 
 ## Running it
 
 ```bash
-python run.py --limit 160
+python run.py --limit 972
 ```
 
 ## Limits

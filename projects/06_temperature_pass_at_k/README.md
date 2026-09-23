@@ -2,7 +2,8 @@
 <p align="center"><i>The temperature you benchmark at is not the one you should deploy at.</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-60-blue" alt="">
+  <img src="https://img.shields.io/badge/tasks-200-blue" alt="">
+  <img src="https://img.shields.io/badge/pass@5%2520gain-%252B7.5pp-2ea44f" alt="">
   <img src="https://img.shields.io/badge/samples-5-ff7a18" alt="">
   <img src="https://img.shields.io/badge/estimator-unbiased%20pass@k-ffd21f" alt="">
 </p>
@@ -20,30 +21,43 @@ samples pass", which is biased upward and shifts with how many you drew.
 
 ## Result
 
+200 tasks, five samples at each temperature.
+
 ```
-temp    pass@1   pass@2   pass@5   distinct/5
-0.0      85.0%    85.0%    85.0%      1.0
-0.4      83.3%    84.8%    85.0%      2.2
-0.7      84.0%    87.5%    90.0%      3.0
-1.0      84.7%    88.2%    90.0%      3.3
+temp     pass@1   pass@2   pass@5   distinct outputs
+0.0      77.0%    77.0%    77.0%    1.0
+0.4      75.9%    78.5%    81.5%    2.4
+0.7      75.6%    80.3%    84.5%    3.1
+1.0      74.5%    79.3%    83.5%    3.4
 ```
 
-**The ordering flips. T=0 wins pass@1; T=0.7 wins pass@5 by
-5.0%.**
+**The ordering flips with k.** T=0 is the best temperature for pass@1 and the worst for
+pass@5. T=0.7 is the reverse.
 
-The `distinct` column is the mechanism, not a footnote. At temperature 0 all five samples
-are the same string &mdash; so pass@5 *cannot* exceed pass@1, and the first row is three
-identical numbers.
+```
+best for pass@1 : T=0.0   77.0%
+best for pass@5 : T=0.7   84.5%
+```
 
-The practical cost: **benchmark at T=0, deploy an agent that samples five times, and
-5.0% of achievable pass@5 goes unclaimed.** Going the other
-way is cheap &mdash; T=0.7 costs only 1.0% at k=1. If you
-are unsure which regime you are in, the higher temperature loses much less.
+At k=1, sampling costs you: T=0.7 gives up 1.4 points against greedy decoding. At k=5 it
+gains 7.5. **Benchmark at T=0, deploy an agent that samples five times, and you leave 7.5
+points of achievable pass@5 unclaimed** - and you would never see it, because the number you
+tuned on says T=0 is correct.
+
+T=0's five samples are identical by construction, so pass@5 equals pass@1 exactly. That
+column is the control: it shows the benefit is coming from diversity and not from extra
+attempts. T=1.0 has the most diverse outputs (3.4 distinct of 5) and does *worse* than T=0.7
+at every k, so diversity is not the whole story either - there is an optimum, and it is not
+at either end.
+
+The practical version: **the temperature you benchmark at and the temperature you deploy at
+are answers to different questions.** A published pass@1 is evidence about greedy decoding
+and almost nothing else.
 
 ## Running it
 
 ```bash
-python run.py --limit 60 --samples 5
+python run.py --limit 200 --samples 5
 ```
 
 ## Limits

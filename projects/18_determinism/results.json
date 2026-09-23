@@ -3,23 +3,23 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
-  "n": 120,
+  "n": 400,
   "temperature": 0.0,
   "samples": 5,
   "seeds": null,
-  "python": "3.12",
-  "commit": "d3badbd",
-  "run_at": "2026-09-21 16:51:00",
+  "python": "3.14",
+  "commit": "cca7d0f",
+  "run_at": "2026-09-22 22:18:57",
   "cache": "bypassed",
   "pass_at_1_per_run": [
-    0.8166666666666667,
-    0.8166666666666667,
-    0.8166666666666667,
-    0.8166666666666667,
-    0.8166666666666667
+    0.7525,
+    0.76,
+    0.76,
+    0.76,
+    0.7575
   ],
-  "spread": 0.0,
-  "tasks_with_varying_text": 11,
-  "tasks_with_varying_verdict": 2,
-  "mean_distinct_outputs": 1.0916666666666666
+  "spread": 0.007500000000000062,
+  "tasks_with_varying_text": 28,
+  "tasks_with_varying_verdict": 3,
+  "mean_distinct_outputs": 1.0725
 }

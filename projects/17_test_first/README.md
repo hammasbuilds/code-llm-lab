@@ -2,8 +2,8 @@
 <p align="center"><i>Does writing the tests first help the model write the code?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-200-blue" alt="">
-  <img src="https://img.shields.io/badge/attributable%2520to%2520tests-%252B1.0pp-b8860b" alt="">
+  <img src="https://img.shields.io/badge/tasks-972-blue" alt="">
+  <img src="https://img.shields.io/badge/attributable%2520to%2520tests--3.6pp-b8860b" alt="">
   <img src="https://img.shields.io/badge/harness%2520swing%2520found-54pp-b91c1c" alt="">
 </p>
 
@@ -26,46 +26,59 @@ tests_seen   write tests, then implement in a FRESH context given only those tes
 
 ## Result
 
-```
-direct        77.0%
-plan          70.5%   (-6.5)
-tests_then    71.5%   (-5.5)
-tests_seen    77.0%   (+0.0)
-
-writing tests first is worth : -5.5pp
-any preamble at all is worth : -6.5pp
-attributable to *tests*      : +1.0pp
-```
-
-**Writing tests first and simply thinking out loud first land within one point of each
-other.** Whatever `tests_then` does, `plan` does the same. The TDD framing is doing no work
-here - and both are *worse* than answering directly.
-
-`tests_seen` is the separator: carrying the tests into a fresh context recovers the full
-77.0%, which says the loss in the other two arms is about generating a long preamble, not
-about the tests being unhelpful.
-
-## The number was wrong three times before it was right
-
-Worth recording, because the model's output never changed:
+All 972 MBPP tasks, four arms.
 
 ```
-17.0%   scoring the FIRST fenced block - which the prompt asks to be the tests
-47.0%   scoring the last block that defines something
-71.5%   removing the model's own asserts from the submission
+direct        80.3%           just write the function
+plan          78.3%  -2.1%    think out loud first, then write it
+tests_then    74.7%  -5.7%    write tests first, then the function
+tests_seen    78.4%  -2.0%    the same tests, carried into a fresh context
+
+writing tests first is worth : -5.7%
+any preamble at all is worth : -2.1%
+attributable to the *tests*  : -3.6%
 ```
 
-The last one is the subtle one. When the model puts asserts and the function in one block,
-submitting the block runs its self-tests above the `def` - so a correct function fails with
-`NameError`, and a wrong self-test rejects a right answer. This project's own premise is that
-the model's tests are never the oracle; the harness was making them exactly that.
+**Writing tests first costs 5.7 points.** But `plan` - think out loud about anything, then
+write the function - costs 2.1 on its own, so most of a naive reading would be attributing
+to TDD what is really the cost of generating a preamble at all.
 
-A 54-point swing, entirely in the scoring.
+**The `plan` arm is the control that makes this project worth running.** Without it the
+finding is "tests-first is worse", which is true and uninformative. With it the finding is
+that only **3.6 points** belong to the tests, and 2.1 belong to filling the context with
+anything before answering.
+
+**Carrying the tests into a fresh context recovers most of it.** `tests_seen` hands the model
+the same tests it wrote, in a clean context, and scores 78.4% - 3.7 points better than
+generating them inline. So the damage is not from having tests in view; it is from having
+produced them in the same breath.
+
+The response lengths say the same thing from another angle:
+
+```
+direct      184 chars
+tests_seen  170
+plan      1,131
+tests_then 1,678
+```
+
+The two cheap arms are the two short ones, and `tests_seen` - which has tests available but
+did not write them - is the shortest of all. **On MBPP, the TDD framing does negative work**,
+and the mechanism is the preamble rather than the tests.
+
+### The number this project reported before three harness bugs were fixed
+
+This read **17.0%** on the `tests_then` arm at one point, against 80.3% direct - a 63-point
+gap that would have been a spectacular finding. It was three bugs in the extraction and
+scoring path, fixed in an earlier pass, and the arm moved 54 points without the model's
+output changing at all. `strip_self_tests` in `shared/execute.py` exists because of it: a
+prompt that asks for tests *and* an implementation gets both in one block, and submitting
+the block whole runs the model's own tests above its `def`.
 
 ## Running it
 
 ```bash
-python run.py --limit 200
+python run.py --limit 972
 ```
 
 ## Limits

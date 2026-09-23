@@ -2,9 +2,9 @@
 <p align="center"><i>Tell it not to do something. Does it comply, and what does compliance cost?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-150-blue" alt="">
-  <img src="https://img.shields.io/badge/worst%2520compliance-86%25-b8860b" alt="">
-  <img src="https://img.shields.io/badge/accuracy%2520cost-under%25208pp-blue" alt="">
+  <img src="https://img.shields.io/badge/tasks-972-blue" alt="">
+  <img src="https://img.shields.io/badge/type__hints-0%25%2520%25E2%2586%2592%2520100%25-2ea44f" alt="">
+  <img src="https://img.shields.io/badge/no__recursion%2520baseline-96%25-b8860b" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
@@ -19,34 +19,50 @@ holds when nobody asks for it.
 
 ## Result
 
+All 972 MBPP tasks, one arm per constraint plus an unconstrained control.
+
 ```
-constraint          complies   baseline   pass@1
-none                       -          -    78.0%
-type_hints              100%         0%    74.0%
-no_recursion             99%        97%    77.3%
-no_builtin_sort          98%        94%    70.7%
-no_imports               96%        84%    78.7%
-no_comprehensions        91%        81%    74.7%
-single_return            86%        82%    76.0%
+constraint            already  complied   pass@1  vs control
+no_recursion              96%       99%    79.1%     -1.2%
+no_imports                79%       96%    77.8%     -2.6%
+no_comprehensions         80%       92%    77.9%     -2.5%
+no_builtin_sort           94%       98%    76.6%     -3.7%
+type_hints                 0%      100%    79.1%     -1.2%
+single_return             79%       85%    77.9%     -2.5%
 ```
 
-**Compliance is high, but most of it was free.** `no_recursion` reads as 99% obedience; the
-model already avoids recursion 97% of the time unasked. The constraint moved two points.
+**The `already` column is the finding.** It is how often the *unconstrained* control
+satisfies the rule by habit, and without it every constraint looks obeyed.
 
-**`type_hints` is the only one that is genuinely doing work**: 0% baseline to 100%
-compliance. It is also the one nobody would have doubted.
+`no_recursion` reads 99% compliance, which sounds like near-perfect instruction-following
+until you see that the model was already writing non-recursive code 96% of the time. The
+instruction moved it three points. `no_builtin_sort` moved it four. Those are not
+measurements of obedience; they are measurements of what the model does anyway.
 
-**`single_return` is the hardest to obey** - 86%, against an 82% baseline, so asking bought
-4 points. One request in seven is quietly ignored.
+**Only `type_hints` does real work: 0% to 100%.** It is the one constraint the model never
+satisfies by accident, and it is followed completely when asked. That single row is worth
+more than the other five together, because it is the only one where compliance and habit
+are distinguishable.
 
-The cost is real but small: every constraint lands within 8 points of the 78.0% unconstrained
-baseline, and `no_builtin_sort` is the most expensive at 7.3 points, which is what you would
-expect from making it write its own sort.
+**Constraints cost accuracy, and consistently.** Every arm loses ground against the 80.3%
+control, between 1.2 and 3.7 points. The cost does not track how hard the constraint is to
+satisfy: `no_builtin_sort` is the most expensive at -3.7 despite a 94% baseline, because the
+tasks where it binds are exactly the ones where sorting was the right answer.
+
+### What this design would have missed
+
+Two of these checks judged the wrong function before this run. `_type_hints` and
+`_single_return` took the *first* function defined rather than the one under test, and 1.5%
+of submissions define a helper first - `kadane` above `max_sub_array_sum_repeated`. A model
+that annotated exactly what it was asked to annotate would be scored as non-compliant
+because its untyped scratch function came first. `single_return` also counted returns inside
+nested helpers, and accepted a function with *no* return at all against a prompt asking for
+exactly one.
 
 ## Running it
 
 ```bash
-python run.py --limit 150
+python run.py --limit 972
 ```
 
 ## Limits

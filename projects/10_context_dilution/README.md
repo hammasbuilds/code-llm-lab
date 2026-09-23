@@ -2,9 +2,10 @@
 <p align="center"><i>Bury the real task in unrelated examples. When does it start to hurt?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-200-blue" alt="">
+  <img src="https://img.shields.io/badge/tasks-972-blue" alt="">
   <img src="https://img.shields.io/badge/k-0%2520to%252024-blue" alt="">
-  <img src="https://img.shields.io/badge/worst%2520drop-3.5pp-b8860b" alt="">
+  <img src="https://img.shields.io/badge/aggregate%2520cost-0.9pp-64748b" alt="">
+  <img src="https://img.shields.io/badge/churn-9.8%25-b8860b" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
@@ -16,28 +17,48 @@ The task is identical in every arm; only the surrounding context grows.
 
 ## Result
 
+All 972 MBPP tasks, with k irrelevant solved tasks pasted in ahead of the real one.
+
 ```
-k=0     300 chars   77.0%
-k=2     740 chars   74.5%
-k=8    1895 chars   73.5%
-k=24   4943 chars   76.5%
+k= 0   80.3%
+k= 2   78.5%
+k= 8   79.0%
+k=24   79.4%
+
+pass@1 change, k=0 -> k=24 : -0.9%
+prompt grew                : 15.7x
 ```
 
-**There is no dilution curve.** A sixteen-fold increase in prompt length moves pass@1 by at
-most 3.5 points, and the longest prompt beats two of the shorter ones. The ordering is not
-monotonic, which is what a real effect would look like.
+**Sixteen times the prompt, none of it relevant, costs 0.9 points.** There is no dilution
+curve at this scale - the k=2 arm is the *worst* of the four, and k=24 is better than k=2.
+Reported as a non-result rather than dressed up as a trend.
 
-The honest reading is that the effect is not measurable at this scale - not that context is
-free. 9 tasks are lost between k=0 and k=24 and 8 are gained: churn, not a trend.
+But the aggregate is hiding the interesting number:
 
-**A longer context or a smaller model would likely show something.** 5,000 characters is
-nowhere near this model's window, so the experiment as built never reaches the regime where
-dilution is supposed to bite. That is a limit of the design, and it is the result.
+```
+solved at k=0, lost by k=24   : 52  (5.3%)
+failed at k=0, gained by k=24 : 43  (4.4%)
+churn, either direction       : 95  (9.8%)
+```
+
+**Nearly one task in ten changes verdict**, and the headline is flat because the losses and
+the gains are almost equal. That is not the same as the extra context being harmless. Fifty-
+two tasks that worked without the padding stopped working with it; forty-three did the
+reverse, for reasons that have nothing to do with the tasks themselves.
+
+The practical consequence is for retrieval. A retriever that fetches k passages pays this on
+every one it gets wrong - not as a visible drop in the average, but as churn underneath it.
+If you measure a RAG change by its aggregate score, a system that silently swapped which 5%
+of queries it answers correctly will look like no change at all.
+
+This is the third project here to land on the same shape: a stable aggregate over unstable
+per-task behaviour. [prompt-shape-variance](../05_prompt_shape_variance) finds 22.4% flipping
+on wording alone, and [determinism](../18_determinism) finds 0.8% flipping on nothing at all.
 
 ## Running it
 
 ```bash
-python run.py --limit 200
+python run.py --limit 972
 ```
 
 ## Limits

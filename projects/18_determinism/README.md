@@ -2,10 +2,10 @@
 <p align="center"><i>Temperature 0 is not the same as deterministic. How much does it move?</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/tasks-120-blue" alt="">
+  <img src="https://img.shields.io/badge/tasks-400-blue" alt="">
   <img src="https://img.shields.io/badge/runs-5-blue" alt="">
-  <img src="https://img.shields.io/badge/pass@1%2520spread-0.0pp-2ea44f" alt="">
-  <img src="https://img.shields.io/badge/verdicts%2520that%2520flipped-2-b8860b" alt="">
+  <img src="https://img.shields.io/badge/pass@1%2520spread-0.8pp-2ea44f" alt="">
+  <img src="https://img.shields.io/badge/verdicts%2520that%2520flipped-3-b8860b" alt="">
 </p>
 
 <p align="center"><a href="../../README.md">&larr; code-llm-lab</a></p>
@@ -27,44 +27,49 @@ would be a copy by construction, and the answer would be 100% determinism by def
 
 ## Result
 
+400 tasks, the same prompt sent five times, temperature 0 throughout.
+
 ```
-pass@1 per run : 81.7%  81.7%  81.7%  81.7%  81.7%
-spread         :  0.0 percentage points
+identical prompt gave different TEXT     : 28/400  (7.0%)
+identical prompt gave a different VERDICT:  3/400  (0.8%)
+mean distinct outputs per task           : 1.07 of 5
 
-identical prompt gave different TEXT     : 11/120   (9.2%)
-identical prompt gave a different VERDICT:  2/120   (1.7%)
-mean distinct outputs per task           : 1.09 of 5
+pass@1 across the five runs : 75.2% - 76.0%
+mean                        : 75.8%
+stdev                       : 0.29%
 ```
 
-**Greedy decoding is not deterministic** - nearly one task in ten produced different text
-across five identical requests, and two changed from passing to failing or back.
+**The score is stable. The tasks are not.**
 
-**And the aggregate did not move at all.** Five runs, five identical pass@1 figures, to the
-decimal.
+Five runs land within eight tenths of a point of each other, a standard deviation under a
+third. Quote any one of them and you have quoted them all. Yet **three tasks flip between
+pass and fail with nothing changed at all** - same prompt, same model, same temperature, same
+machine - and 28 return text that differs somewhere.
 
-Those two statements sit together uncomfortably, and the second does not rescue the first.
-A benchmark score being stable is not evidence that the thing underneath it is: here the
-score is stable *because the flips cancelled*. For all five runs to land on exactly 98 of
-120, exactly one of the two unstable tasks had to pass in every run - they took turns. Whether
-that is coincidence or something structural is not decidable from five runs, and it is
-reported rather than explained away.
+The score is stable *because the flips cancel*, not because the decoding is deterministic.
+A single evaluation run is one draw from this distribution, not a measurement of the model.
 
-## What to take from it
+```
+distinct outputs per task
+  1 distinct : 372 tasks
+  2 distinct :  27 tasks
+  3 distinct :   1 task
+```
 
-**For this repo:** the cache is not only a speed-up. It is what makes every other project
-here reproducible, and the 1.7% verdict-flip rate is the size of the error it removes.
+This is the same shape as [prompt-shape-variance](../05_prompt_shape_variance), reached from
+the opposite end. That project varies the wording and holds everything else; this one varies
+**nothing** and still moves. Between them: a benchmark score can be reproducible to a tenth
+of a point and still not be measuring a stable property of the model.
 
-**For reading anyone's benchmark:** a difference of one or two points between two published
-pass@1 numbers can be the same model twice. This run puts a floor under that - 1.7% of tasks
-flipped verdict with *nothing* changed, which is about two points on a 120-task benchmark.
-
-**The reassuring version is available and would be wrong:** "spread 0.0%, decoding is
-deterministic" is true of the headline number and false of the thing it summarises.
+At 120 tasks this project reported five identical pass@1 figures and a 1.7% flip rate. At 400
+the figures are no longer identical - a 0.8-point spread appears - and the flip rate falls to
+0.8%. Both moved toward the middle, which is what a small sample usually hides in both
+directions at once.
 
 ## Running it
 
 ```bash
-python run.py --limit 120 --runs 5
+python run.py --limit 400 --runs 5
 ```
 
 Takes real GPU time - there is no cache to fall back on, by design.

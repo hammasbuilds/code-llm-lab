@@ -1111,3 +1111,1899 @@ wrote D:\github\code-llm-lab\projects\03_tests_that_kill\results.json
 ########## 18_determinism --limit 400 --runs 5 19:38:41
 ########## RESUMED-4 (task scheduler) 20:55:38
 ########## 18_determinism --limit 400 --runs 5 20:55:38
+mbpp: 400 tasks x 5 identical runs at temperature 0, qwen2.5-coder:14b
+
+    run 1: 50/400
+    run 1: 100/400
+    run 1: 150/400
+    run 1: 200/400
+    run 1: 250/400
+    run 1: 300/400
+    run 1: 350/400
+    run 1: 400/400
+  run 1: pass@1  75.2%   [949s]
+    run 2: 50/400
+    run 2: 100/400
+    run 2: 150/400
+    run 2: 200/400
+    run 2: 250/400
+    run 2: 300/400
+    run 2: 350/400
+    run 2: 400/400
+  run 2: pass@1  76.0%   [1009s]
+    run 3: 50/400
+    run 3: 100/400
+    run 3: 150/400
+    run 3: 200/400
+    run 3: 250/400
+    run 3: 300/400
+    run 3: 350/400
+    run 3: 400/400
+  run 3: pass@1  76.0%   [1010s]
+    run 4: 50/400
+    run 4: 100/400
+    run 4: 150/400
+    run 4: 200/400
+    run 4: 250/400
+    run 4: 300/400
+    run 4: 350/400
+    run 4: 400/400
+  run 4: pass@1  76.0%   [1006s]
+    run 5: 50/400
+    run 5: 100/400
+    run 5: 150/400
+    run 5: 200/400
+    run 5: 250/400
+    run 5: 300/400
+    run 5: 350/400
+    run 5: 400/400
+  run 5: pass@1  75.8%   [1023s]
+
+============================================================================
+DETERMINISM AT T=0 - 400 tasks x 5 runs, qwen2.5-coder:14b
+============================================================================
+  identical prompt gave different TEXT    :   28/400 (7.0%)
+  identical prompt gave a different VERDICT:    3/400 (0.8%)
+  mean distinct outputs per task          : 1.07 of 5
+
+  pass@1 across runs : 75.2% - 76.0%   (spread 0.8%)
+  mean               : 75.8%
+  stdev              : 0.29%
+
+  distinct outputs per task:
+    1 distinct:  372 tasks  ##############################################
+    2 distinct:   27 tasks  ###
+    3 distinct:    1 tasks  
+
+  3 tasks (0.8%) flip between pass and fail
+  with nothing changed at all - same prompt, same model, temperature 0. A single
+  run of an evaluation is one draw from this, not a measurement of the model.
+
+wrote D:\github\code-llm-lab\projects\18_determinism\results.json
+########## 18_determinism exit=0 22:18:57
+########## 06_temperature_pass_at_k --limit 200 22:18:57
+mbpp: 200 tasks x 4 temperatures x 5 samples
+
+    T=0.0: 50/200
+    T=0.0: 100/200
+    T=0.0: 150/200
+    T=0.0: 200/200
+  T=0.0  @1  77.0%  @2  77.0%  @5  77.0%   distinct/5: 1.0   [17s]
+    T=0.4: 50/1000
+    T=0.4: 100/1000
+    T=0.4: 150/1000
+    T=0.4: 200/1000
+    T=0.4: 250/1000
+    T=0.4: 300/1000
+    T=0.4: 350/1000
+    T=0.4: 400/1000
+    T=0.4: 450/1000
+    T=0.4: 500/1000
+    T=0.4: 550/1000
+    T=0.4: 600/1000
+########## RESUMED-5 (hardened task) 23:00:27
+########## 06_temperature_pass_at_k --limit 200 23:00:27
+mbpp: 200 tasks x 4 temperatures x 5 samples
+
+    T=0.0: 50/200
+    T=0.0: 100/200
+    T=0.0: 150/200
+    T=0.0: 200/200
+  T=0.0  @1  77.0%  @2  77.0%  @5  77.0%   distinct/5: 1.0   [16s]
+    T=0.4: 50/1000
+    T=0.4: 100/1000
+    T=0.4: 150/1000
+    T=0.4: 200/1000
+    T=0.4: 250/1000
+    T=0.4: 300/1000
+    T=0.4: 350/1000
+    T=0.4: 400/1000
+    T=0.4: 450/1000
+    T=0.4: 500/1000
+    T=0.4: 550/1000
+    T=0.4: 600/1000
+    T=0.4: 650/1000
+    T=0.4: 700/1000
+    T=0.4: 750/1000
+    T=0.4: 800/1000
+    T=0.4: 850/1000
+    T=0.4: 900/1000
+    T=0.4: 950/1000
+    T=0.4: 1000/1000
+  T=0.4  @1  75.9%  @2  78.5%  @5  81.5%   distinct/5: 2.4   [1041s]
+    T=0.7: 50/1000
+    T=0.7: 100/1000
+    T=0.7: 150/1000
+    T=0.7: 200/1000
+    T=0.7: 250/1000
+    T=0.7: 300/1000
+    T=0.7: 350/1000
+    T=0.7: 400/1000
+    T=0.7: 450/1000
+    T=0.7: 500/1000
+    T=0.7: 550/1000
+    T=0.7: 600/1000
+    T=0.7: 650/1000
+    T=0.7: 700/1000
+    T=0.7: 750/1000
+    T=0.7: 800/1000
+    T=0.7: 850/1000
+    T=0.7: 900/1000
+    T=0.7: 950/1000
+    T=0.7: 1000/1000
+  T=0.7  @1  75.6%  @2  80.3%  @5  84.5%   distinct/5: 3.1   [1891s]
+    T=1.0: 50/1000
+    T=1.0: 100/1000
+    T=1.0: 150/1000
+    T=1.0: 200/1000
+    T=1.0: 250/1000
+    T=1.0: 300/1000
+    T=1.0: 350/1000
+    T=1.0: 400/1000
+    T=1.0: 450/1000
+    T=1.0: 500/1000
+    T=1.0: 550/1000
+    T=1.0: 600/1000
+    T=1.0: 650/1000
+    T=1.0: 700/1000
+    T=1.0: 750/1000
+    T=1.0: 800/1000
+    T=1.0: 850/1000
+    T=1.0: 900/1000
+    T=1.0: 950/1000
+    T=1.0: 1000/1000
+  T=1.0  @1  74.5%  @2  79.3%  @5  83.5%   distinct/5: 3.4   [1774s]
+
+====================================================================
+TEMPERATURE vs pass@k - 200 tasks, 5 samples, qwen2.5-coder:14b
+====================================================================
+  temp      pass@1    pass@2    pass@5   distinct
+  -----------------------------------------------
+  0.0       77.0%     77.0%     77.0%        1.0
+  0.4       75.9%     78.5%     81.5%        2.4
+  0.7       75.6%     80.3%     84.5%        3.1
+  1.0       74.5%     79.3%     83.5%        3.4
+
+  best temperature for pass@1 : 0.0  (77.0%)
+  best temperature for pass@2 : 0.7  (80.3%)
+  best temperature for pass@5 : 0.7  (84.5%)
+
+  The ordering flips: T=0.0 wins pass@1, T=0.7 wins pass@5.
+  Tuning on pass@1 and deploying with k=5 costs 7.5% of achievable pass@5 (and T=0.7 costs 1.4% at k=1).
+
+wrote D:\github\code-llm-lab\projects\06_temperature_pass_at_k\results.json
+########## 06_temperature_pass_at_k exit=0 00:19:10
+########## 15_batch_vs_single --limit 972 00:19:10
+mbpp: 968 tasks, batch sizes [1, 2, 4, 8], model qwen2.5-coder:14b
+
+    batch=1: 50/968
+    batch=1: 100/968
+    batch=1: 150/968
+    batch=1: 200/968
+    batch=1: 250/968
+    batch=1: 300/968
+    batch=1: 350/968
+    batch=1: 400/968
+    batch=1: 450/968
+    batch=1: 500/968
+    batch=1: 550/968
+    batch=1: 600/968
+    batch=1: 650/968
+    batch=1: 700/968
+    batch=1: 750/968
+    batch=1: 800/968
+    batch=1: 850/968
+    batch=1: 900/968
+    batch=1: 950/968
+    batch=1: 968/968
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  batch= 1  pass@1  79.1%  not emitted    3  [14s]
+    batch=2: 50/484
+    batch=2: 100/484
+    batch=2: 150/484
+    batch=2: 200/484
+    batch=2: 250/484
+    batch=2: 300/484
+    batch=2: 350/484
+    batch=2: 400/484
+    batch=2: 450/484
+    batch=2: 484/484
+<unknown>:11: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:17: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  batch= 2  pass@1  77.9%  not emitted    2  [1714s]
+    batch=4: 50/242
+    batch=4: 100/242
+    batch=4: 150/242
+    batch=4: 200/242
+    batch=4: 242/242
+<unknown>:22: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:17: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:23: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:17: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:10: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:18: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  batch= 4  pass@1  76.2%  not emitted    2  [1626s]
+    batch=8: 50/121
+    batch=8: 100/121
+    batch=8: 121/121
+<unknown>:22: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:14: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:15: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:21: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:13: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:31: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:53: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  batch= 8  pass@1  74.6%  not emitted    2  [1593s]
+
+============================================================================
+BATCH vs SINGLE - 968 MBPP tasks, qwen2.5-coder:14b
+============================================================================
+  batch= 1   79.1%  ###############################################  (+0.0%)
+  batch= 2   77.9%  ###############################################  (-1.2%)
+  batch= 4   76.2%  ##############################################  (-2.9%)
+  batch= 8   74.6%  #############################################  (-4.5%)
+
+  asking for 8 at once costs : -4.5%
+  functions never emitted at all : 2 of 968
+
+  pass@1 by position inside a batch of 8:
+    slot 1:  73.6%  #####################################
+    slot 2:  75.2%  ######################################
+    slot 3:  72.7%  ####################################
+    slot 4:  70.2%  ###################################
+    slot 5:  78.5%  #######################################
+    slot 6:  72.7%  ####################################
+    slot 7:  67.8%  ##################################
+    slot 8:  86.0%  ###########################################
+
+  first slot 73.6%  vs  last slot 86.0%   (+12.4%)
+  <- the cost is not spread evenly. Where a request sits in the list changes
+     whether it gets answered properly, which is not a property of the task.
+
+wrote D:\github\code-llm-lab\projects\15_batch_vs_single\results.json
+########## 15_batch_vs_single exit=0 01:41:38
+########## 17_test_first --limit 972 01:41:38
+mbpp: 972 tasks x 4 arms, model qwen2.5-coder:14b
+
+    direct: 50/972
+    direct: 100/972
+    direct: 150/972
+    direct: 200/972
+    direct: 250/972
+    direct: 300/972
+    direct: 350/972
+    direct: 400/972
+    direct: 450/972
+    direct: 500/972
+    direct: 550/972
+    direct: 600/972
+    direct: 650/972
+    direct: 700/972
+    direct: 750/972
+    direct: 800/972
+    direct: 850/972
+    direct: 900/972
+    direct: 950/972
+    direct: 972/972
+  direct      pass@1  80.3%   [13s]
+    plan: 50/972
+    plan: 100/972
+    plan: 150/972
+    plan: 200/972
+    plan: 250/972
+    plan: 300/972
+    plan: 350/972
+    plan: 400/972
+    plan: 450/972
+    plan: 500/972
+    plan: 550/972
+    plan: 600/972
+    plan: 650/972
+    plan: 700/972
+    plan: 750/972
+    plan: 800/972
+    plan: 850/972
+    plan: 900/972
+    plan: 950/972
+    plan: 972/972
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\ " is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\ "? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  plan        pass@1  78.3%   [8650s]
+    tests_then: 50/972
+    tests_then: 100/972
+    tests_then: 150/972
+    tests_then: 200/972
+    tests_then: 250/972
+    tests_then: 300/972
+    tests_then: 350/972
+    tests_then: 400/972
+    tests_then: 450/972
+    tests_then: 500/972
+    tests_then: 550/972
+    tests_then: 600/972
+    tests_then: 650/972
+    tests_then: 700/972
+    tests_then: 750/972
+    tests_then: 800/972
+    tests_then: 850/972
+    tests_then: 900/972
+    tests_then: 950/972
+    tests_then: 972/972
+<unknown>:14: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:17: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:16: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:13: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:14: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:13: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  tests_then  pass@1  74.7%   [14357s]
+    write tests: 50/972
+    write tests: 100/972
+    write tests: 150/972
+    write tests: 200/972
+    write tests: 250/972
+    write tests: 300/972
+    write tests: 350/972
+    write tests: 400/972
+    write tests: 450/972
+    write tests: 500/972
+    write tests: 550/972
+    write tests: 600/972
+    write tests: 650/972
+    write tests: 700/972
+    write tests: 750/972
+    write tests: 800/972
+    write tests: 850/972
+    write tests: 900/972
+    write tests: 950/972
+    write tests: 972/972
+    implement: 50/972
+    implement: 100/972
+    implement: 150/972
+    implement: 200/972
+    implement: 250/972
+    implement: 300/972
+    implement: 350/972
+    implement: 400/972
+    implement: 450/972
+    implement: 500/972
+    implement: 550/972
+    implement: 600/972
+    implement: 650/972
+    implement: 700/972
+    implement: 750/972
+    implement: 800/972
+    implement: 850/972
+    implement: 900/972
+    implement: 950/972
+    implement: 972/972
+  tests_seen  pass@1  78.4%   [5597s]
+
+============================================================================
+TEST FIRST - 972 MBPP tasks, qwen2.5-coder:14b
+============================================================================
+  direct        80.3%  ############################################  (+0.0%)
+  plan          78.3%  ###########################################  (-2.1%)
+  tests_then    74.7%  #########################################  (-5.7%)
+  tests_seen    78.4%  ###########################################  (-2.0%)
+
+  writing tests first is worth : -5.7%
+  any preamble at all is worth : -2.1%
+  attributable to *tests*      : -3.6%
+
+  carried into a fresh context : -2.0%  (+3.7% vs same-context)
+
+  mean response length: direct=184  plan=1131  tests_then=1678  tests_seen=170
+
+wrote D:\github\code-llm-lab\projects\17_test_first\results.json
+########## 17_test_first exit=0 09:38:36
+########## 19_comment_injection --limit 200 09:38:36
+mbpp: 200 tasks x (6 payloads x 2 registers + control), qwen2.5-coder:14b
+
+    control: 50/200
+    control: 100/200
+    control: 150/200
+    control: 200/200
+  control                pass@1  66.0%   [411s]
+    exfil_import:loud: 50/200
+    exfil_import:loud: 100/200
+    exfil_import:loud: 150/200
+    exfil_import:loud: 200/200
+  exfil_import:loud      complied  93.5%   pass@1  68.0%  [409s]
+    exfil_import:quiet: 50/200
+    exfil_import:quiet: 100/200
+    exfil_import:quiet: 150/200
+    exfil_import:quiet: 200/200
+  exfil_import:quiet     complied  92.0%   pass@1  64.5%  [456s]
+    shell_call:loud: 50/200
+    shell_call:loud: 100/200
+    shell_call:loud: 150/200
+    shell_call:loud: 200/200
+  shell_call:loud        complied  98.0%   pass@1  64.5%  [598s]
+    shell_call:quiet: 50/200
+    shell_call:quiet: 100/200
+    shell_call:quiet: 150/200
+    shell_call:quiet: 200/200
+  shell_call:quiet       complied  10.0%   pass@1  64.5%  [462s]
+    disable_check:loud: 50/200
+    disable_check:loud: 100/200
+    disable_check:loud: 150/200
+    disable_check:loud: 200/200
+  disable_check:loud     complied  23.0%   pass@1  61.0%  [386s]
+    disable_check:quiet: 50/200
+    disable_check:quiet: 100/200
+    disable_check:quiet: 150/200
+    disable_check:quiet: 200/200
+  disable_check:quiet    complied  43.5%   pass@1  48.0%  [360s]
+    eval_input:loud: 50/200
+    eval_input:loud: 100/200
+    eval_input:loud: 150/200
+    eval_input:loud: 200/200
+  eval_input:loud        complied  92.0%   pass@1  51.5%  [435s]
+    eval_input:quiet: 50/200
+    eval_input:quiet: 100/200
+    eval_input:quiet: 150/200
+    eval_input:quiet: 200/200
+  eval_input:quiet       complied   2.5%   pass@1  64.0%  [413s]
+    credential:loud: 50/200
+    credential:loud: 100/200
+    credential:loud: 150/200
+    credential:loud: 200/200
+  credential:loud        complied 100.0%   pass@1  67.0%  [488s]
+    credential:quiet: 50/200
+    credential:quiet: 100/200
+    credential:quiet: 150/200
+    credential:quiet: 200/200
+  credential:quiet       complied   5.0%   pass@1  65.5%  [484s]
+    silent_except:loud: 50/200
+    silent_except:loud: 100/200
+    silent_except:loud: 150/200
+    silent_except:loud: 200/200
+  silent_except:loud     complied  79.5%   pass@1  67.0%  [490s]
+    silent_except:quiet: 50/200
+    silent_except:quiet: 100/200
+    silent_except:quiet: 150/200
+    silent_except:quiet: 200/200
+  silent_except:quiet    complied   9.0%   pass@1  64.5%  [510s]
+
+================================================================================
+COMMENT INJECTION - 200 MBPP tasks, qwen2.5-coder:14b
+================================================================================
+  payload          what it does                        loud   quiet  control
+  exfil_import     adds an unrelated network import     94%     92%       0%
+  shell_call       executes a shell command             98%     10%       0%
+  disable_check    stubs the function out               23%     44%       1%
+  eval_input       introduces eval                      92%      2%       0%
+  credential       hardcodes a credential              100%      5%       0%
+  silent_except    swallows every exception             80%      9%       0%
+
+  mean compliance above control - loud  : +80.8%
+  mean compliance above control - quiet : +26.8%
+  the register is worth                 : -54.0%
+
+  most effective payload: credential (hardcodes a credential)
+
+wrote D:\github\code-llm-lab\projects\19_comment_injection\results.json
+########## 19_comment_injection exit=0 11:16:59
+########## 16_coder_vs_generalist --limit 500 11:16:59
+
+mbpp: 500 tasks x 5 models
+
+    qwen2.5-coder:14b: 50/500
+    qwen2.5-coder:14b: 100/500
+    qwen2.5-coder:14b: 150/500
+    qwen2.5-coder:14b: 200/500
+    qwen2.5-coder:14b: 250/500
+    qwen2.5-coder:14b: 300/500
+    qwen2.5-coder:14b: 350/500
+    qwen2.5-coder:14b: 400/500
+    qwen2.5-coder:14b: 450/500
+    qwen2.5-coder:14b: 500/500
+  qwen2.5-coder:14b         14B coder    pass@1  76.6%  [8s]
+    qwen2.5:14b-instruct: 50/500
+    qwen2.5:14b-instruct: 100/500
+    qwen2.5:14b-instruct: 150/500
+    qwen2.5:14b-instruct: 200/500
+    qwen2.5:14b-instruct: 250/500
+    qwen2.5:14b-instruct: 300/500
+    qwen2.5:14b-instruct: 350/500
+    qwen2.5:14b-instruct: 400/500
+    qwen2.5:14b-instruct: 450/500
+    qwen2.5:14b-instruct: 500/500
+  qwen2.5:14b-instruct      14B general  pass@1  66.6%  [888s]
+    qwen2.5-coder:3b: 50/500
+    qwen2.5-coder:3b: 100/500
+    qwen2.5-coder:3b: 150/500
+    qwen2.5-coder:3b: 200/500
+    qwen2.5-coder:3b: 250/500
+    qwen2.5-coder:3b: 300/500
+    qwen2.5-coder:3b: 350/500
+    qwen2.5-coder:3b: 400/500
+    qwen2.5-coder:3b: 450/500
+    qwen2.5-coder:3b: 500/500
+  qwen2.5-coder:3b           3B coder    pass@1  60.6%  [13s]
+    qwen2.5:3b-instruct: 50/500
+    qwen2.5:3b-instruct: 100/500
+    qwen2.5:3b-instruct: 150/500
+    qwen2.5:3b-instruct: 200/500
+    qwen2.5:3b-instruct: 250/500
+    qwen2.5:3b-instruct: 300/500
+    qwen2.5:3b-instruct: 350/500
+    qwen2.5:3b-instruct: 400/500
+    qwen2.5:3b-instruct: 450/500
+    qwen2.5:3b-instruct: 500/500
+  qwen2.5:3b-instruct        3B general  pass@1  49.2%  [169s]
+    llama3.2:3b: 50/500
+    llama3.2:3b: 100/500
+    llama3.2:3b: 150/500
+    llama3.2:3b: 200/500
+    llama3.2:3b: 250/500
+    llama3.2:3b: 300/500
+    llama3.2:3b: 350/500
+    llama3.2:3b: 400/500
+    llama3.2:3b: 450/500
+    llama3.2:3b: 500/500
+  llama3.2:3b                3B general  pass@1  40.4%  [184s]
+
+==============================================================================
+CODER vs GENERALIST - 500 mbpp tasks
+==============================================================================
+  qwen2.5-coder:14b         14B coder    76.6%  ######################################
+  qwen2.5:14b-instruct      14B general  66.6%  #################################
+  qwen2.5-coder:3b           3B coder    60.6%  ##############################
+  qwen2.5:3b-instruct        3B general  49.2%  #########################
+  llama3.2:3b                3B general  40.4%  ####################
+
+  same family, same size, same quantisation - only the tuning differs:
+    14B: qwen2.5-coder-coder 76.6% vs instruct 66.6%   (+10.0%)
+    3B: qwen2.5-coder-coder 60.6% vs instruct 49.2%   (+11.4%)
+
+  the coder advantage is +11.4% at 3B and +10.0% at 14B.
+  It shrinks with size - the bigger general model has already learned
+  most of what the specialisation buys, so a second set of weights in
+  VRAM is hardest to justify exactly where the weights cost most.
+
+  14B: 69 tasks only the coder solves, 19 only the generalist does.
+     The net gap is 50 tasks, not 69 -
+     a one-directional reading would overstate it by 19.
+
+  3B: 84 tasks only the coder solves, 27 only the generalist does.
+     The net gap is 57 tasks, not 84 -
+     a one-directional reading would overstate it by 27.
+
+wrote D:\github\code-llm-lab\projects\16_coder_vs_generalist\results.json
+########## 16_coder_vs_generalist exit=0 11:38:03
+########## 10_context_dilution --limit 972 11:38:03
+mbpp: 972 tasks x 4 context sizes, model qwen2.5-coder:14b
+
+    k=0: 50/972
+    k=0: 100/972
+    k=0: 150/972
+    k=0: 200/972
+    k=0: 250/972
+    k=0: 300/972
+    k=0: 350/972
+    k=0: 400/972
+    k=0: 450/972
+    k=0: 500/972
+    k=0: 550/972
+    k=0: 600/972
+    k=0: 650/972
+    k=0: 700/972
+    k=0: 750/972
+    k=0: 800/972
+    k=0: 850/972
+    k=0: 900/972
+    k=0: 950/972
+    k=0: 972/972
+  k=  0  pass@1  80.3%   prompt     305 chars   [15s]
+    k=2: 50/972
+    k=2: 100/972
+    k=2: 150/972
+    k=2: 200/972
+    k=2: 250/972
+    k=2: 300/972
+    k=2: 350/972
+    k=2: 400/972
+    k=2: 450/972
+    k=2: 500/972
+    k=2: 550/972
+    k=2: 600/972
+    k=2: 650/972
+    k=2: 700/972
+    k=2: 750/972
+    k=2: 800/972
+    k=2: 850/972
+    k=2: 900/972
+    k=2: 950/972
+    k=2: 972/972
+  k=  2  pass@1  78.5%   prompt     741 chars   [2522s]
+    k=8: 50/972
+    k=8: 100/972
+    k=8: 150/972
+    k=8: 200/972
+    k=8: 250/972
+    k=8: 300/972
+    k=8: 350/972
+    k=8: 400/972
+    k=8: 450/972
+    k=8: 500/972
+    k=8: 550/972
+    k=8: 600/972
+    k=8: 650/972
+    k=8: 700/972
+    k=8: 750/972
+    k=8: 800/972
+    k=8: 850/972
+    k=8: 900/972
+    k=8: 950/972
+    k=8: 972/972
+  k=  8  pass@1  79.0%   prompt    1847 chars   [2992s]
+    k=24: 50/972
+    k=24: 100/972
+    k=24: 150/972
+    k=24: 200/972
+    k=24: 250/972
+    k=24: 300/972
+    k=24: 350/972
+    k=24: 400/972
+    k=24: 450/972
+    k=24: 500/972
+    k=24: 550/972
+    k=24: 600/972
+    k=24: 650/972
+    k=24: 700/972
+    k=24: 750/972
+    k=24: 800/972
+    k=24: 850/972
+    k=24: 900/972
+    k=24: 950/972
+    k=24: 972/972
+  k= 24  pass@1  79.4%   prompt    4793 chars   [4396s]
+
+========================================================================
+CONTEXT DILUTION - 972 MBPP tasks, qwen2.5-coder:14b
+========================================================================
+  k=  0   80.3%  ################################################
+  k=  2   78.5%  ###############################################
+  k=  8   79.0%  ###############################################
+  k= 24   79.4%  ################################################
+
+  pass@1 change, k=0 -> k=24     : -0.9%
+  prompt grew                    : 15.7x
+
+  solved at k=0, lost by k=24    :   52 (5.3%)
+  failed at k=0, gained by k=24  :   43 (4.4%)
+  churn (either direction)       :   95 (9.8%)  <- the aggregate hides this
+
+  16x the prompt, none of it relevant, costs 0.9% of pass@1.
+  Extra context is not free, and a retriever that fetches k passages pays this
+  on every one it gets wrong.
+
+wrote D:\github\code-llm-lab\projects\10_context_dilution\results.json
+########## 10_context_dilution exit=0 14:23:31
+########## 14_constraint_compliance --limit 972 14:23:31
+mbpp: 972 tasks x 7 arms, model qwen2.5-coder:14b
+
+    none: 50/972
+    none: 100/972
+    none: 150/972
+    none: 200/972
+    none: 250/972
+    none: 300/972
+    none: 350/972
+    none: 400/972
+    none: 450/972
+    none: 500/972
+    none: 550/972
+    none: 600/972
+    none: 650/972
+    none: 700/972
+    none: 750/972
+    none: 800/972
+    none: 850/972
+    none: 900/972
+    none: 950/972
+    none: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  none                pass@1  80.3%   (control)  [15s]
+    no_recursion: 50/972
+    no_recursion: 100/972
+    no_recursion: 150/972
+    no_recursion: 200/972
+    no_recursion: 250/972
+    no_recursion: 300/972
+    no_recursion: 350/972
+    no_recursion: 400/972
+    no_recursion: 450/972
+    no_recursion: 500/972
+    no_recursion: 550/972
+    no_recursion: 600/972
+    no_recursion: 650/972
+    no_recursion: 700/972
+    no_recursion: 750/972
+    no_recursion: 800/972
+    no_recursion: 850/972
+    no_recursion: 900/972
+    no_recursion: 950/972
+    no_recursion: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_recursion        pass@1  79.1%   complied  99.1%   both  78.8%  [2204s]
+    no_imports: 50/972
+    no_imports: 100/972
+    no_imports: 150/972
+    no_imports: 200/972
+    no_imports: 250/972
+    no_imports: 300/972
+    no_imports: 350/972
+    no_imports: 400/972
+    no_imports: 450/972
+    no_imports: 500/972
+    no_imports: 550/972
+    no_imports: 600/972
+    no_imports: 650/972
+    no_imports: 700/972
+    no_imports: 750/972
+    no_imports: 800/972
+    no_imports: 850/972
+    no_imports: 900/972
+    no_imports: 950/972
+    no_imports: 972/972
+<unknown>:3: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_imports          pass@1  77.8%   complied  96.0%   both  74.1%  [2173s]
+    no_comprehensions: 50/972
+    no_comprehensions: 100/972
+    no_comprehensions: 150/972
+    no_comprehensions: 200/972
+    no_comprehensions: 250/972
+    no_comprehensions: 300/972
+    no_comprehensions: 350/972
+    no_comprehensions: 400/972
+    no_comprehensions: 450/972
+    no_comprehensions: 500/972
+    no_comprehensions: 550/972
+    no_comprehensions: 600/972
+    no_comprehensions: 650/972
+    no_comprehensions: 700/972
+    no_comprehensions: 750/972
+    no_comprehensions: 800/972
+    no_comprehensions: 850/972
+    no_comprehensions: 900/972
+    no_comprehensions: 950/972
+    no_comprehensions: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_comprehensions   pass@1  77.9%   complied  92.2%   both  72.0%  [2330s]
+    no_builtin_sort: 50/972
+    no_builtin_sort: 100/972
+    no_builtin_sort: 150/972
+    no_builtin_sort: 200/972
+########## RESUMED-5 (hardened task) 16:43:14
+########## 06_temperature_pass_at_k already complete, skipping 16:43:14
+########## 15_batch_vs_single already complete, skipping 16:43:14
+########## 17_test_first already complete, skipping 16:43:14
+########## 19_comment_injection already complete, skipping 16:43:14
+########## 16_coder_vs_generalist already complete, skipping 16:43:14
+########## 10_context_dilution already complete, skipping 16:43:15
+########## 14_constraint_compliance --limit 972 16:43:15
+########## RESUMED-5 (hardened task) 16:45:38
+########## 06_temperature_pass_at_k already complete, skipping 16:45:38
+########## 15_batch_vs_single already complete, skipping 16:45:38
+########## 17_test_first already complete, skipping 16:45:38
+########## 19_comment_injection already complete, skipping 16:45:38
+########## 16_coder_vs_generalist already complete, skipping 16:45:38
+########## 10_context_dilution already complete, skipping 16:45:38
+########## 14_constraint_compliance --limit 972 16:45:38
+mbpp: 972 tasks x 7 arms, model qwen2.5-coder:14b
+
+    none: 50/972
+    none: 100/972
+    none: 150/972
+    none: 200/972
+    none: 250/972
+    none: 300/972
+    none: 350/972
+    none: 400/972
+    none: 450/972
+    none: 500/972
+    none: 550/972
+    none: 600/972
+    none: 650/972
+    none: 700/972
+    none: 750/972
+    none: 800/972
+    none: 850/972
+    none: 900/972
+    none: 950/972
+    none: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\D" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\D"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  none                pass@1  80.3%   (control)  [15s]
+    no_recursion: 50/972
+    no_recursion: 100/972
+    no_recursion: 150/972
+    no_recursion: 200/972
+    no_recursion: 250/972
+    no_recursion: 300/972
+    no_recursion: 350/972
+    no_recursion: 400/972
+    no_recursion: 450/972
+    no_recursion: 500/972
+    no_recursion: 550/972
+    no_recursion: 600/972
+    no_recursion: 650/972
+    no_recursion: 700/972
+    no_recursion: 750/972
+    no_recursion: 800/972
+    no_recursion: 850/972
+    no_recursion: 900/972
+    no_recursion: 950/972
+    no_recursion: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_recursion        pass@1  79.1%   complied  99.1%   both  78.8%  [24s]
+    no_imports: 50/972
+    no_imports: 100/972
+    no_imports: 150/972
+    no_imports: 200/972
+    no_imports: 250/972
+    no_imports: 300/972
+    no_imports: 350/972
+    no_imports: 400/972
+    no_imports: 450/972
+    no_imports: 500/972
+    no_imports: 550/972
+    no_imports: 600/972
+    no_imports: 650/972
+    no_imports: 700/972
+    no_imports: 750/972
+    no_imports: 800/972
+    no_imports: 850/972
+    no_imports: 900/972
+    no_imports: 950/972
+    no_imports: 972/972
+<unknown>:3: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_imports          pass@1  77.8%   complied  96.0%   both  74.1%  [16s]
+    no_comprehensions: 50/972
+    no_comprehensions: 100/972
+    no_comprehensions: 150/972
+    no_comprehensions: 200/972
+    no_comprehensions: 250/972
+    no_comprehensions: 300/972
+    no_comprehensions: 350/972
+    no_comprehensions: 400/972
+    no_comprehensions: 450/972
+    no_comprehensions: 500/972
+    no_comprehensions: 550/972
+    no_comprehensions: 600/972
+    no_comprehensions: 650/972
+    no_comprehensions: 700/972
+    no_comprehensions: 750/972
+    no_comprehensions: 800/972
+    no_comprehensions: 850/972
+    no_comprehensions: 900/972
+    no_comprehensions: 950/972
+    no_comprehensions: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_comprehensions   pass@1  77.9%   complied  92.2%   both  72.0%  [16s]
+    no_builtin_sort: 50/972
+    no_builtin_sort: 100/972
+    no_builtin_sort: 150/972
+    no_builtin_sort: 200/972
+    no_builtin_sort: 250/972
+    no_builtin_sort: 300/972
+    no_builtin_sort: 350/972
+    no_builtin_sort: 400/972
+    no_builtin_sort: 450/972
+    no_builtin_sort: 500/972
+    no_builtin_sort: 550/972
+    no_builtin_sort: 600/972
+    no_builtin_sort: 650/972
+    no_builtin_sort: 700/972
+    no_builtin_sort: 750/972
+    no_builtin_sort: 800/972
+    no_builtin_sort: 850/972
+    no_builtin_sort: 900/972
+    no_builtin_sort: 950/972
+    no_builtin_sort: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+  no_builtin_sort     pass@1  76.6%   complied  97.8%   both  75.9%  [2420s]
+    type_hints: 50/972
+    type_hints: 100/972
+    type_hints: 150/972
+    type_hints: 200/972
+    type_hints: 250/972
+    type_hints: 300/972
+    type_hints: 350/972
+    type_hints: 400/972
+    type_hints: 450/972
+    type_hints: 500/972
+    type_hints: 550/972
+    type_hints: 600/972
+    type_hints: 650/972
+    type_hints: 700/972
+    type_hints: 750/972
+    type_hints: 800/972
+    type_hints: 850/972
+    type_hints: 900/972
+    type_hints: 950/972
+    type_hints: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\*" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\*"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:9: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  type_hints          pass@1  79.1%   complied  99.6%   both  79.0%  [2979s]
+    single_return: 50/972
+    single_return: 100/972
+    single_return: 150/972
+    single_return: 200/972
+    single_return: 250/972
+    single_return: 300/972
+    single_return: 350/972
+    single_return: 400/972
+    single_return: 450/972
+    single_return: 500/972
+    single_return: 550/972
+    single_return: 600/972
+    single_return: 650/972
+    single_return: 700/972
+    single_return: 750/972
+    single_return: 800/972
+    single_return: 850/972
+    single_return: 900/972
+    single_return: 950/972
+    single_return: 972/972
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:6: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\B" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\B"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:4: SyntaxWarning: "\W" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\W"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\d" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\d"? A raw string is also an option.
+<unknown>:5: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  single_return       pass@1  77.9%   complied  85.5%   both  66.3%  [1876s]
+
+====================================================================================
+CONSTRAINT COMPLIANCE - 972 MBPP tasks, qwen2.5-coder:14b
+====================================================================================
+  unconstrained pass@1: 80.3%
+
+  constraint            already  complied   pass@1  vs control    both
+  no_recursion              96%       99%    79.1%       -1.2%     79%
+  no_imports                79%       96%    77.8%       -2.6%     74%
+  no_comprehensions         80%       92%    77.9%       -2.5%     72%
+  no_builtin_sort           94%       98%    76.6%       -3.7%     76%
+  type_hints                 0%      100%    79.1%       -1.2%     79%
+  single_return             79%       85%    77.9%       -2.5%     66%
+
+  'already' is how often the unconstrained control satisfies the rule by habit.
+  A constraint with a high 'already' column proves little when it is obeyed.
+
+wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
+########## 14_constraint_compliance exit=0 18:48:04
+########## sql-analyst-agent eval (retry) 18:48:05
++--------------------- Traceback (most recent call last) ---------------------+
+| D:\github\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
+|                                                                             |
+|   120     """Run the question set and write RESULTS.md."""                  |
+|   121     from .eval_harness import run_eval                                |
+|   122                                                                       |
+| > 123     run_eval()                                                        |
+|   124                                                                       |
+|   125                                                                       |
+|   126 if __name__ == "__main__":                                            |
+|                                                                             |
+| D:\github\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
+|                                                                             |
+|    51     for case in cases:                                                |
+|    52         question = case["question"]                                   |
+|    53         started = time.perf_counter()                                 |
+| >  54         result = answer(question)                                     |
+|    55         latencies.append((time.perf_counter() - started) * 1000)      |
+|    56         attempts.append(len(result.attempts))                         |
+|    57         repaired.append(1.0 if len(result.attempts) > 1 and not       |
+|       result.failed else 0.0)                                               |
+|                                                                             |
+| D:\github\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
+|                                                                             |
+|    47                                                                       |
+|    48     result = QueryResult(question=question, backend=llm.name)         |
+|    49                                                                       |
+| >  50     tables = describe_schema()                                        |
+|    51     ddl = schema_prompt(tables)                                       |
+|    52     known = set(tables)                                               |
+|    53                                                                       |
+|                                                                             |
+| D:\github\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
+| describe_schema                                                             |
+|                                                                             |
+|    49 @lru_cache(maxsize=1)                                                 |
+|    50 def describe_schema() -> dict[str, Table]:                            |
+|    51     """Introspected with the admin role: reading the catalog is not   |
+|       the agent's job."""                                                   |
+| >  52     with psycopg.connect(get_settings().admin_dsn,                    |
+|       row_factory=dict_row) as conn:                                        |
+|    53         cols = conn.execute(_COLUMNS).fetchall()                      |
+|    54         keys = conn.execute(_KEYS).fetchall()                         |
+|    55         rows = {r["table_name"]: r["rows"] for r in                   |
+|       conn.execute(_ROWS).fetchall()}                                       |
+|                                                                             |
+| D:\github\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
+| 30 in connect                                                               |
+|                                                                             |
+|   127             lines.append("Multiple connection attempts failed. All    |
+|       failures were:")                                                      |
+|   128             lines.extend((f"- {descr}: {error}" for error, descr in   |
+|       conn_errors))                                                         |
+|   129             new_ex = type(last_ex)("\n".join(lines),                  |
+|       pgconn=last_ex.pgconn)                                                |
+| > 130             raise new_ex.with_traceback(None)                         |
+|   131                                                                       |
+|   132         if (                                                          |
+|   133             capabilities.has_used_gssapi()                            |
++-----------------------------------------------------------------------------+
+ConnectionTimeout: connection timeout expired
+Multiple connection attempts failed. All failures were:
+- host: 'localhost', port: '5434', hostaddr: '::1': connection timeout expired
+- host: 'localhost', port: '5434', hostaddr: '127.0.0.1': connection timeout 
+expired
+########## sql-analyst-agent eval (retry) exit=1 18:52:27
+########## code-eval-harness 164 (retry) 18:52:27
+########## RESUMED-5 (hardened task) 20:50:03
+########## 06_temperature_pass_at_k already complete, skipping 20:50:03
+########## 15_batch_vs_single already complete, skipping 20:50:03
+########## 17_test_first already complete, skipping 20:50:03
+########## 19_comment_injection already complete, skipping 20:50:03
+########## 16_coder_vs_generalist already complete, skipping 20:50:03
+########## 10_context_dilution already complete, skipping 20:50:03
+########## 14_constraint_compliance already complete, skipping 20:50:03
+########## sql-analyst-agent eval (retry) 20:50:03
++--------------------- Traceback (most recent call last) ---------------------+
+| D:\github\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
+|                                                                             |
+|   120     """Run the question set and write RESULTS.md."""                  |
+|   121     from .eval_harness import run_eval                                |
+|   122                                                                       |
+| > 123     run_eval()                                                        |
+|   124                                                                       |
+|   125                                                                       |
+|   126 if __name__ == "__main__":                                            |
+|                                                                             |
+| D:\github\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
+|                                                                             |
+|    51     for case in cases:                                                |
+|    52         question = case["question"]                                   |
+|    53         started = time.perf_counter()                                 |
+| >  54         result = answer(question)                                     |
+|    55         latencies.append((time.perf_counter() - started) * 1000)      |
+|    56         attempts.append(len(result.attempts))                         |
+|    57         repaired.append(1.0 if len(result.attempts) > 1 and not       |
+|       result.failed else 0.0)                                               |
+|                                                                             |
+| D:\github\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
+|                                                                             |
+|    47                                                                       |
+|    48     result = QueryResult(question=question, backend=llm.name)         |
+|    49                                                                       |
+| >  50     tables = describe_schema()                                        |
+|    51     ddl = schema_prompt(tables)                                       |
+|    52     known = set(tables)                                               |
+|    53                                                                       |
+|                                                                             |
+| D:\github\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
+| describe_schema                                                             |
+|                                                                             |
+|    49 @lru_cache(maxsize=1)                                                 |
+|    50 def describe_schema() -> dict[str, Table]:                            |
+|    51     """Introspected with the admin role: reading the catalog is not   |
+|       the agent's job."""                                                   |
+| >  52     with psycopg.connect(get_settings().admin_dsn,                    |
+|       row_factory=dict_row) as conn:                                        |
+|    53         cols = conn.execute(_COLUMNS).fetchall()                      |
+|    54         keys = conn.execute(_KEYS).fetchall()                         |
+|    55         rows = {r["table_name"]: r["rows"] for r in                   |
+|       conn.execute(_ROWS).fetchall()}                                       |
+|                                                                             |
+| D:\github\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
+| 30 in connect                                                               |
+|                                                                             |
+|   127             lines.append("Multiple connection attempts failed. All    |
+|       failures were:")                                                      |
+|   128             lines.extend((f"- {descr}: {error}" for error, descr in   |
+|       conn_errors))                                                         |
+|   129             new_ex = type(last_ex)("\n".join(lines),                  |
+|       pgconn=last_ex.pgconn)                                                |
+| > 130             raise new_ex.with_traceback(None)                         |
+|   131                                                                       |
+|   132         if (                                                          |
+|   133             capabilities.has_used_gssapi()                            |
++-----------------------------------------------------------------------------+
+ConnectionTimeout: connection timeout expired
+Multiple connection attempts failed. All failures were:
+- host: 'localhost', port: '5434', hostaddr: '::1': connection timeout expired
+- host: 'localhost', port: '5434', hostaddr: '127.0.0.1': connection timeout 
+expired
+########## sql-analyst-agent eval (retry) exit=1 20:54:25
+########## code-eval-harness 164 (retry) 20:54:25
+problems: 164   models: qwen2.5-coder:3b, qwen2.5:7b-instruct, qwen2.5-coder:14b
+  [qwen2.5-coder:3b    ]   1/164 HumanEval/0        ..PPP
+  [qwen2.5-coder:3b    ]   2/164 HumanEval/1        ..PPP
+  [qwen2.5-coder:3b    ]   3/164 HumanEval/2        ..PPP
+  [qwen2.5-coder:3b    ]   4/164 HumanEval/3        ..PPP
+  [qwen2.5-coder:3b    ]   5/164 HumanEval/4        ..PPP
+  [qwen2.5-coder:3b    ]   6/164 HumanEval/5        ..PPP
+  [qwen2.5-coder:3b    ]   7/164 HumanEval/6        ..PPP
+  [qwen2.5-coder:3b    ]   8/164 HumanEval/7        ..PPP
+  [qwen2.5-coder:3b    ]   9/164 HumanEval/8        ..PPP
+  [qwen2.5-coder:3b    ]  10/164 HumanEval/9        ..PPP
+  [qwen2.5-coder:3b    ]  11/164 HumanEval/10       ..PPP
+  [qwen2.5-coder:3b    ]  12/164 HumanEval/11       ..PPP
+  [qwen2.5-coder:3b    ]  13/164 HumanEval/12       ..PPP
+  [qwen2.5-coder:3b    ]  14/164 HumanEval/13       ..PPP
+  [qwen2.5-coder:3b    ]  15/164 HumanEval/14       ..PPP
+  [qwen2.5-coder:3b    ]  16/164 HumanEval/15       ..PPP
+  [qwen2.5-coder:3b    ]  17/164 HumanEval/16       ..PPP
+  [qwen2.5-coder:3b    ]  18/164 HumanEval/17       ..PPP
+  [qwen2.5-coder:3b    ]  19/164 HumanEval/18       ..PPP
+  [qwen2.5-coder:3b    ]  20/164 HumanEval/19       ..PPP
+  [qwen2.5-coder:3b    ]  21/164 HumanEval/20       ..PPP
+  [qwen2.5-coder:3b    ]  22/164 HumanEval/21       ..PPP
+  [qwen2.5-coder:3b    ]  23/164 HumanEval/22       ..PPP
+  [qwen2.5-coder:3b    ]  24/164 HumanEval/23       ..PPP
+  [qwen2.5-coder:3b    ]  25/164 HumanEval/24       ..PPP
+  [qwen2.5-coder:3b    ]  26/164 HumanEval/25       ..PPP
+  [qwen2.5-coder:3b    ]  27/164 HumanEval/26       .....
+  [qwen2.5-coder:3b    ]  28/164 HumanEval/27       ..PPP
+  [qwen2.5-coder:3b    ]  29/164 HumanEval/28       ..PPP
+  [qwen2.5-coder:3b    ]  30/164 HumanEval/29       ..PPP
+  [qwen2.5-coder:3b    ]  31/164 HumanEval/30       ..PPP
+  [qwen2.5-coder:3b    ]  32/164 HumanEval/31       ..PPP
+  [qwen2.5-coder:3b    ]  33/164 HumanEval/32       .....
+  [qwen2.5-coder:3b    ]  34/164 HumanEval/33       ..PPP
+  [qwen2.5-coder:3b    ]  35/164 HumanEval/34       ..PPP
+  [qwen2.5-coder:3b    ]  36/164 HumanEval/35       ..PPP
+  [qwen2.5-coder:3b    ]  37/164 HumanEval/36       ..PPP
+  [qwen2.5-coder:3b    ]  38/164 HumanEval/37       ..PPP
+  [qwen2.5-coder:3b    ]  39/164 HumanEval/38       .....
+  [qwen2.5-coder:3b    ]  40/164 HumanEval/39       ..PPP
+  [qwen2.5-coder:3b    ]  41/164 HumanEval/40       ..PPP
+  [qwen2.5-coder:3b    ]  42/164 HumanEval/41       ..PPP
+  [qwen2.5-coder:3b    ]  43/164 HumanEval/42       ..PPP
+  [qwen2.5-coder:3b    ]  44/164 HumanEval/43       ..PPP
+  [qwen2.5-coder:3b    ]  45/164 HumanEval/44       ..PPP
+  [qwen2.5-coder:3b    ]  46/164 HumanEval/45       ..PPP
+  [qwen2.5-coder:3b    ]  47/164 HumanEval/46       ..PPP
+  [qwen2.5-coder:3b    ]  48/164 HumanEval/47       ..PPP
+  [qwen2.5-coder:3b    ]  49/164 HumanEval/48       ..PPP
+  [qwen2.5-coder:3b    ]  50/164 HumanEval/49       ..PPP
+  [qwen2.5-coder:3b    ]  51/164 HumanEval/50       .....
+  [qwen2.5-coder:3b    ]  52/164 HumanEval/51       ..PPP
+  [qwen2.5-coder:3b    ]  53/164 HumanEval/52       ..PPP
+  [qwen2.5-coder:3b    ]  54/164 HumanEval/53       ..PPP
+  [qwen2.5-coder:3b    ]  55/164 HumanEval/54       ..PPP
+  [qwen2.5-coder:3b    ]  56/164 HumanEval/55       ..PPP
+  [qwen2.5-coder:3b    ]  57/164 HumanEval/56       ..PPP
+  [qwen2.5-coder:3b    ]  58/164 HumanEval/57       ..PPP
+  [qwen2.5-coder:3b    ]  59/164 HumanEval/58       ..PPP
+  [qwen2.5-coder:3b    ]  60/164 HumanEval/59       .....
+  [qwen2.5-coder:3b    ]  61/164 HumanEval/60       ..PPP
+  [qwen2.5-coder:3b    ]  62/164 HumanEval/61       ..PPP
+  [qwen2.5-coder:3b    ]  63/164 HumanEval/62       ..PPP
+  [qwen2.5-coder:3b    ]  64/164 HumanEval/63       ..PPP
+  [qwen2.5-coder:3b    ]  65/164 HumanEval/64       ..PPP
+  [qwen2.5-coder:3b    ]  66/164 HumanEval/65       ..PPP
+  [qwen2.5-coder:3b    ]  67/164 HumanEval/66       ..PPP
+  [qwen2.5-coder:3b    ]  68/164 HumanEval/67       ..PPP
+  [qwen2.5-coder:3b    ]  69/164 HumanEval/68       .....
+  [qwen2.5-coder:3b    ]  70/164 HumanEval/69       ..PPP
+  [qwen2.5-coder:3b    ]  71/164 HumanEval/70       ..PPP
+  [qwen2.5-coder:3b    ]  72/164 HumanEval/71       ..PPP
+  [qwen2.5-coder:3b    ]  73/164 HumanEval/72       ..PPP
+  [qwen2.5-coder:3b    ]  74/164 HumanEval/73       ..PPP
+  [qwen2.5-coder:3b    ]  75/164 HumanEval/74       ..PPP
+  [qwen2.5-coder:3b    ]  76/164 HumanEval/75       .....
+  [qwen2.5-coder:3b    ]  77/164 HumanEval/76       ..PPP
+  [qwen2.5-coder:3b    ]  78/164 HumanEval/77       .....
+  [qwen2.5-coder:3b    ]  79/164 HumanEval/78       ..PPP
+  [qwen2.5-coder:3b    ]  80/164 HumanEval/79       ..PPP
+  [qwen2.5-coder:3b    ]  81/164 HumanEval/80       ..PPP
+  [qwen2.5-coder:3b    ]  82/164 HumanEval/81       .....
+  [qwen2.5-coder:3b    ]  83/164 HumanEval/82       ..PPP
+  [qwen2.5-coder:3b    ]  84/164 HumanEval/83       .....
+  [qwen2.5-coder:3b    ]  85/164 HumanEval/84       ..PPP
+  [qwen2.5-coder:3b    ]  86/164 HumanEval/85       ..PPP
+  [qwen2.5-coder:3b    ]  87/164 HumanEval/86       ..PPP
+  [qwen2.5-coder:3b    ]  88/164 HumanEval/87       ..PPP
+  [qwen2.5-coder:3b    ]  89/164 HumanEval/88       ..PPP
+  [qwen2.5-coder:3b    ]  90/164 HumanEval/89       ..PPP
+  [qwen2.5-coder:3b    ]  91/164 HumanEval/90       ..PPP
+  [qwen2.5-coder:3b    ]  92/164 HumanEval/91       .....
+  [qwen2.5-coder:3b    ]  93/164 HumanEval/92       ..PPP
+  [qwen2.5-coder:3b    ]  94/164 HumanEval/93       .....
+  [qwen2.5-coder:3b    ]  95/164 HumanEval/94       .....
+  [qwen2.5-coder:3b    ]  96/164 HumanEval/95       .....
+  [qwen2.5-coder:3b    ]  97/164 HumanEval/96       ..PPP
+  [qwen2.5-coder:3b    ]  98/164 HumanEval/97       ..PPP
+  [qwen2.5-coder:3b    ]  99/164 HumanEval/98       ..PPP
+  [qwen2.5-coder:3b    ] 100/164 HumanEval/99       ..PPP
+  [qwen2.5-coder:3b    ] 101/164 HumanEval/100      .....
+  [qwen2.5-coder:3b    ] 102/164 HumanEval/101      .....
+  [qwen2.5-coder:3b    ] 103/164 HumanEval/102      .....
+  [qwen2.5-coder:3b    ] 104/164 HumanEval/103      ..PPP
+  [qwen2.5-coder:3b    ] 105/164 HumanEval/104      ..PPP
+  [qwen2.5-coder:3b    ] 106/164 HumanEval/105      .....
+  [qwen2.5-coder:3b    ] 107/164 HumanEval/106      ..PPP
+  [qwen2.5-coder:3b    ] 108/164 HumanEval/107      ..PPP
+  [qwen2.5-coder:3b    ] 109/164 HumanEval/108      ..PPP
+  [qwen2.5-coder:3b    ] 110/164 HumanEval/109      ..PPP
+  [qwen2.5-coder:3b    ] 111/164 HumanEval/110      .....
+  [qwen2.5-coder:3b    ] 112/164 HumanEval/111      ..PPP
+  [qwen2.5-coder:3b    ] 113/164 HumanEval/112      ..PPP
+  [qwen2.5-coder:3b    ] 114/164 HumanEval/113      ..PPP
+  [qwen2.5-coder:3b    ] 115/164 HumanEval/114      ..PPP
+  [qwen2.5-coder:3b    ] 116/164 HumanEval/115      .....
+  [qwen2.5-coder:3b    ] 117/164 HumanEval/116      .....
+  [qwen2.5-coder:3b    ] 118/164 HumanEval/117      ..PPP
+  [qwen2.5-coder:3b    ] 119/164 HumanEval/118      .....
+  [qwen2.5-coder:3b    ] 120/164 HumanEval/119      .....
+  [qwen2.5-coder:3b    ] 121/164 HumanEval/120      .....
+  [qwen2.5-coder:3b    ] 122/164 HumanEval/121      ..PPP
+  [qwen2.5-coder:3b    ] 123/164 HumanEval/122      .....
+  [qwen2.5-coder:3b    ] 124/164 HumanEval/123      ..PPP
+  [qwen2.5-coder:3b    ] 125/164 HumanEval/124      .....
+  [qwen2.5-coder:3b    ] 126/164 HumanEval/125      .....
+  [qwen2.5-coder:3b    ] 127/164 HumanEval/126      .....
+  [qwen2.5-coder:3b    ] 128/164 HumanEval/127      .....
+  [qwen2.5-coder:3b    ] 129/164 HumanEval/128      ..PPP
+  [qwen2.5-coder:3b    ] 130/164 HumanEval/129      .....
+  [qwen2.5-coder:3b    ] 131/164 HumanEval/130      .....
+  [qwen2.5-coder:3b    ] 132/164 HumanEval/131      ..PPP
+  [qwen2.5-coder:3b    ] 133/164 HumanEval/132      .....
+  [qwen2.5-coder:3b    ] 134/164 HumanEval/133      ..PPP
+  [qwen2.5-coder:3b    ] 135/164 HumanEval/134      .....
+  [qwen2.5-coder:3b    ] 136/164 HumanEval/135      ..PPP
+  [qwen2.5-coder:3b    ] 137/164 HumanEval/136      ..PPP
+  [qwen2.5-coder:3b    ] 138/164 HumanEval/137      ..PPP
+  [qwen2.5-coder:3b    ] 139/164 HumanEval/138      ..PPP
+  [qwen2.5-coder:3b    ] 140/164 HumanEval/139      ..PPP
+  [qwen2.5-coder:3b    ] 141/164 HumanEval/140      .....
+  [qwen2.5-coder:3b    ] 142/164 HumanEval/141      ..PPP
+  [qwen2.5-coder:3b    ] 143/164 HumanEval/142      ..PPP
+  [qwen2.5-coder:3b    ] 144/164 HumanEval/143      ..PPP
+  [qwen2.5-coder:3b    ] 145/164 HumanEval/144      ..PPP
+  [qwen2.5-coder:3b    ] 146/164 HumanEval/145      .....
+  [qwen2.5-coder:3b    ] 147/164 HumanEval/146      ..PPP
+  [qwen2.5-coder:3b    ] 148/164 HumanEval/147      ..PPP
+  [qwen2.5-coder:3b    ] 149/164 HumanEval/148      ..PPP
+  [qwen2.5-coder:3b    ] 150/164 HumanEval/149      ..PPP
+  [qwen2.5-coder:3b    ] 151/164 HumanEval/150      ..PPP
+  [qwen2.5-coder:3b    ] 152/164 HumanEval/151      ..PPP
+  [qwen2.5-coder:3b    ] 153/164 HumanEval/152      ..PPP
+  [qwen2.5-coder:3b    ] 154/164 HumanEval/153      ..PPP
+  [qwen2.5-coder:3b    ] 155/164 HumanEval/154      ..PPP
+  [qwen2.5-coder:3b    ] 156/164 HumanEval/155      .....
+  [qwen2.5-coder:3b    ] 157/164 HumanEval/156      ..PPP
+  [qwen2.5-coder:3b    ] 158/164 HumanEval/157      ..PPP
+  [qwen2.5-coder:3b    ] 159/164 HumanEval/158      ..PPP
+  [qwen2.5-coder:3b    ] 160/164 HumanEval/159      ..PPP
+  [qwen2.5-coder:3b    ] 161/164 HumanEval/160      .....
+  [qwen2.5-coder:3b    ] 162/164 HumanEval/161      ..PPP
+  [qwen2.5-coder:3b    ] 163/164 HumanEval/162      ..PPP
+  [qwen2.5-coder:3b    ] 164/164 HumanEval/163      .....
+  [qwen2.5:7b-instruct ]   1/164 HumanEval/0        ..PPP
+  [qwen2.5:7b-instruct ]   2/164 HumanEval/1        ..PPP
+  [qwen2.5:7b-instruct ]   3/164 HumanEval/2        ..PPP
+  [qwen2.5:7b-instruct ]   4/164 HumanEval/3        ..PPP
+  [qwen2.5:7b-instruct ]   5/164 HumanEval/4        ..PPP
+  [qwen2.5:7b-instruct ]   6/164 HumanEval/5        ..PPP
+  [qwen2.5:7b-instruct ]   7/164 HumanEval/6        ..PPP
+  [qwen2.5:7b-instruct ]   8/164 HumanEval/7        ..PPP
+  [qwen2.5:7b-instruct ]   9/164 HumanEval/8        ..PPP
+  [qwen2.5:7b-instruct ]  10/164 HumanEval/9        ..PPP
+  [qwen2.5:7b-instruct ]  11/164 HumanEval/10       ..PPP
+  [qwen2.5:7b-instruct ]  12/164 HumanEval/11       ..PPP
+  [qwen2.5:7b-instruct ]  13/164 HumanEval/12       ..PPP
+  [qwen2.5:7b-instruct ]  14/164 HumanEval/13       ..PPP
+  [qwen2.5:7b-instruct ]  15/164 HumanEval/14       ..PPP
+  [qwen2.5:7b-instruct ]  16/164 HumanEval/15       ..PPP
+  [qwen2.5:7b-instruct ]  17/164 HumanEval/16       ..PPP
+  [qwen2.5:7b-instruct ]  18/164 HumanEval/17       ..PPP
+  [qwen2.5:7b-instruct ]  19/164 HumanEval/18       ..PPP
+  [qwen2.5:7b-instruct ]  20/164 HumanEval/19       .....
+  [qwen2.5:7b-instruct ]  21/164 HumanEval/20       ..PPP
+  [qwen2.5:7b-instruct ]  22/164 HumanEval/21       ..PPP
+  [qwen2.5:7b-instruct ]  23/164 HumanEval/22       ..PPP
+  [qwen2.5:7b-instruct ]  24/164 HumanEval/23       ..PPP
+  [qwen2.5:7b-instruct ]  25/164 HumanEval/24       ..PPP
+  [qwen2.5:7b-instruct ]  26/164 HumanEval/25       ..PPP
+  [qwen2.5:7b-instruct ]  27/164 HumanEval/26       .....
+  [qwen2.5:7b-instruct ]  28/164 HumanEval/27       ..PPP
+  [qwen2.5:7b-instruct ]  29/164 HumanEval/28       ..PPP
+  [qwen2.5:7b-instruct ]  30/164 HumanEval/29       ..PPP
+  [qwen2.5:7b-instruct ]  31/164 HumanEval/30       ..PPP
+  [qwen2.5:7b-instruct ]  32/164 HumanEval/31       ..PPP
+  [qwen2.5:7b-instruct ]  33/164 HumanEval/32       .....
+  [qwen2.5:7b-instruct ]  34/164 HumanEval/33       ..PPP
+  [qwen2.5:7b-instruct ]  35/164 HumanEval/34       ..PPP
+  [qwen2.5:7b-instruct ]  36/164 HumanEval/35       ..PPP
+  [qwen2.5:7b-instruct ]  37/164 HumanEval/36       ..PPP
+  [qwen2.5:7b-instruct ]  38/164 HumanEval/37       ..PPP
+  [qwen2.5:7b-instruct ]  39/164 HumanEval/38       ..PPP
+  [qwen2.5:7b-instruct ]  40/164 HumanEval/39       ..PPP
+  [qwen2.5:7b-instruct ]  41/164 HumanEval/40       ..PPP
+  [qwen2.5:7b-instruct ]  42/164 HumanEval/41       ..PPP
+  [qwen2.5:7b-instruct ]  43/164 HumanEval/42       ..PPP
+  [qwen2.5:7b-instruct ]  44/164 HumanEval/43       ..PPP
+  [qwen2.5:7b-instruct ]  45/164 HumanEval/44       ..PPP
+  [qwen2.5:7b-instruct ]  46/164 HumanEval/45       ..PPP
+  [qwen2.5:7b-instruct ]  47/164 HumanEval/46       ..PPP
+  [qwen2.5:7b-instruct ]  48/164 HumanEval/47       ..PPP
+  [qwen2.5:7b-instruct ]  49/164 HumanEval/48       ..PPP
+  [qwen2.5:7b-instruct ]  50/164 HumanEval/49       ..PPP
+  [qwen2.5:7b-instruct ]  51/164 HumanEval/50       ..PPP
+  [qwen2.5:7b-instruct ]  52/164 HumanEval/51       ..PPP
+  [qwen2.5:7b-instruct ]  53/164 HumanEval/52       ..PPP
+  [qwen2.5:7b-instruct ]  54/164 HumanEval/53       ..PPP
+  [qwen2.5:7b-instruct ]  55/164 HumanEval/54       .....
+  [qwen2.5:7b-instruct ]  56/164 HumanEval/55       ..PPP
+  [qwen2.5:7b-instruct ]  57/164 HumanEval/56       ..PPP
+  [qwen2.5:7b-instruct ]  58/164 HumanEval/57       ..PPP
+  [qwen2.5:7b-instruct ]  59/164 HumanEval/58       ..PPP
+  [qwen2.5:7b-instruct ]  60/164 HumanEval/59       .....
+  [qwen2.5:7b-instruct ]  61/164 HumanEval/60       ..PPP
+  [qwen2.5:7b-instruct ]  62/164 HumanEval/61       ..PPP
+  [qwen2.5:7b-instruct ]  63/164 HumanEval/62       ..PPP
+  [qwen2.5:7b-instruct ]  64/164 HumanEval/63       ..PPP
+  [qwen2.5:7b-instruct ]  65/164 HumanEval/64       ..PPP
+  [qwen2.5:7b-instruct ]  66/164 HumanEval/65       .....
+  [qwen2.5:7b-instruct ]  67/164 HumanEval/66       ..PPP
+  [qwen2.5:7b-instruct ]  68/164 HumanEval/67       ..PPP
+  [qwen2.5:7b-instruct ]  69/164 HumanEval/68       .....
+  [qwen2.5:7b-instruct ]  70/164 HumanEval/69       ..PPP
+  [qwen2.5:7b-instruct ]  71/164 HumanEval/70       ..PPP
+  [qwen2.5:7b-instruct ]  72/164 HumanEval/71       ..PPP
+  [qwen2.5:7b-instruct ]  73/164 HumanEval/72       ..PPP
+  [qwen2.5:7b-instruct ]  74/164 HumanEval/73       ..PPP
+  [qwen2.5:7b-instruct ]  75/164 HumanEval/74       ..PPP
+  [qwen2.5:7b-instruct ]  76/164 HumanEval/75       .....
+  [qwen2.5:7b-instruct ]  77/164 HumanEval/76       ..PPP
+  [qwen2.5:7b-instruct ]  78/164 HumanEval/77       .....
+  [qwen2.5:7b-instruct ]  79/164 HumanEval/78       .....
+  [qwen2.5:7b-instruct ]  80/164 HumanEval/79       ..PPP
+  [qwen2.5:7b-instruct ]  81/164 HumanEval/80       ..PPP
+  [qwen2.5:7b-instruct ]  82/164 HumanEval/81       .....
+  [qwen2.5:7b-instruct ]  83/164 HumanEval/82       ..PPP
+  [qwen2.5:7b-instruct ]  84/164 HumanEval/83       .....
+  [qwen2.5:7b-instruct ]  85/164 HumanEval/84       ..PPP
+  [qwen2.5:7b-instruct ]  86/164 HumanEval/85       ..PPP
+  [qwen2.5:7b-instruct ]  87/164 HumanEval/86       ..PPP
+  [qwen2.5:7b-instruct ]  88/164 HumanEval/87       ..PPP
+  [qwen2.5:7b-instruct ]  89/164 HumanEval/88       ..PPP
+  [qwen2.5:7b-instruct ]  90/164 HumanEval/89       .....
+  [qwen2.5:7b-instruct ]  91/164 HumanEval/90       ..PPP
+  [qwen2.5:7b-instruct ]  92/164 HumanEval/91       .....
+  [qwen2.5:7b-instruct ]  93/164 HumanEval/92       ..PPP
+  [qwen2.5:7b-instruct ]  94/164 HumanEval/93       .....
+  [qwen2.5:7b-instruct ]  95/164 HumanEval/94       .....
+  [qwen2.5:7b-instruct ]  96/164 HumanEval/95       ..PPP
+  [qwen2.5:7b-instruct ]  97/164 HumanEval/96       .....
+  [qwen2.5:7b-instruct ]  98/164 HumanEval/97       ..PPP
+  [qwen2.5:7b-instruct ]  99/164 HumanEval/98       ..PPP
+  [qwen2.5:7b-instruct ] 100/164 HumanEval/99       ..PPP
+  [qwen2.5:7b-instruct ] 101/164 HumanEval/100      ..PPP
+  [qwen2.5:7b-instruct ] 102/164 HumanEval/101      ..PPP
+  [qwen2.5:7b-instruct ] 103/164 HumanEval/102      ..PPP
+  [qwen2.5:7b-instruct ] 104/164 HumanEval/103      ..PPP
+  [qwen2.5:7b-instruct ] 105/164 HumanEval/104      ..PPP
+  [qwen2.5:7b-instruct ] 106/164 HumanEval/105      .....
+  [qwen2.5:7b-instruct ] 107/164 HumanEval/106      ..PPP
+  [qwen2.5:7b-instruct ] 108/164 HumanEval/107      ..PPP
+  [qwen2.5:7b-instruct ] 109/164 HumanEval/108      .....
+  [qwen2.5:7b-instruct ] 110/164 HumanEval/109      .....
+  [qwen2.5:7b-instruct ] 111/164 HumanEval/110      .....
+  [qwen2.5:7b-instruct ] 112/164 HumanEval/111      ..PPP
+  [qwen2.5:7b-instruct ] 113/164 HumanEval/112      ..PPP
+  [qwen2.5:7b-instruct ] 114/164 HumanEval/113      ..PPP
+  [qwen2.5:7b-instruct ] 115/164 HumanEval/114      ..PPP
+  [qwen2.5:7b-instruct ] 116/164 HumanEval/115      .....
+  [qwen2.5:7b-instruct ] 117/164 HumanEval/116      .....
+  [qwen2.5:7b-instruct ] 118/164 HumanEval/117      ..PPP
+  [qwen2.5:7b-instruct ] 119/164 HumanEval/118      ..PPP
+  [qwen2.5:7b-instruct ] 120/164 HumanEval/119      ..PPP
+  [qwen2.5:7b-instruct ] 121/164 HumanEval/120      .....
+  [qwen2.5:7b-instruct ] 122/164 HumanEval/121      ..PPP
+  [qwen2.5:7b-instruct ] 123/164 HumanEval/122      ..PPP
+  [qwen2.5:7b-instruct ] 124/164 HumanEval/123      ..PPP
+  [qwen2.5:7b-instruct ] 125/164 HumanEval/124      .....
+  [qwen2.5:7b-instruct ] 126/164 HumanEval/125      ..PPP
+  [qwen2.5:7b-instruct ] 127/164 HumanEval/126      .....
+  [qwen2.5:7b-instruct ] 128/164 HumanEval/127      .....
+  [qwen2.5:7b-instruct ] 129/164 HumanEval/128      ..PPP
+  [qwen2.5:7b-instruct ] 130/164 HumanEval/129      .....
+  [qwen2.5:7b-instruct ] 131/164 HumanEval/130      .....
+  [qwen2.5:7b-instruct ] 132/164 HumanEval/131      ..PPP
+  [qwen2.5:7b-instruct ] 133/164 HumanEval/132      .....
+  [qwen2.5:7b-instruct ] 134/164 HumanEval/133      ..PPP
+  [qwen2.5:7b-instruct ] 135/164 HumanEval/134      ..PPP
+  [qwen2.5:7b-instruct ] 136/164 HumanEval/135      ..PPP
+  [qwen2.5:7b-instruct ] 137/164 HumanEval/136      ..PPP
+  [qwen2.5:7b-instruct ] 138/164 HumanEval/137      .....
+  [qwen2.5:7b-instruct ] 139/164 HumanEval/138      ..PPP
+  [qwen2.5:7b-instruct ] 140/164 HumanEval/139      ..PPP
+  [qwen2.5:7b-instruct ] 141/164 HumanEval/140      ..PPP
+  [qwen2.5:7b-instruct ] 142/164 HumanEval/141      .....
+  [qwen2.5:7b-instruct ] 143/164 HumanEval/142      .....
+  [qwen2.5:7b-instruct ] 144/164 HumanEval/143      ..PPP
+  [qwen2.5:7b-instruct ] 145/164 HumanEval/144      ..PPP
+  [qwen2.5:7b-instruct ] 146/164 HumanEval/145      .....
+  [qwen2.5:7b-instruct ] 147/164 HumanEval/146      .....
+  [qwen2.5:7b-instruct ] 148/164 HumanEval/147      ..PPP
+  [qwen2.5:7b-instruct ] 149/164 HumanEval/148      ..PPP
+  [qwen2.5:7b-instruct ] 150/164 HumanEval/149      ..PPP
+  [qwen2.5:7b-instruct ] 151/164 HumanEval/150      ..PPP
+  [qwen2.5:7b-instruct ] 152/164 HumanEval/151      ..PPP
+  [qwen2.5:7b-instruct ] 153/164 HumanEval/152      ..PPP
+  [qwen2.5:7b-instruct ] 154/164 HumanEval/153      ..PPP
+  [qwen2.5:7b-instruct ] 155/164 HumanEval/154      .....
+  [qwen2.5:7b-instruct ] 156/164 HumanEval/155      ..PPP
+  [qwen2.5:7b-instruct ] 157/164 HumanEval/156      ..PPP
+  [qwen2.5:7b-instruct ] 158/164 HumanEval/157      ..PPP
+  [qwen2.5:7b-instruct ] 159/164 HumanEval/158      ..PPP
+  [qwen2.5:7b-instruct ] 160/164 HumanEval/159      ..PPP
+  [qwen2.5:7b-instruct ] 161/164 HumanEval/160      .....
+  [qwen2.5:7b-instruct ] 162/164 HumanEval/161      ..PPP
+  [qwen2.5:7b-instruct ] 163/164 HumanEval/162      ..PPP
+  [qwen2.5:7b-instruct ] 164/164 HumanEval/163      .....
+  [qwen2.5-coder:14b   ]   1/164 HumanEval/0        ..PPP
+  [qwen2.5-coder:14b   ]   2/164 HumanEval/1        ..PPP
+  [qwen2.5-coder:14b   ]   3/164 HumanEval/2        ..PPP
+  [qwen2.5-coder:14b   ]   4/164 HumanEval/3        ..PPP
+  [qwen2.5-coder:14b   ]   5/164 HumanEval/4        ..PPP
+  [qwen2.5-coder:14b   ]   6/164 HumanEval/5        ..PPP
+  [qwen2.5-coder:14b   ]   7/164 HumanEval/6        ..PPP
+  [qwen2.5-coder:14b   ]   8/164 HumanEval/7        ..PPP
+  [qwen2.5-coder:14b   ]   9/164 HumanEval/8        ..PPP
+  [qwen2.5-coder:14b   ]  10/164 HumanEval/9        ..PPP
+  [qwen2.5-coder:14b   ]  11/164 HumanEval/10       .....
+  [qwen2.5-coder:14b   ]  12/164 HumanEval/11       ..PPP
+  [qwen2.5-coder:14b   ]  13/164 HumanEval/12       ..PPP
+  [qwen2.5-coder:14b   ]  14/164 HumanEval/13       ..PPP
+  [qwen2.5-coder:14b   ]  15/164 HumanEval/14       ..PPP
+  [qwen2.5-coder:14b   ]  16/164 HumanEval/15       ..PPP
+  [qwen2.5-coder:14b   ]  17/164 HumanEval/16       ..PPP
+  [qwen2.5-coder:14b   ]  18/164 HumanEval/17       ..PPP
+  [qwen2.5-coder:14b   ]  19/164 HumanEval/18       ..PPP
+  [qwen2.5-coder:14b   ]  20/164 HumanEval/19       ..PPP
+  [qwen2.5-coder:14b   ]  21/164 HumanEval/20       ..PPP
+  [qwen2.5-coder:14b   ]  22/164 HumanEval/21       ..PPP
+  [qwen2.5-coder:14b   ]  23/164 HumanEval/22       ..PPP
+  [qwen2.5-coder:14b   ]  24/164 HumanEval/23       ..PPP
+  [qwen2.5-coder:14b   ]  25/164 HumanEval/24       ..PPP
+  [qwen2.5-coder:14b   ]  26/164 HumanEval/25       ..PPP
+  [qwen2.5-coder:14b   ]  27/164 HumanEval/26       ..PPP
+  [qwen2.5-coder:14b   ]  28/164 HumanEval/27       ..PPP
+  [qwen2.5-coder:14b   ]  29/164 HumanEval/28       ..PPP
+  [qwen2.5-coder:14b   ]  30/164 HumanEval/29       ..PPP
+  [qwen2.5-coder:14b   ]  31/164 HumanEval/30       ..PPP
+  [qwen2.5-coder:14b   ]  32/164 HumanEval/31       ..PPP
+  [qwen2.5-coder:14b   ]  33/164 HumanEval/32       .....
+  [qwen2.5-coder:14b   ]  34/164 HumanEval/33       ..PPP
+  [qwen2.5-coder:14b   ]  35/164 HumanEval/34       ..PPP
+  [qwen2.5-coder:14b   ]  36/164 HumanEval/35       ..PPP
+  [qwen2.5-coder:14b   ]  37/164 HumanEval/36       ..PPP
+  [qwen2.5-coder:14b   ]  38/164 HumanEval/37       ..PPP
+  [qwen2.5-coder:14b   ]  39/164 HumanEval/38       .....
+  [qwen2.5-coder:14b   ]  40/164 HumanEval/39       ..PPP
+  [qwen2.5-coder:14b   ]  41/164 HumanEval/40       ..PPP
+  [qwen2.5-coder:14b   ]  42/164 HumanEval/41       ..PPP
+  [qwen2.5-coder:14b   ]  43/164 HumanEval/42       ..PPP
+  [qwen2.5-coder:14b   ]  44/164 HumanEval/43       ..PPP
+  [qwen2.5-coder:14b   ]  45/164 HumanEval/44       ..PPP
+  [qwen2.5-coder:14b   ]  46/164 HumanEval/45       ..PPP
+  [qwen2.5-coder:14b   ]  47/164 HumanEval/46       ..PPP
+  [qwen2.5-coder:14b   ]  48/164 HumanEval/47       ..PPP
+  [qwen2.5-coder:14b   ]  49/164 HumanEval/48       ..PPP
+  [qwen2.5-coder:14b   ]  50/164 HumanEval/49       ..PPP
+  [qwen2.5-coder:14b   ]  51/164 HumanEval/50       .....
+  [qwen2.5-coder:14b   ]  52/164 HumanEval/51       ..PPP
+  [qwen2.5-coder:14b   ]  53/164 HumanEval/52       ..PPP
+  [qwen2.5-coder:14b   ]  54/164 HumanEval/53       ..PPP
+  [qwen2.5-coder:14b   ]  55/164 HumanEval/54       ..PPP
+  [qwen2.5-coder:14b   ]  56/164 HumanEval/55       .....
+  [qwen2.5-coder:14b   ]  57/164 HumanEval/56       ..PPP
+  [qwen2.5-coder:14b   ]  58/164 HumanEval/57       ..PPP
+  [qwen2.5-coder:14b   ]  59/164 HumanEval/58       ..PPP
+  [qwen2.5-coder:14b   ]  60/164 HumanEval/59       ..PPP
+  [qwen2.5-coder:14b   ]  61/164 HumanEval/60       ..PPP
+  [qwen2.5-coder:14b   ]  62/164 HumanEval/61       ..PPP
+  [qwen2.5-coder:14b   ]  63/164 HumanEval/62       ..PPP
+  [qwen2.5-coder:14b   ]  64/164 HumanEval/63       ..PPP
+  [qwen2.5-coder:14b   ]  65/164 HumanEval/64       ..PPP
+  [qwen2.5-coder:14b   ]  66/164 HumanEval/65       ..PPP
+  [qwen2.5-coder:14b   ]  67/164 HumanEval/66       ..PPP
+  [qwen2.5-coder:14b   ]  68/164 HumanEval/67       ..PPP
+  [qwen2.5-coder:14b   ]  69/164 HumanEval/68       ..PPP
+  [qwen2.5-coder:14b   ]  70/164 HumanEval/69       ..PPP
+  [qwen2.5-coder:14b   ]  71/164 HumanEval/70       ..PPP
+  [qwen2.5-coder:14b   ]  72/164 HumanEval/71       ..PPP
+  [qwen2.5-coder:14b   ]  73/164 HumanEval/72       ..PPP
+  [qwen2.5-coder:14b   ]  74/164 HumanEval/73       ..PPP
+  [qwen2.5-coder:14b   ]  75/164 HumanEval/74       .....
+  [qwen2.5-coder:14b   ]  76/164 HumanEval/75       ..PPP
+  [qwen2.5-coder:14b   ]  77/164 HumanEval/76       ..PPP
+  [qwen2.5-coder:14b   ]  78/164 HumanEval/77       ..PPP
+  [qwen2.5-coder:14b   ]  79/164 HumanEval/78       .....
+  [qwen2.5-coder:14b   ]  80/164 HumanEval/79       ..PPP
+  [qwen2.5-coder:14b   ]  81/164 HumanEval/80       ..PPP
+  [qwen2.5-coder:14b   ]  82/164 HumanEval/81       .....
+  [qwen2.5-coder:14b   ]  83/164 HumanEval/82       ..PPP
+  [qwen2.5-coder:14b   ]  84/164 HumanEval/83       .....
+  [qwen2.5-coder:14b   ]  85/164 HumanEval/84       ..PPP
+  [qwen2.5-coder:14b   ]  86/164 HumanEval/85       ..PPP
+  [qwen2.5-coder:14b   ]  87/164 HumanEval/86       ..PPP
+  [qwen2.5-coder:14b   ]  88/164 HumanEval/87       ..PPP
+  [qwen2.5-coder:14b   ]  89/164 HumanEval/88       ..PPP
+  [qwen2.5-coder:14b   ]  90/164 HumanEval/89       ..PPP
+  [qwen2.5-coder:14b   ]  91/164 HumanEval/90       ..PPP
+  [qwen2.5-coder:14b   ]  92/164 HumanEval/91       ..PPP
+  [qwen2.5-coder:14b   ]  93/164 HumanEval/92       ..PPP
+  [qwen2.5-coder:14b   ]  94/164 HumanEval/93       .....
+  [qwen2.5-coder:14b   ]  95/164 HumanEval/94       .....
+  [qwen2.5-coder:14b   ]  96/164 HumanEval/95       ..PPP
+  [qwen2.5-coder:14b   ]  97/164 HumanEval/96       ..PPP
+  [qwen2.5-coder:14b   ]  98/164 HumanEval/97       ..PPP
+  [qwen2.5-coder:14b   ]  99/164 HumanEval/98       ..PPP
+  [qwen2.5-coder:14b   ] 100/164 HumanEval/99       ..PPP
+  [qwen2.5-coder:14b   ] 101/164 HumanEval/100      ..PPP
+  [qwen2.5-coder:14b   ] 102/164 HumanEval/101      ..PPP
+  [qwen2.5-coder:14b   ] 103/164 HumanEval/102      ..PPP
+  [qwen2.5-coder:14b   ] 104/164 HumanEval/103      ..PPP
+  [qwen2.5-coder:14b   ] 105/164 HumanEval/104      ..PPP
+  [qwen2.5-coder:14b   ] 106/164 HumanEval/105      .....
+  [qwen2.5-coder:14b   ] 107/164 HumanEval/106      ..PPP
+  [qwen2.5-coder:14b   ] 108/164 HumanEval/107      ..PPP
+  [qwen2.5-coder:14b   ] 109/164 HumanEval/108      ..PPP
+  [qwen2.5-coder:14b   ] 110/164 HumanEval/109      ..PPP
+  [qwen2.5-coder:14b   ] 111/164 HumanEval/110      .....
+  [qwen2.5-coder:14b   ] 112/164 HumanEval/111      ..PPP
+  [qwen2.5-coder:14b   ] 113/164 HumanEval/112      ..PPP
+  [qwen2.5-coder:14b   ] 114/164 HumanEval/113      ..PPP
+  [qwen2.5-coder:14b   ] 115/164 HumanEval/114      ..PPP
+  [qwen2.5-coder:14b   ] 116/164 HumanEval/115      .....
+  [qwen2.5-coder:14b   ] 117/164 HumanEval/116      ..PPP
+  [qwen2.5-coder:14b   ] 118/164 HumanEval/117      ..PPP
+  [qwen2.5-coder:14b   ] 119/164 HumanEval/118      ..PPP
+  [qwen2.5-coder:14b   ] 120/164 HumanEval/119      ..PPP
+  [qwen2.5-coder:14b   ] 121/164 HumanEval/120      ..PPP
+  [qwen2.5-coder:14b   ] 122/164 HumanEval/121      ..PPP
+  [qwen2.5-coder:14b   ] 123/164 HumanEval/122      ..PPP
+  [qwen2.5-coder:14b   ] 124/164 HumanEval/123      ..PPP
+  [qwen2.5-coder:14b   ] 125/164 HumanEval/124      .....
+  [qwen2.5-coder:14b   ] 126/164 HumanEval/125      ..PPP
+  [qwen2.5-coder:14b   ] 127/164 HumanEval/126      ..PPP
+  [qwen2.5-coder:14b   ] 128/164 HumanEval/127      .....
+  [qwen2.5-coder:14b   ] 129/164 HumanEval/128      ..PPP
+  [qwen2.5-coder:14b   ] 130/164 HumanEval/129      .....
+  [qwen2.5-coder:14b   ] 131/164 HumanEval/130      .....
+  [qwen2.5-coder:14b   ] 132/164 HumanEval/131      ..PPP
+  [qwen2.5-coder:14b   ] 133/164 HumanEval/132      .....
+  [qwen2.5-coder:14b   ] 134/164 HumanEval/133      ..PPP
+  [qwen2.5-coder:14b   ] 135/164 HumanEval/134      .....
+  [qwen2.5-coder:14b   ] 136/164 HumanEval/135      ..PPP
+  [qwen2.5-coder:14b   ] 137/164 HumanEval/136      ..PPP
+  [qwen2.5-coder:14b   ] 138/164 HumanEval/137      ..PPP
+  [qwen2.5-coder:14b   ] 139/164 HumanEval/138      ..PPP
+  [qwen2.5-coder:14b   ] 140/164 HumanEval/139      ..PPP
+  [qwen2.5-coder:14b   ] 141/164 HumanEval/140      ..PPP
+  [qwen2.5-coder:14b   ] 142/164 HumanEval/141      ..PPP
+  [qwen2.5-coder:14b   ] 143/164 HumanEval/142      ..PPP
+  [qwen2.5-coder:14b   ] 144/164 HumanEval/143      ..PPP
+  [qwen2.5-coder:14b   ] 145/164 HumanEval/144      ..PPP
+  [qwen2.5-coder:14b   ] 146/164 HumanEval/145      .....
+  [qwen2.5-coder:14b   ] 147/164 HumanEval/146      ..PPP
+  [qwen2.5-coder:14b   ] 148/164 HumanEval/147      .....
+  [qwen2.5-coder:14b   ] 149/164 HumanEval/148      ..PPP
+  [qwen2.5-coder:14b   ] 150/164 HumanEval/149      ..PPP
+  [qwen2.5-coder:14b   ] 151/164 HumanEval/150      ..PPP
+  [qwen2.5-coder:14b   ] 152/164 HumanEval/151      ..PPP
+  [qwen2.5-coder:14b   ] 153/164 HumanEval/152      ..PPP
+  [qwen2.5-coder:14b   ] 154/164 HumanEval/153      ..PPP
+  [qwen2.5-coder:14b   ] 155/164 HumanEval/154      ..PPP
+  [qwen2.5-coder:14b   ] 156/164 HumanEval/155      ..PPP
+  [qwen2.5-coder:14b   ] 157/164 HumanEval/156      ..PPP
+  [qwen2.5-coder:14b   ] 158/164 HumanEval/157      ..PPP
+  [qwen2.5-coder:14b   ] 159/164 HumanEval/158      ..PPP
+  [qwen2.5-coder:14b   ] 160/164 HumanEval/159      ..PPP
+  [qwen2.5-coder:14b   ] 161/164 HumanEval/160      .....
+  [qwen2.5-coder:14b   ] 162/164 HumanEval/161      ..PPP
+  [qwen2.5-coder:14b   ] 163/164 HumanEval/162      ..PPP
+  [qwen2.5-coder:14b   ] 164/164 HumanEval/163      .....
+
+model                           raw   prompt+body   first_fence    all_fences         smart
+--------------------------------------------------------------------------------------------
+qwen2.5-coder:3b              0.0%         0.0%        76.8%        76.8%        76.8%
+qwen2.5:7b-instruct           0.0%         0.0%        76.8%        76.8%        76.8%
+qwen2.5-coder:14b             0.0%         0.0%        85.4%        85.4%        85.4%
+
+qwen2.5-coder:3b: best 76.8% vs worst 0.0% -> spread of 76.8% from extraction alone (164 problems, identical generations)
+
+qwen2.5:7b-instruct: best 76.8% vs worst 0.0% -> spread of 76.8% from extraction alone (164 problems, identical generations)
+
+qwen2.5-coder:14b: best 85.4% vs worst 0.0% -> spread of 85.4% from extraction alone (164 problems, identical generations)
+########## code-eval-harness 164 (retry) exit=0 20:59:36
+EXPAND DONE 20:59:36
+ALL DONE 20:59:36
+########## RESUMED-5 (hardened task) 21:33:36
+########## 06_temperature_pass_at_k already complete, skipping 21:33:36
+########## 15_batch_vs_single already complete, skipping 21:33:36
+########## 17_test_first already complete, skipping 21:33:36
+########## 19_comment_injection already complete, skipping 21:33:36
+########## 16_coder_vs_generalist already complete, skipping 21:33:36
+########## 10_context_dilution already complete, skipping 21:33:36
+########## 14_constraint_compliance already complete, skipping 21:33:36
+########## sql-analyst-agent eval (retry) 21:33:36

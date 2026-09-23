@@ -3,61 +3,61 @@
     "qwen2.5-coder:14b"
   ],
   "benchmark": "mbpp",
-  "n": 150,
+  "n": 972,
   "temperature": 0.0,
   "samples": 1,
   "seeds": null,
-  "python": "3.12",
-  "commit": "d3badbd",
-  "run_at": "2026-09-21 11:33:26",
-  "unconstrained_pass_at_1": 0.78,
+  "python": "3.14",
+  "commit": "cca7d0f",
+  "run_at": "2026-09-23 18:48:04",
+  "unconstrained_pass_at_1": 0.8034979423868313,
   "arms": {
     "none": {
-      "pass_at_1": 0.78,
+      "pass_at_1": 0.8034979423868313,
       "baseline_compliance": {
-        "no_recursion": 0.9733333333333334,
-        "no_imports": 0.84,
-        "no_comprehensions": 0.8066666666666666,
-        "no_builtin_sort": 0.94,
+        "no_recursion": 0.9588477366255144,
+        "no_imports": 0.7932098765432098,
+        "no_comprehensions": 0.8034979423868313,
+        "no_builtin_sort": 0.9382716049382716,
         "type_hints": 0.0,
-        "single_return": 0.82
+        "single_return": 0.7901234567901234
       }
     },
     "no_recursion": {
-      "pass_at_1": 0.7733333333333333,
-      "compliance": 0.9866666666666667,
-      "unparseable": 1,
-      "compliant_and_passing": 0.7666666666666667
+      "pass_at_1": 0.7911522633744856,
+      "compliance": 0.9907407407407407,
+      "unparseable": 2,
+      "compliant_and_passing": 0.7880658436213992
     },
     "no_imports": {
-      "pass_at_1": 0.7866666666666666,
-      "compliance": 0.96,
+      "pass_at_1": 0.7777777777777778,
+      "compliance": 0.9598765432098766,
       "unparseable": 0,
-      "compliant_and_passing": 0.7466666666666667
+      "compliant_and_passing": 0.7407407407407407
     },
     "no_comprehensions": {
-      "pass_at_1": 0.7466666666666667,
-      "compliance": 0.9066666666666666,
+      "pass_at_1": 0.7788065843621399,
+      "compliance": 0.9218106995884774,
       "unparseable": 0,
-      "compliant_and_passing": 0.6866666666666666
+      "compliant_and_passing": 0.720164609053498
     },
     "no_builtin_sort": {
-      "pass_at_1": 0.7066666666666667,
-      "compliance": 0.98,
+      "pass_at_1": 0.7664609053497943,
+      "compliance": 0.9783950617283951,
       "unparseable": 2,
-      "compliant_and_passing": 0.7066666666666667
+      "compliant_and_passing": 0.7592592592592593
     },
     "type_hints": {
-      "pass_at_1": 0.74,
-      "compliance": 1.0,
-      "unparseable": 0,
-      "compliant_and_passing": 0.74
+      "pass_at_1": 0.7911522633744856,
+      "compliance": 0.9958847736625515,
+      "unparseable": 2,
+      "compliant_and_passing": 0.7901234567901234
     },
     "single_return": {
-      "pass_at_1": 0.76,
-      "compliance": 0.86,
-      "unparseable": 0,
-      "compliant_and_passing": 0.6533333333333333
+      "pass_at_1": 0.7788065843621399,
+      "compliance": 0.8549382716049383,
+      "unparseable": 1,
+      "compliant_and_passing": 0.6625514403292181
     }
   }
 }
