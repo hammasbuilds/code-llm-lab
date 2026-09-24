@@ -5,21 +5,24 @@
   "benchmark": "mbpp",
   "n": 400,
   "temperature": 0.0,
-  "samples": 5,
+  "samples": 8,
   "seeds": null,
   "python": "3.14",
-  "commit": "cca7d0f",
-  "run_at": "2026-09-22 22:18:57",
+  "commit": "99f4192",
+  "run_at": "2026-09-24 22:57:20",
   "cache": "bypassed",
   "pass_at_1_per_run": [
-    0.7525,
+    0.4875,
+    0.6975,
+    0.7625,
+    0.4525,
     0.76,
     0.76,
-    0.76,
-    0.7575
+    0.7625,
+    0.7625
   ],
-  "spread": 0.007500000000000062,
-  "tasks_with_varying_text": 28,
-  "tasks_with_varying_verdict": 3,
-  "mean_distinct_outputs": 1.0725
+  "spread": 0.30999999999999994,
+  "tasks_with_varying_text": 34,
+  "tasks_with_varying_verdict": 127,
+  "mean_distinct_outputs": 1.0875
 }

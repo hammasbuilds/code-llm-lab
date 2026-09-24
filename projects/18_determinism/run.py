@@ -50,20 +50,54 @@ from shared.solutions import build_prompt  # noqa: E402
 HERE = Path(__file__).resolve().parent
 
 
-def generate_uncached(prompts: list[str], model: str, workers: int, label: str) -> list[str]:
-    """Same as generate_many, with the cache off. The cache is the thing under test."""
+class RunFailed(RuntimeError):
+    """A run lost too many generations to be a measurement of anything."""
+
+
+def generate_uncached(
+    prompts: list[str], model: str, workers: int, label: str, tolerate: float = 0.02
+) -> list[str]:
+    """Same as generate_many, with the cache off. The cache is the thing under test.
+
+    A dead request is not a wrong answer. `generate` returns None when ollama cannot be
+    reached in time, and turning that into "" hands the scorer an empty program, which
+    fails its tests and is indistinguishable from a model that got the question wrong.
+
+    That is not hypothetical. Three of eight runs here overlapped another session loading a
+    second 14B model onto the same card; requests began timing out, and those runs scored
+    48.8%, 69.8% and 45.2% against a 76.0-76.2% cluster from the five clean ones. Reported
+    as-is it read as "31.8% of tasks flip verdict at temperature 0" - a spectacular finding,
+    and entirely an artefact of HTTP timeouts.
+
+    So a run that loses more than `tolerate` of its generations raises instead of returning
+    a plausible-looking list of empty strings.
+    """
     out: list[str] = [""] * len(prompts)
     done = 0
+    lost = 0
 
     def one(i: int) -> None:
-        nonlocal done
-        out[i] = generate(prompts[i], model=model, temperature=0.0, use_cache=False) or ""
+        nonlocal done, lost
+        text = generate(prompts[i], model=model, temperature=0.0, use_cache=False)
+        if text is None:
+            lost += 1
+        out[i] = text or ""
         done += 1
         if done % 50 == 0:
-            print(f"    {label}: {done}/{len(prompts)}")
+            print(f"    {label}: {done}/{len(prompts)}  lost {lost}", flush=True)
 
     with ThreadPoolExecutor(max_workers=workers) as pool:
         list(pool.map(one, range(len(prompts))))
+
+    if lost > tolerate * len(prompts):
+        raise RunFailed(
+            f"{label}: {lost} of {len(prompts)} generations never returned "
+            f"({lost / len(prompts):.1%}). Scoring these as failures would report a "
+            "model that is fine as a model that flips. Check ollama is not sharing the "
+            "card with another model."
+        )
+    if lost:
+        print(f"    {label}: WARNING {lost} generations lost", flush=True)
     return out
 
 
