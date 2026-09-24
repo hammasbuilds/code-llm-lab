@@ -48,3 +48,7 @@ SUCCESS: Attempted to run the scheduled task "labqueue".
 SUCCESS: Attempted to run the scheduled task "labupgrade3".
 2026-09-24 19:10:03  labupgrade3 not running - restarting
 SUCCESS: Attempted to run the scheduled task "labupgrade3".
+2026-09-24 20:00:02  card held by another run, not restarting
+2026-09-24 20:10:04  card held by another run, not restarting
+2026-09-24 20:20:02  labupgrade3 not running - restarting
+SUCCESS: Attempted to run the scheduled task "labupgrade3".
