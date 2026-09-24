@@ -10,18 +10,21 @@
 # exit=0, so restarting it is free and idempotent - which makes "just start it again" a
 # complete answer to every cause at once, including ones not yet seen.
 set -u
-LOG=/d/github/code-llm-lab/docs/expand.log
+LOG=${1:-/d/github/code-llm-lab/docs/expand.log}
+TASK=${2:-labqueue}
 WLOG=/d/github/code-llm-lab/docs/watchdog.log
 
 [ -f "$LOG" ] || exit 0
 
 # Finished: nothing to guard.
-if grep -q "ALL DONE" "$LOG"; then
+if grep -q "ALL DONE\|UPGRADE2 DONE" "$LOG"; then
   exit 0
 fi
 
-# Still working: leave it alone.
-if ps -W 2>/dev/null | grep -q "code-llm-lab/.venv"; then
+# Still working: leave it alone. The jobs in these queues run under three different
+# virtualenvs - the lab's, sql-analyst-agent's, and code-eval-harness borrowing the lab's -
+# so watching only for the lab's would call a running sql-analyst eval "stopped".
+if ps -W 2>/dev/null | grep -qE "code-llm-lab/\.venv|sql-analyst-agent/\.venv|mbpp-false-accepts"; then
   exit 0
 fi
 
@@ -33,10 +36,10 @@ if echo "$resident" | grep -q '"name"' && ! echo "$resident" | grep -q "qwen2.5-
   exit 0
 fi
 
-echo "$(date '+%F %H:%M:%S')  queue not running - restarting" >> "$WLOG"
+echo "$(date '+%F %H:%M:%S')  $TASK not running - restarting" >> "$WLOG"
 # Trigger the `labqueue` task rather than spawning a child. Task Scheduler kills a task's
 # whole process tree the moment the task's own process exits, so a `nohup ... &` from here
 # dies within seconds of this script returning - which is the same reason every earlier
 # attempt to detach the queue failed. A separate task has its own lifetime.
-schtasks //run //tn "labqueue" >> "$WLOG" 2>&1
+schtasks //run //tn "$TASK" >> "$WLOG" 2>&1
 exit 0

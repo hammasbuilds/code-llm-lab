@@ -6,3 +6,45 @@ INFO: scheduled task "labqueue" is currently running.
 SUCCESS: Attempted to run the scheduled task "labqueue".
 2026-09-23 20:50:02  queue not running - restarting
 SUCCESS: Attempted to run the scheduled task "labqueue".
+2026-09-24 04:10:02  card held by another run, not restarting
+2026-09-24 04:20:02  card held by another run, not restarting
+2026-09-24 04:30:02  card held by another run, not restarting
+2026-09-24 04:40:02  card held by another run, not restarting
+2026-09-24 04:50:02  card held by another run, not restarting
+2026-09-24 05:00:02  card held by another run, not restarting
+2026-09-24 05:10:02  card held by another run, not restarting
+2026-09-24 05:20:02  card held by another run, not restarting
+2026-09-24 05:30:02  card held by another run, not restarting
+2026-09-24 05:40:02  card held by another run, not restarting
+2026-09-24 05:50:02  card held by another run, not restarting
+2026-09-24 06:00:02  card held by another run, not restarting
+2026-09-24 06:10:02  card held by another run, not restarting
+2026-09-24 06:20:02  card held by another run, not restarting
+2026-09-24 06:30:02  card held by another run, not restarting
+2026-09-24 06:40:02  card held by another run, not restarting
+2026-09-24 06:50:02  card held by another run, not restarting
+2026-09-24 07:00:02  card held by another run, not restarting
+2026-09-24 07:10:02  card held by another run, not restarting
+2026-09-24 07:20:02  card held by another run, not restarting
+2026-09-24 07:30:02  card held by another run, not restarting
+2026-09-24 07:40:02  card held by another run, not restarting
+2026-09-24 07:50:02  card held by another run, not restarting
+2026-09-24 08:00:02  card held by another run, not restarting
+2026-09-24 08:10:02  card held by another run, not restarting
+2026-09-24 08:20:02  card held by another run, not restarting
+2026-09-24 08:30:02  card held by another run, not restarting
+2026-09-24 08:40:02  card held by another run, not restarting
+2026-09-24 08:50:02  card held by another run, not restarting
+2026-09-24 09:00:02  card held by another run, not restarting
+2026-09-24 09:10:02  card held by another run, not restarting
+2026-09-24 09:20:02  card held by another run, not restarting
+2026-09-24 09:30:02  card held by another run, not restarting
+2026-09-24 09:40:02  card held by another run, not restarting
+2026-09-24 09:50:02  card held by another run, not restarting
+2026-09-24 10:00:02  card held by another run, not restarting
+2026-09-24 10:10:02  card held by another run, not restarting
+2026-09-24 10:20:02  card held by another run, not restarting
+2026-09-24 10:30:03  labupgrade3 not running - restarting
+SUCCESS: Attempted to run the scheduled task "labupgrade3".
+2026-09-24 19:10:03  labupgrade3 not running - restarting
+SUCCESS: Attempted to run the scheduled task "labupgrade3".
