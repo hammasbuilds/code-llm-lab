@@ -1,0 +1,99 @@
+########## 18_determinism 8 clean runs 23:45:56
+mbpp: 400 tasks x 8 identical runs at temperature 0, qwen2.5-coder:14b
+
+    run 1: 50/400  lost 0
+    run 1: 100/400  lost 0
+    run 1: 150/400  lost 0
+    run 1: 200/400  lost 0
+    run 1: 250/400  lost 0
+    run 1: 300/400  lost 0
+    run 1: 350/400  lost 0
+    run 1: 400/400  lost 0
+  run 1: pass@1  75.2%   [1106s]
+    run 2: 50/400  lost 0
+    run 2: 100/400  lost 0
+    run 2: 150/400  lost 0
+    run 2: 200/400  lost 0
+    run 2: 250/400  lost 0
+    run 2: 300/400  lost 0
+    run 2: 350/400  lost 0
+    run 2: 400/400  lost 0
+  run 2: pass@1  76.0%   [1026s]
+    run 3: 50/400  lost 0
+    run 3: 100/400  lost 0
+    run 3: 150/400  lost 0
+    run 3: 200/400  lost 0
+    run 3: 250/400  lost 0
+    run 3: 300/400  lost 0
+    run 3: 350/400  lost 0
+    run 3: 400/400  lost 0
+  run 3: pass@1  76.0%   [1026s]
+    run 4: 50/400  lost 0
+    run 4: 100/400  lost 0
+    run 4: 150/400  lost 0
+    run 4: 200/400  lost 0
+    run 4: 250/400  lost 0
+    run 4: 300/400  lost 0
+    run 4: 350/400  lost 0
+    run 4: 400/400  lost 0
+  run 4: pass@1  75.8%   [1025s]
+    run 5: 50/400  lost 0
+    run 5: 100/400  lost 0
+    run 5: 150/400  lost 0
+    run 5: 200/400  lost 0
+    run 5: 250/400  lost 0
+    run 5: 300/400  lost 0
+    run 5: 350/400  lost 0
+    run 5: 400/400  lost 0
+  run 5: pass@1  76.0%   [1023s]
+    run 6: 50/400  lost 0
+    run 6: 100/400  lost 0
+    run 6: 150/400  lost 0
+    run 6: 200/400  lost 0
+    run 6: 250/400  lost 0
+    run 6: 300/400  lost 0
+    run 6: 350/400  lost 0
+    run 6: 400/400  lost 0
+  run 6: pass@1  76.0%   [1020s]
+    run 7: 50/400  lost 0
+    run 7: 100/400  lost 0
+    run 7: 150/400  lost 0
+    run 7: 200/400  lost 0
+    run 7: 250/400  lost 0
+    run 7: 300/400  lost 0
+    run 7: 350/400  lost 0
+    run 7: 400/400  lost 0
+  run 7: pass@1  75.8%   [1021s]
+    run 8: 50/400  lost 0
+    run 8: 100/400  lost 0
+    run 8: 150/400  lost 0
+    run 8: 200/400  lost 0
+    run 8: 250/400  lost 0
+    run 8: 300/400  lost 0
+    run 8: 350/400  lost 0
+    run 8: 400/400  lost 0
+  run 8: pass@1  76.0%   [1015s]
+
+============================================================================
+DETERMINISM AT T=0 - 400 tasks x 8 runs, qwen2.5-coder:14b
+============================================================================
+  identical prompt gave different TEXT    :   31/400 (7.8%)
+  identical prompt gave a different VERDICT:    3/400 (0.8%)
+  mean distinct outputs per task          : 1.08 of 8
+
+  pass@1 across runs : 75.2% - 76.0%   (spread 0.8%)
+  mean               : 75.8%
+  stdev              : 0.25%
+
+  distinct outputs per task:
+    1 distinct:  369 tasks  ##############################################
+    2 distinct:   30 tasks  ####
+    3 distinct:    1 tasks  
+
+  3 tasks (0.8%) flip between pass and fail
+  with nothing changed at all - same prompt, same model, temperature 0. A single
+  run of an evaluation is one draw from this, not a measurement of the model.
+
+wrote D:\github\code-llm-lab\projects\18_determinism\results.json
+########## exit=0 02:03:39
+DET8 DONE 02:03:39

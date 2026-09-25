@@ -17,7 +17,7 @@ WLOG=/d/github/code-llm-lab/docs/watchdog.log
 [ -f "$LOG" ] || exit 0
 
 # Finished: nothing to guard.
-if grep -q "ALL DONE\|UPGRADE2 DONE" "$LOG"; then
+if grep -q "ALL DONE\|UPGRADE2 DONE\|DET8 DONE" "$LOG"; then
   exit 0
 fi
 

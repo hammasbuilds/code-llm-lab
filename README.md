@@ -260,6 +260,13 @@ on every push.
   project imported that way returns the first project's module and the test still passes.
 - **Path resolution read 22.2% where the full path read 96.1%** in a sibling repo — a
   non-monotonic result that turned out to be a scoring artefact, not a finding.
+- **A run reported 31.8% of tasks flipping verdict at temperature 0, and it was VRAM
+  contention.** Three of eight determinism runs overlapped another session loading a second
+  14B onto the same card; ollama began timing out, `generate()` returned `None`, and the
+  caller turned that into `""` — an empty program that fails its tests exactly like a wrong
+  answer. The result was arithmetically impossible on its face (127 tasks flipped verdict
+  while only 34 produced different text) and the clean re-run gives **0.8%**. A run now
+  raises if it loses more than 2% of its generations.
 - **Three projects sent a model the word `AssertionError` and called it an error message.**
   `Outcome.detail` is stderr's *last line*, which for an assertion failure is exactly that
   one word — no file, no line, no source, no values. Project 13 sent it under the name
