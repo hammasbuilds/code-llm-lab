@@ -59,5 +59,5 @@ python run.py --limit 972
   +31.7. Both arms rose by about three points and the gap held within a point, which is what
   a real effect looks like when the denominator grows.
 - Runs on all 972 MBPP tasks including its training split (see the
-  [contamination note](../../README.md#a-caveat-that-applies-to-every-mbpp-row-below)).
+  [contamination note](../../README.md#about-the-mbpp-rows)).
   Both arms are affected equally, so the drift between them is the robust quantity here.

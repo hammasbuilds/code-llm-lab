@@ -54,27 +54,6 @@ wins and loses cancel out, not because they are solving the same tasks.
 There is also 8 points of headroom nobody collects: the best single phrasing reaches 80.6%,
 but 88.5% of tasks are solvable by *some* phrasing.
 
-### What the 200-task run got wrong, and what it got right
-
-| | 200 tasks | 972 tasks |
-|---|---:|---:|
-| spread | **7.5 pts** | **2.1 pts** |
-| flip rate | 24.0% | **22.4%** |
-
-The spread was noise and it averaged away, almost exactly as the earlier write-up warned it
-might &mdash; it called 7.5 points "worth knowing" and then argued the flip rate mattered
-more. At five times the data the flip rate held within 1.6 points and the spread lost two
-thirds of its size.
-
-So the original conclusion survives in a stronger form than it was stated. It hedged that
-"two papers reporting 74% and 78% may not disagree about the model at all". The honest
-version is sharper: **five phrasings reporting 78.5% to 80.6% do not disagree about the
-score either, and still disagree about 218 individual tasks.**
-
-This is the **input** half of a pair.
-[code-eval-harness](https://github.com/hammasbuilds/code-eval-harness) measured the output
-half: identical generations scoring 0% or 94% depending only on the extraction rule.
-
 ## Running it
 
 ```bash
@@ -91,6 +70,6 @@ python run.py --limit 972
   the *same* phrasing, which is not measured here and would need a same-prompt resample arm
   to rule out.
 - Runs on all 972 MBPP tasks, which includes its training split &mdash; see the
-  [contamination note](../../README.md#a-caveat-that-applies-to-every-mbpp-row-below). The
+  [contamination note](../../README.md#about-the-mbpp-rows). The
   flip rate is a within-task comparison, so contamination affects the level of every arm
   equally and not the difference between them.

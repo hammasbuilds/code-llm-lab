@@ -57,18 +57,6 @@ different from the raw table: **every position degrades except the last**, the w
 *second to last* rather than the first, and the first-to-last difference is about 7 points
 of effect rather than 12.4 of score.
 
-### The parser was the previous finding
-
-This project used to report a **9.4-point** cost and **"8 of 160 solutions never emitted at
-all"**. `split_functions` called `ast.parse` on the whole batch response and returned nothing
-on `SyntaxError`, so **one unmatched bracket discarded all eight functions in that batch**.
-It happened in 1 of 20 batches, and those eight were the entire "never emitted" claim - a
-statement about the model that was a statement about one stray `)` on line 2.
-
-Re-scored on the same responses with each `def` block parsed on its own, sizes 1, 2 and 4 did
-not move at all and size 8 recovered 7 of the 8. That the unaffected sizes stayed still is
-what shows the fix repaired one case rather than inflating everything.
-
 ## Running it
 
 ```bash

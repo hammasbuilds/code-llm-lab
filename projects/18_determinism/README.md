@@ -52,38 +52,6 @@ A single evaluation run is one draw from this distribution, not a measurement of
 This replicates the five-run result almost exactly: 75.2-76.0% then, 0.8% flips then. Three
 more seeds moved neither number.
 
-### The first attempt at this reported 31.8%, and it was wrong
-
-Worth recording, because the failure is invisible and the wrong number is far more
-interesting than the right one.
-
-The first eight-run attempt reported **127 of 400 tasks flipping verdict (31.8%)** and a
-**31-point** pass@1 spread. Its per-run scores:
-
-```
-48.8   69.8   76.2   45.2   76.0   76.0   76.2   76.2
-```
-
-Five runs agree to within 0.2 points. Three are wrecked. Those three overlapped another
-session loading a second 14B model onto the same 16 GB card - a trivial five-token request
-to ollama was taking over ten seconds while both were resident. Requests timed out,
-`generate()` returned `None`, the caller turned that into `""`, and an empty program fails
-its tests **exactly like a wrong answer**.
-
-The result was internally impossible and said so: 127 tasks flipped verdict while only 34
-produced different text. A task whose output is byte-identical across runs cannot flip.
-
-Two guards now, both in `run.py`:
-
-- a run that loses more than 2% of its generations **raises** instead of returning a
-  plausible list of empty strings
-- progress prints with `flush=True`, because the old version buffered and a 75-minute run
-  wrote nothing to its log - a stall and a healthy job looked identical
-
-**Infrastructure failures must not be scoreable as model behaviour.** The same class of bug
-had [code-eval-harness](https://github.com/hammasbuilds/code-eval-harness) write a results
-file and exit 0 after losing all 492 of its generations.
-
 ## Running it
 
 ```bash

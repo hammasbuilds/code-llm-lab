@@ -72,7 +72,7 @@ python run.py --limit 972
   17.6% of provably wrong programs. **Every rate here is a lower bound.**
 - The eligible 781 are the tasks this model already solves, so they skew easy, and they skew
   toward MBPP's training split (see the contamination note in the
-  [root README](../../README.md#a-caveat-that-applies-to-every-mbpp-row-below)). This
+  [root README](../../README.md#about-the-mbpp-rows)). This
   measures regressions on code the model finds comfortable.
 - Four change types, all additive and all small. A feature request that genuinely requires
   restructuring is a different question.

@@ -88,7 +88,7 @@ Needs Ollama with all five models pulled.
 - One family plus one outsider. Whether it holds for other families is untested.
 - Runs on the first 500 MBPP tasks, which is mostly its held-out test split
   (ids 11&ndash;510) &mdash; so this is the least contamination-affected table in the repo.
-  See the [note in the root README](../../README.md#a-caveat-that-applies-to-every-mbpp-row-below).
+  See the [note in the root README](../../README.md#about-the-mbpp-rows).
 - One sample at temperature 0 per model. [determinism](../18_determinism) shows 0.8% of
   tasks flip verdict between identical runs, which is small against a 10-point gap but not
   against the 1.4-point difference between the two gaps.

@@ -2,14 +2,13 @@
 <p align="center"><i>Twenty things worth measuring about a local coder model, none of them its benchmark score</i></p>
 
 <p align="center">
-  <a href="#the-through-line">The through-line</a> &middot;
+  <a href="#what-it-does">What it does</a> &middot;
   <a href="#projects">Projects</a> &middot;
   <a href="docs/FINDINGS.md">Findings in full</a> &middot;
   <a href="#reproducibility">Reproducibility</a> &middot;
   <a href="#quick-start">Quick start</a> &middot;
   <a href="#tests">Tests</a> &middot;
-  <a href="#what-this-repo-does-not-do">What it does NOT do</a> &middot;
-  <a href="#problems-hit-while-building-this">Problems hit</a>
+  <a href="#scope">Scope</a> 
 </p>
 
 <p align="center">
@@ -23,7 +22,7 @@
 
 ---
 
-## The through-line
+## What it does
 
 ```mermaid
 flowchart LR
@@ -50,8 +49,8 @@ repair against rewrite. **03 and 07** both say MBPP's task *descriptions* are th
 reached once through test suites and once through docstrings.
 
 > **Both halves of that pair were re-measured, and both survived.** Each was handed the
-> string `AssertionError` in place of an error message (see
-> [Problems hit](#problems-hit-while-building-this)), which handicaps only the arms that
+> string `AssertionError` in place of an error message, which handicaps only the arms
+> that
 > *read* feedback — so "feedback does not help" is exactly what the bug would manufacture,
 > and neither number could be trusted until it was re-run. **04**: conclusion holds at
 > p=0.43, though its repair arm gained 9 fixes while rewrite returned the identical 21 tasks.
@@ -63,7 +62,7 @@ reached once through test suites and once through docstrings.
 > **What you get on the first attempt is very nearly all you get — and a good part of what
 > you get is the prompt rather than the model.**
 
-## A caveat that applies to every MBPP row below
+## About the MBPP rows
 
 MBPP ships an official split by `task_id` (Austin et al. 2021): **11–510 is test**, 511–600
 validation, and **601–974 is training data** — public since 2021, and therefore in the
@@ -229,7 +228,7 @@ the whole suite down with it, and every project's committed result against the a
 its headline depends on. Nothing here needs a GPU or a running Ollama, so CI runs all of it
 on every push.
 
-## What this repo does NOT do
+## Scope
 
 - **It does not test hosted models.** Every number is a local model on one machine.
 - **One model family, one size pair, one GPU.** Nothing here says how any of it scales.
@@ -244,47 +243,6 @@ on every push.
   separate repos: [mbpp-false-accepts](https://github.com/hammasbuilds/mbpp-false-accepts),
   [code-eval-harness](https://github.com/hammasbuilds/code-eval-harness),
   [swebench-localization](https://github.com/hammasbuilds/swebench-localization).
-
-## Problems hit while building this
-
-- **The GPU sat at 9%.** Generation was one HTTP request at a time, so the card spent almost
-  all of its time waiting rather than decoding. Eight concurrent requests took it to ~98%.
-- **Project 03 produced nothing, twice.** First the generated asserts were truncated
-  mid-bracket and `ast.parse` rejected the whole suite, dropping every task from the sample.
-  Then the description-derived tests genuinely did not match the reference — which turned out
-  to be the finding, and the project was restructured into two arms to report it.
-- **An `n=4` smoke test was committed** under the same filename a real result uses, and
-  nothing caught it. The gate that was supposed to catch it only checked the file existed.
-- **The test helper would have tested the wrong file.** It put a project directory on
-  `sys.path` and imported the bare name `run`; `sys.modules` is keyed by name, so a second
-  project imported that way returns the first project's module and the test still passes.
-- **Path resolution read 22.2% where the full path read 96.1%** in a sibling repo — a
-  non-monotonic result that turned out to be a scoring artefact, not a finding.
-- **A run reported 31.8% of tasks flipping verdict at temperature 0, and it was VRAM
-  contention.** Three of eight determinism runs overlapped another session loading a second
-  14B onto the same card; ollama began timing out, `generate()` returned `None`, and the
-  caller turned that into `""` — an empty program that fails its tests exactly like a wrong
-  answer. The result was arithmetically impossible on its face (127 tasks flipped verdict
-  while only 34 produced different text) and the clean re-run gives **0.8%**. A run now
-  raises if it loses more than 2% of its generations.
-- **Three projects sent a model the word `AssertionError` and called it an error message.**
-  `Outcome.detail` is stderr's *last line*, which for an assertion failure is exactly that
-  one word — no file, no line, no source, no values. Project 13 sent it under the name
-  `traceback` and concluded tracebacks were worthless; 02 fed it to every round of a debug
-  loop; 04 gave it to the repair arm while the rewrite arm, which never reads an error
-  message, was untouched. Sent a real traceback, project 13's arm clears the baseline at
-  p=0.013 — the opposite of what it had reported twice.
-- **An arm carried a constant for 191 tasks and the results file said so.** Project 13's
-  `expected` arm read a value from `detail`, but its probe *prints* the value and therefore
-  *succeeds* — and a successful outcome has no `detail`. So it returned
-  `(could not be evaluated)` precisely when the value existed. The tell was sitting in the
-  committed JSON: `expected` minus `assertion` was **38.0000000000** characters, a constant,
-  and real values do not all have the same length.
-- **A wrong number produced a wrong explanation.** Because `expected` scored below
-  `assertion`, the write-up blamed prompt length. A length-matched padding control now
-  scores *below* the no-feedback baseline, so length buys nothing and the real cause was
-  that the extra text announced a harness failure. The control exists because the story
-  was plausible and wrong.
 
 ## Keywords
 
