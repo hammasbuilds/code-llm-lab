@@ -94,6 +94,6 @@ DETERMINISM AT T=0 - 400 tasks x 8 runs, qwen2.5-coder:14b
   with nothing changed at all - same prompt, same model, temperature 0. A single
   run of an evaluation is one draw from this, not a measurement of the model.
 
-wrote D:\github\code-llm-lab\projects\18_determinism\results.json
+wrote C:\src\code-llm-lab\projects\18_determinism\results.json
 ########## exit=0 02:03:39
 DET8 DONE 02:03:39

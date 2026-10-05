@@ -48,6 +48,6 @@ REPAIR vs REWRITE - 191 failed first attempts, one retry each
 
   Trying both fixes 23.0% - +8.9% over the better single strategy, for twice the calls.
 
-wrote D:\github\code-llm-lab\projects\04_repair_vs_rewrite\results.json
+wrote C:\src\code-llm-lab\projects\04_repair_vs_rewrite\results.json
 ########## 04_repair_vs_rewrite exit=0 06:36:21
 RERUN FIXED DONE 06:36:21

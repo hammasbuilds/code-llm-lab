@@ -39,7 +39,7 @@ SECURITY DEFAULTS - 12 requests x 5 samples, qwen2.5-coder:14b
 
   never unsafe in any arm : sql_injection, command_injection, yaml_unsafe_load, tls_verify_off, predictable_tempfile, weak_random_token, zip_slip
 
-wrote D:\github\code-llm-lab\projects\12_security_defaults\results.json
+wrote C:\src\code-llm-lab\projects\12_security_defaults\results.json
 ########## 12_security_defaults exit=0 10:39:37
 
 ########## 13_feedback_content --limit 250 10:39:37
@@ -86,7 +86,7 @@ FEEDBACK CONTENT - 60 first-attempt failures, qwen2.5-coder:14b
   richest feedback over no feedback at all : +0.0%
   context it costs to carry the traceback  : +41 chars
 
-wrote D:\github\code-llm-lab\projects\13_feedback_content\results.json
+wrote C:\src\code-llm-lab\projects\13_feedback_content\results.json
 ########## 13_feedback_content exit=0 10:53:31
 
 ########## 14_constraint_compliance --limit 150 10:53:31
@@ -151,7 +151,7 @@ CONSTRAINT COMPLIANCE - 150 MBPP tasks, qwen2.5-coder:14b
   cost more than 5 points of pass@1: no_builtin_sort
   <- these are obeyed and expensive, which is a different problem from ignored
 
-wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
+wrote C:\src\code-llm-lab\projects\14_constraint_compliance\results.json
 ########## 14_constraint_compliance exit=0 11:33:26
 
 ########## 16_coder_vs_generalist --limit 250 11:33:26
@@ -212,7 +212,7 @@ CODER vs GENERALIST - 250 mbpp tasks
      The net gap is 22 tasks, not 37 -
      a one-directional reading would overstate it by 15.
 
-wrote D:\github\code-llm-lab\projects\16_coder_vs_generalist\results.json
+wrote C:\src\code-llm-lab\projects\16_coder_vs_generalist\results.json
 ########## 16_coder_vs_generalist exit=0 11:57:39
 
 ########## 17_test_first --limit 200 11:57:39
@@ -259,7 +259,7 @@ TEST FIRST - 200 MBPP tasks, qwen2.5-coder:14b
 
   mean response length: direct=193  plan=1149  tests_then=1715  tests_seen=184
 
-wrote D:\github\code-llm-lab\projects\17_test_first\results.json
+wrote C:\src\code-llm-lab\projects\17_test_first\results.json
 ########## 17_test_first exit=0 14:13:33
 
 ########## 19_comment_injection --limit 60 14:13:33
@@ -322,7 +322,7 @@ COMMENT INJECTION - 60 MBPP tasks, qwen2.5-coder:14b
 
   most effective payload: credential (hardcodes a credential)
 
-wrote D:\github\code-llm-lab\projects\19_comment_injection\results.json
+wrote C:\src\code-llm-lab\projects\19_comment_injection\results.json
 ########## 19_comment_injection exit=0 14:55:39
 
 ########## 20_feature_regression --limit 250 14:55:39
@@ -379,7 +379,7 @@ FEATURE REGRESSION - 190 working solutions, qwen2.5-coder:14b
   The original tests say nothing about the new requirement, so they can only
   fail by the model changing behaviour nobody asked it to change.
 
-wrote D:\github\code-llm-lab\projects\20_feature_regression\results.json
+wrote C:\src\code-llm-lab\projects\20_feature_regression\results.json
 ########## 20_feature_regression exit=0 15:42:49
 
 ########## 15_batch_vs_single --limit 160 15:42:49
@@ -425,7 +425,7 @@ BATCH vs SINGLE - 160 MBPP tasks, qwen2.5-coder:14b
 
   first slot 75.0%  vs  last slot 75.0%   (+0.0%)
 
-wrote D:\github\code-llm-lab\projects\15_batch_vs_single\results.json
+wrote C:\src\code-llm-lab\projects\15_batch_vs_single\results.json
 ########## 15_batch_vs_single exit=0 15:59:11
 
 ########## 18_determinism --limit 120 --runs 5 15:59:12
@@ -466,6 +466,6 @@ DETERMINISM AT T=0 - 120 tasks x 5 runs, qwen2.5-coder:14b
   with nothing changed at all - same prompt, same model, temperature 0. A single
   run of an evaluation is one draw from this, not a measurement of the model.
 
-wrote D:\github\code-llm-lab\projects\18_determinism\results.json
+wrote C:\src\code-llm-lab\projects\18_determinism\results.json
 ########## 18_determinism exit=0 16:51:00
 QUEUE3 DONE

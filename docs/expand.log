@@ -67,7 +67,7 @@ FEEDBACK CONTENT - 191 first-attempt failures, qwen2.5-coder:14b
   richest feedback over no feedback at all : +1.6%
   context it costs to carry the traceback  : +43 chars
 
-wrote D:\github\code-llm-lab\projects\13_feedback_content\results.json
+wrote C:\src\code-llm-lab\projects\13_feedback_content\results.json
 ########## 13_feedback_content exit=0 18:41:41
 ########## 04_repair_vs_rewrite --limit 972 18:41:41
 mbpp: 972 tasks, model qwen2.5-coder:14b
@@ -117,7 +117,7 @@ REPAIR vs REWRITE - 191 failed first attempts, one retry each
 
   Trying both fixes 18.3% - +7.3% over the better single strategy, for twice the calls.
 
-wrote D:\github\code-llm-lab\projects\04_repair_vs_rewrite\results.json
+wrote C:\src\code-llm-lab\projects\04_repair_vs_rewrite\results.json
 ########## 04_repair_vs_rewrite exit=0 19:03:17
 ########## 01_coder_size_curve --limit 972 19:03:17
 mbpp: 972 tasks
@@ -186,7 +186,7 @@ WHERE THE SIZE GOES - mbpp, 972 tasks
   The 14B's entire advantage is 206 tasks (21.2% of the benchmark).
   It also loses 36 tasks the 3B gets right, which bounds how much of the gap is real rather than noise.
 
-wrote D:\github\code-llm-lab\projects\01_coder_size_curve\results_mbpp.json
+wrote C:\src\code-llm-lab\projects\01_coder_size_curve\results_mbpp.json
 ########## 01_coder_size_curve exit=0 19:27:43
 ########## 08_review_false_alarms --limit 972 19:27:43
 mbpp: 972 tasks, model qwen2.5-coder:14b
@@ -273,7 +273,7 @@ REVIEW FALSE ALARMS - 972 MBPP tasks, qwen2.5-coder:14b
   real catches MBPP's three asserts missed - which bounds this number rather
   than invalidating it.
 
-wrote D:\github\code-llm-lab\projects\08_review_false_alarms\results.json
+wrote C:\src\code-llm-lab\projects\08_review_false_alarms\results.json
 ########## 08_review_false_alarms exit=0 20:19:28
 ########## 11_refactor_safety --limit 972 20:19:28
 mbpp: 972 tasks, model qwen2.5-coder:14b
@@ -400,7 +400,7 @@ REFACTOR SAFETY - 781 working solutions, qwen2.5-coder:14b
   <- the second group is code that was fragile to begin with; the gap between
      them is what the choice of refactor is actually worth.
 
-wrote D:\github\code-llm-lab\projects\11_refactor_safety\results.json
+wrote C:\src\code-llm-lab\projects\11_refactor_safety\results.json
 ########## 11_refactor_safety exit=0 22:25:25
 ########## 20_feature_regression --limit 972 22:25:25
 mbpp: 972 tasks, model qwen2.5-coder:14b
@@ -550,7 +550,7 @@ FEATURE REGRESSION - 781 working solutions, qwen2.5-coder:14b
   The original tests say nothing about the new requirement, so they can only
   fail by the model changing behaviour nobody asked it to change.
 
-wrote D:\github\code-llm-lab\projects\20_feature_regression\results.json
+wrote C:\src\code-llm-lab\projects\20_feature_regression\results.json
 ########## 20_feature_regression exit=0 06:57:14
 ########## 09_confidence_gating --limit 972 06:57:14
 mbpp: 972 tasks, model qwen2.5-coder:14b
@@ -602,7 +602,7 @@ CONFIDENCE GATING - 972 MBPP tasks, qwen2.5-coder:14b
 
   Gating at 100 lifts precision to 80.4% (+0.1%) while auto-merging 99.5% of tasks.
 
-wrote D:\github\code-llm-lab\projects\09_confidence_gating\results.json
+wrote C:\src\code-llm-lab\projects\09_confidence_gating\results.json
 ########## 09_confidence_gating exit=0 08:18:08
 ########## 05_prompt_shape_variance --limit 972 08:18:08
 mbpp: 972 tasks x 5 prompt shapes, model qwen2.5-coder:14b
@@ -858,7 +858,7 @@ PROMPT SHAPE VARIANCE - 972 tasks, qwen2.5-coder:14b, temperature 0
   Solved by every shape        : 642 (66.0%)
   Flipped on phrasing alone    : 218 (22.4%) <- same model, same task, different wording
 
-wrote D:\github\code-llm-lab\projects\05_prompt_shape_variance\results.json
+wrote C:\src\code-llm-lab\projects\05_prompt_shape_variance\results.json
 ########## 05 finished 14:22:38
 ########## YIELDING to 01_faithful judge run 14:22:38
 ########## judge reached 600/600 14:36:39
@@ -1005,7 +1005,7 @@ DOCSTRING ROUNDTRIP - 972 tasks, qwen2.5-coder:14b
   the task - it was written with the answer in view, which is exactly why a
   docstring generated from an implementation is not an independent spec.
 
-wrote D:\github\code-llm-lab\projects\07_docstring_roundtrip\results.json
+wrote C:\src\code-llm-lab\projects\07_docstring_roundtrip\results.json
 ########## 07_docstring_roundtrip exit=0 17:00:12
 ########## 02_self_debug_ceiling --limit 500 17:00:12
 mbpp: 500 tasks, up to 5 rounds
@@ -1048,7 +1048,7 @@ SELF-DEBUG CEILING - mbpp, 500 tasks, qwen2.5-coder:14b
   Rounds 1-2 captured 99.3% of everything the loop ever achieved.
   Rounds 3-5 added 3 tasks (0.6% of the benchmark) for 60% of the compute.
 
-wrote D:\github\code-llm-lab\projects\02_self_debug_ceiling\results_mbpp.json
+wrote C:\src\code-llm-lab\projects\02_self_debug_ceiling\results_mbpp.json
 ########## 02_self_debug_ceiling exit=0 17:36:18
 ########## 03_tests_that_kill --limit 500 17:36:18
 mbpp: 500 tasks, model qwen2.5-coder:14b
@@ -1106,7 +1106,7 @@ MODEL-WRITTEN TESTS - 500 MBPP tasks, qwen2.5-coder:14b
   function returns a list or a tuple, or what empty input should do. That is a
   measurement of the spec, not of the model.
 
-wrote D:\github\code-llm-lab\projects\03_tests_that_kill\results.json
+wrote C:\src\code-llm-lab\projects\03_tests_that_kill\results.json
 ########## 03_tests_that_kill exit=0 19:38:41
 ########## 18_determinism --limit 400 --runs 5 19:38:41
 ########## RESUMED-4 (task scheduler) 20:55:38
@@ -1179,7 +1179,7 @@ DETERMINISM AT T=0 - 400 tasks x 5 runs, qwen2.5-coder:14b
   with nothing changed at all - same prompt, same model, temperature 0. A single
   run of an evaluation is one draw from this, not a measurement of the model.
 
-wrote D:\github\code-llm-lab\projects\18_determinism\results.json
+wrote C:\src\code-llm-lab\projects\18_determinism\results.json
 ########## 18_determinism exit=0 22:18:57
 ########## 06_temperature_pass_at_k --limit 200 22:18:57
 mbpp: 200 tasks x 4 temperatures x 5 samples
@@ -1291,7 +1291,7 @@ TEMPERATURE vs pass@k - 200 tasks, 5 samples, qwen2.5-coder:14b
   The ordering flips: T=0.0 wins pass@1, T=0.7 wins pass@5.
   Tuning on pass@1 and deploying with k=5 costs 7.5% of achievable pass@5 (and T=0.7 costs 1.4% at k=1).
 
-wrote D:\github\code-llm-lab\projects\06_temperature_pass_at_k\results.json
+wrote C:\src\code-llm-lab\projects\06_temperature_pass_at_k\results.json
 ########## 06_temperature_pass_at_k exit=0 00:19:10
 ########## 15_batch_vs_single --limit 972 00:19:10
 mbpp: 968 tasks, batch sizes [1, 2, 4, 8], model qwen2.5-coder:14b
@@ -1398,7 +1398,7 @@ BATCH vs SINGLE - 968 MBPP tasks, qwen2.5-coder:14b
   <- the cost is not spread evenly. Where a request sits in the list changes
      whether it gets answered properly, which is not a property of the task.
 
-wrote D:\github\code-llm-lab\projects\15_batch_vs_single\results.json
+wrote C:\src\code-llm-lab\projects\15_batch_vs_single\results.json
 ########## 15_batch_vs_single exit=0 01:41:38
 ########## 17_test_first --limit 972 01:41:38
 mbpp: 972 tasks x 4 arms, model qwen2.5-coder:14b
@@ -1541,7 +1541,7 @@ TEST FIRST - 972 MBPP tasks, qwen2.5-coder:14b
 
   mean response length: direct=184  plan=1131  tests_then=1678  tests_seen=170
 
-wrote D:\github\code-llm-lab\projects\17_test_first\results.json
+wrote C:\src\code-llm-lab\projects\17_test_first\results.json
 ########## 17_test_first exit=0 09:38:36
 ########## 19_comment_injection --limit 200 09:38:36
 mbpp: 200 tasks x (6 payloads x 2 registers + control), qwen2.5-coder:14b
@@ -1629,7 +1629,7 @@ COMMENT INJECTION - 200 MBPP tasks, qwen2.5-coder:14b
 
   most effective payload: credential (hardcodes a credential)
 
-wrote D:\github\code-llm-lab\projects\19_comment_injection\results.json
+wrote C:\src\code-llm-lab\projects\19_comment_injection\results.json
 ########## 19_comment_injection exit=0 11:16:59
 ########## 16_coder_vs_generalist --limit 500 11:16:59
 
@@ -1717,7 +1717,7 @@ CODER vs GENERALIST - 500 mbpp tasks
      The net gap is 57 tasks, not 84 -
      a one-directional reading would overstate it by 27.
 
-wrote D:\github\code-llm-lab\projects\16_coder_vs_generalist\results.json
+wrote C:\src\code-llm-lab\projects\16_coder_vs_generalist\results.json
 ########## 16_coder_vs_generalist exit=0 11:38:03
 ########## 10_context_dilution --limit 972 11:38:03
 mbpp: 972 tasks x 4 context sizes, model qwen2.5-coder:14b
@@ -1826,7 +1826,7 @@ CONTEXT DILUTION - 972 MBPP tasks, qwen2.5-coder:14b
   Extra context is not free, and a retriever that fetches k passages pays this
   on every one it gets wrong.
 
-wrote D:\github\code-llm-lab\projects\10_context_dilution\results.json
+wrote C:\src\code-llm-lab\projects\10_context_dilution\results.json
 ########## 10_context_dilution exit=0 14:23:31
 ########## 14_constraint_compliance --limit 972 14:23:31
 mbpp: 972 tasks x 7 arms, model qwen2.5-coder:14b
@@ -2344,11 +2344,11 @@ CONSTRAINT COMPLIANCE - 972 MBPP tasks, qwen2.5-coder:14b
   'already' is how often the unconstrained control satisfies the rule by habit.
   A constraint with a high 'already' column proves little when it is obeyed.
 
-wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
+wrote C:\src\code-llm-lab\projects\14_constraint_compliance\results.json
 ########## 14_constraint_compliance exit=0 18:48:04
 ########## sql-analyst-agent eval (retry) 18:48:05
 +--------------------- Traceback (most recent call last) ---------------------+
-| D:\github\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
+| C:\src\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
 |                                                                             |
 |   120     """Run the question set and write RESULTS.md."""                  |
 |   121     from .eval_harness import run_eval                                |
@@ -2358,7 +2358,7 @@ wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
 |   125                                                                       |
 |   126 if __name__ == "__main__":                                            |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
+| C:\src\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
 |                                                                             |
 |    51     for case in cases:                                                |
 |    52         question = case["question"]                                   |
@@ -2369,7 +2369,7 @@ wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
 |    57         repaired.append(1.0 if len(result.attempts) > 1 and not       |
 |       result.failed else 0.0)                                               |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
+| C:\src\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
 |                                                                             |
 |    47                                                                       |
 |    48     result = QueryResult(question=question, backend=llm.name)         |
@@ -2379,7 +2379,7 @@ wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
 |    52     known = set(tables)                                               |
 |    53                                                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
+| C:\src\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
 | describe_schema                                                             |
 |                                                                             |
 |    49 @lru_cache(maxsize=1)                                                 |
@@ -2393,7 +2393,7 @@ wrote D:\github\code-llm-lab\projects\14_constraint_compliance\results.json
 |    55         rows = {r["table_name"]: r["rows"] for r in                   |
 |       conn.execute(_ROWS).fetchall()}                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
+| C:\src\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
 | 30 in connect                                                               |
 |                                                                             |
 |   127             lines.append("Multiple connection attempts failed. All    |
@@ -2424,7 +2424,7 @@ expired
 ########## 14_constraint_compliance already complete, skipping 20:50:03
 ########## sql-analyst-agent eval (retry) 20:50:03
 +--------------------- Traceback (most recent call last) ---------------------+
-| D:\github\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
+| C:\src\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
 |                                                                             |
 |   120     """Run the question set and write RESULTS.md."""                  |
 |   121     from .eval_harness import run_eval                                |
@@ -2434,7 +2434,7 @@ expired
 |   125                                                                       |
 |   126 if __name__ == "__main__":                                            |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
+| C:\src\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
 |                                                                             |
 |    51     for case in cases:                                                |
 |    52         question = case["question"]                                   |
@@ -2445,7 +2445,7 @@ expired
 |    57         repaired.append(1.0 if len(result.attempts) > 1 and not       |
 |       result.failed else 0.0)                                               |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
+| C:\src\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
 |                                                                             |
 |    47                                                                       |
 |    48     result = QueryResult(question=question, backend=llm.name)         |
@@ -2455,7 +2455,7 @@ expired
 |    52     known = set(tables)                                               |
 |    53                                                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
+| C:\src\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
 | describe_schema                                                             |
 |                                                                             |
 |    49 @lru_cache(maxsize=1)                                                 |
@@ -2469,7 +2469,7 @@ expired
 |    55         rows = {r["table_name"]: r["rows"] for r in                   |
 |       conn.execute(_ROWS).fetchall()}                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
+| C:\src\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
 | 30 in connect                                                               |
 |                                                                             |
 |   127             lines.append("Multiple connection attempts failed. All    |

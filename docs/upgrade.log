@@ -247,7 +247,7 @@ model                           raw   prompt+body   first_fence    all_fences   
 ########## UPGRADE RESUMED 10:30:03
 ########## sql-analyst-agent 14b fixed 10:30:03
 +--------------------- Traceback (most recent call last) ---------------------+
-| D:\github\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
+| C:\src\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
 |                                                                             |
 |   120     """Run the question set and write RESULTS.md."""                  |
 |   121     from .eval_harness import run_eval                                |
@@ -257,7 +257,7 @@ model                           raw   prompt+body   first_fence    all_fences   
 |   125                                                                       |
 |   126 if __name__ == "__main__":                                            |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
+| C:\src\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
 |                                                                             |
 |    51     for case in cases:                                                |
 |    52         question = case["question"]                                   |
@@ -267,7 +267,7 @@ model                           raw   prompt+body   first_fence    all_fences   
 |    56         attempts.append(len(result.attempts))                         |
 |    57                                                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
+| C:\src\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
 |                                                                             |
 |    47                                                                       |
 |    48     result = QueryResult(question=question, backend=llm.name)         |
@@ -277,7 +277,7 @@ model                           raw   prompt+body   first_fence    all_fences   
 |    52     known = set(tables)                                               |
 |    53                                                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
+| C:\src\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
 | describe_schema                                                             |
 |                                                                             |
 |    49 @lru_cache(maxsize=1)                                                 |
@@ -291,7 +291,7 @@ model                           raw   prompt+body   first_fence    all_fences   
 |    55         rows = {r["table_name"]: r["rows"] for r in                   |
 |       conn.execute(_ROWS).fetchall()}                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
+| C:\src\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
 | 30 in connect                                                               |
 |                                                                             |
 |   127             lines.append("Multiple connection attempts failed. All    |
@@ -364,7 +364,7 @@ UNDERSPECIFIED - accepted solutions that differ from the reference
 ########## UPGRADE RESUMED 19:10:04
 ########## sql-analyst-agent 14b fixed 19:10:04
 +--------------------- Traceback (most recent call last) ---------------------+
-| D:\github\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
+| C:\src\sql-analyst-agent\src\sqlanalyst\cli.py:123 in evaluate           |
 |                                                                             |
 |   120     """Run the question set and write RESULTS.md."""                  |
 |   121     from .eval_harness import run_eval                                |
@@ -374,7 +374,7 @@ UNDERSPECIFIED - accepted solutions that differ from the reference
 |   125                                                                       |
 |   126 if __name__ == "__main__":                                            |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
+| C:\src\sql-analyst-agent\src\sqlanalyst\eval_harness.py:54 in run_eval   |
 |                                                                             |
 |    51     for case in cases:                                                |
 |    52         question = case["question"]                                   |
@@ -384,7 +384,7 @@ UNDERSPECIFIED - accepted solutions that differ from the reference
 |    56         attempts.append(len(result.attempts))                         |
 |    57                                                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
+| C:\src\sql-analyst-agent\src\sqlanalyst\agent\analyst.py:50 in answer    |
 |                                                                             |
 |    47                                                                       |
 |    48     result = QueryResult(question=question, backend=llm.name)         |
@@ -394,7 +394,7 @@ UNDERSPECIFIED - accepted solutions that differ from the reference
 |    52     known = set(tables)                                               |
 |    53                                                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
+| C:\src\sql-analyst-agent\src\sqlanalyst\schema\introspect.py:52 in       |
 | describe_schema                                                             |
 |                                                                             |
 |    49 @lru_cache(maxsize=1)                                                 |
@@ -408,7 +408,7 @@ UNDERSPECIFIED - accepted solutions that differ from the reference
 |    55         rows = {r["table_name"]: r["rows"] for r in                   |
 |       conn.execute(_ROWS).fetchall()}                                       |
 |                                                                             |
-| D:\github\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
+| C:\src\sql-analyst-agent\.venv\Lib\site-packages\psycopg\connection.py:1 |
 | 30 in connect                                                               |
 |                                                                             |
 |   127             lines.append("Multiple connection attempts failed. All    |
@@ -598,7 +598,7 @@ DETERMINISM AT T=0 - 400 tasks x 8 runs, qwen2.5-coder:14b
   with nothing changed at all - same prompt, same model, temperature 0. A single
   run of an evaluation is one draw from this, not a measurement of the model.
 
-wrote D:\github\code-llm-lab\projects\18_determinism\results.json
+wrote C:\src\code-llm-lab\projects\18_determinism\results.json
 ########## 18_determinism 8 runs exit=0 22:57:21
 ########## code-eval-harness messy models v2 22:57:22
 problems: 164   models: qwen2.5-coder:14b, qwen2.5:14b-instruct

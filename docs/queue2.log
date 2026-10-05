@@ -40,7 +40,7 @@ REVIEW FALSE ALARMS - 250 MBPP tasks, qwen2.5-coder:14b
   real catches MBPP's three asserts missed - which bounds this number rather
   than invalidating it.
 
-wrote D:\github\code-llm-lab\projects\08_review_false_alarms\results.json
+wrote C:\src\code-llm-lab\projects\08_review_false_alarms\results.json
 ########## 08_review_false_alarms exit=0 08:43:06
 
 ########## 11_refactor_safety  limit=250  08:43:06
@@ -92,7 +92,7 @@ REFACTOR SAFETY - 190 working solutions, qwen2.5-coder:14b
   <- the second group is code that was fragile to begin with; the gap between
      them is what the choice of refactor is actually worth.
 
-wrote D:\github\code-llm-lab\projects\11_refactor_safety\results.json
+wrote C:\src\code-llm-lab\projects\11_refactor_safety\results.json
 ########## 11_refactor_safety exit=0 09:20:09
 
 ########## 09_confidence_gating  limit=250  09:20:09
@@ -130,7 +130,7 @@ CONFIDENCE GATING - 250 MBPP tasks, qwen2.5-coder:14b
 
   Gating at 100 lifts precision to 75.7% (+0.2%) while auto-merging 99.2% of tasks.
 
-wrote D:\github\code-llm-lab\projects\09_confidence_gating\results.json
+wrote C:\src\code-llm-lab\projects\09_confidence_gating\results.json
 ########## 09_confidence_gating exit=0 09:56:06
 
 ########## 10_context_dilution  limit=200  09:56:06
@@ -176,6 +176,6 @@ CONTEXT DILUTION - 200 MBPP tasks, qwen2.5-coder:14b
   Extra context is not free, and a retriever that fetches k passages pays this
   on every one it gets wrong.
 
-wrote D:\github\code-llm-lab\projects\10_context_dilution\results.json
+wrote C:\src\code-llm-lab\projects\10_context_dilution\results.json
 ########## 10_context_dilution exit=0 10:30:29
 ALL FOUR DONE

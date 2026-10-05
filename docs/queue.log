@@ -45,7 +45,7 @@ DEVIGN - the same predictions, scored twice (qwen2.5-coder:14b)
   Removing the conflicting rows moves accuracy by less than a point: on a
   sample this size the label noise is real but too rare to change a verdict.
 
-wrote D:\github\devign-leakage\results\detect.json
+wrote C:\src\devign-leakage\results\detect.json
 END   devign-detect  06:38:05  exit=0
 
 ==================================================================
@@ -86,7 +86,7 @@ MODEL-WRITTEN TESTS - 150 MBPP tasks, qwen2.5-coder:14b
   function returns a list or a tuple, or what empty input should do. That is a
   measurement of the spec, not of the model.
 
-wrote D:\github\code-llm-lab\projects\03_tests_that_kill\results.json
+wrote C:\src\code-llm-lab\projects\03_tests_that_kill\results.json
 END   03_tests_that_kill  07:25:30  exit=0
 
 ==================================================================
@@ -120,7 +120,7 @@ SELF-DEBUG CEILING - mbpp, 150 tasks, qwen2.5-coder:14b
   Rounds 1-2 captured 100.0% of everything the loop ever achieved.
   Rounds 3-5 added 0 tasks (0.0% of the benchmark) for 60% of the compute.
 
-wrote D:\github\code-llm-lab\projects\02_self_debug_ceiling\results_mbpp.json
+wrote C:\src\code-llm-lab\projects\02_self_debug_ceiling\results_mbpp.json
 END   02_self_debug  07:37:51  exit=0
 
 ==================================================================
@@ -162,7 +162,7 @@ WHERE THE SIZE GOES - mbpp, 250 tasks
   The 14B's entire advantage is 48 tasks (19.2% of the benchmark).
   It also loses 8 tasks the 3B gets right, which bounds how much of the gap is real rather than noise.
 
-wrote D:\github\code-llm-lab\projects\01_coder_size_curve\results_mbpp.json
+wrote C:\src\code-llm-lab\projects\01_coder_size_curve\results_mbpp.json
 END   01_size_curve  07:51:55  exit=0
 
 ==================================================================
@@ -196,7 +196,7 @@ REPAIR vs REWRITE - 60 failed first attempts, one retry each
 
   Trying both fixes 6.7% - +1.7% over the better single strategy, for twice the calls.
 
-wrote D:\github\code-llm-lab\projects\04_repair_vs_rewrite\results.json
+wrote C:\src\code-llm-lab\projects\04_repair_vs_rewrite\results.json
 END   04_repair_vs_rewrite  07:57:30  exit=0
 
 ==================================================================
@@ -238,7 +238,7 @@ DOCSTRING ROUNDTRIP - 200 tasks, qwen2.5-coder:14b
   the task - it was written with the answer in view, which is exactly why a
   docstring generated from an implementation is not an independent spec.
 
-wrote D:\github\code-llm-lab\projects\07_docstring_roundtrip\results.json
+wrote C:\src\code-llm-lab\projects\07_docstring_roundtrip\results.json
 END   07_docstring_rt  08:27:56  exit=0
 
 ==================================================================
@@ -290,7 +290,7 @@ PROMPT SHAPE VARIANCE - 200 tasks, qwen2.5-coder:14b, temperature 0
   Solved by every shape        : 120 (60.0%)
   Flipped on phrasing alone    : 48 (24.0%) <- same model, same task, different wording
 
-wrote D:\github\code-llm-lab\projects\05_prompt_shape_variance\results.json
+wrote C:\src\code-llm-lab\projects\05_prompt_shape_variance\results.json
 END   05_prompt_shape  10:03:47  exit=0
 
 ==================================================================
@@ -340,7 +340,7 @@ TEMPERATURE vs pass@k - 60 tasks, 5 samples, qwen2.5-coder:14b
   The ordering flips: T=0.0 wins pass@1, T=0.7 wins pass@5.
   Tuning on pass@1 and deploying with k=5 costs 5.0% of achievable pass@5 (and T=0.7 costs 1.0% at k=1).
 
-wrote D:\github\code-llm-lab\projects\06_temperature_pass_at_k\results.json
+wrote C:\src\code-llm-lab\projects\06_temperature_pass_at_k\results.json
 END   06_temp_pass_at_k  10:36:08  exit=0
 
 ALL QUEUE JOBS COMPLETE 10:36:08
