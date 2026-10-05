@@ -71,7 +71,7 @@ for the value of two.
 This number was in doubt until it was re-run. Every round used to be shown the bare string
 `AssertionError` rather than a real error, and a loop given no information plateauing
 immediately is exactly what that bug would produce. Re-measured with a real traceback, the
-plateau is unchanged — unlike [13](projects/13_feedback_content/), which had the same bug and
+plateau is unchanged — unlike [13](../projects/13_feedback_content/), which had the same bug and
 reversed outright.
 
 - **Stack:** Ollama, `qwen2.5-coder:14b`, MBPP
